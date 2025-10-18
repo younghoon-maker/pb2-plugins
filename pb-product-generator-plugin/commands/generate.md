@@ -81,7 +81,14 @@ SHEET_TAB_NAME=new_raw
 현재 프로젝트 폴더의 `output/`에 HTML 파일을 생성합니다:
 
 ```bash
-python3 ~/.claude/plugins/pb-product-generator/scripts/generate_editable_html.py {product_code}
+# 스크립트 경로 자동 탐지
+SCRIPT_PATH=$(find ~/.claude/plugins -name "generate_editable_html.py" -path "*/pb-product-generator*/scripts/*" | head -1)
+
+# 환경 변수 로드 및 실행
+GOOGLE_SERVICE_ACCOUNT_FILE="$PWD/credentials/service-account.json" \
+GOOGLE_SHEET_ID="$(grep GOOGLE_SHEET_ID .env 2>/dev/null | cut -d '=' -f2)" \
+SHEET_TAB_NAME="$(grep SHEET_TAB_NAME .env 2>/dev/null | cut -d '=' -f2 || echo 'new_raw')" \
+python3 "$SCRIPT_PATH" {product_code}
 ```
 
 **참고**: 출력 파일은 현재 작업 디렉토리의 `output/` 폴더에 저장됩니다.

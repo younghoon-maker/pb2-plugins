@@ -147,13 +147,23 @@ Service Account 및 환경 변수 설정이 필요합니다. `/generate` 커맨�
 # 스크립트 경로 자동 탐지
 SCRIPT_PATH=$(find ~/.claude/plugins -name "generate_batch.py" -path "*/pb-product-generator*/scripts/*" | head -1)
 
+# 환경 변수 로드 및 실행
 # 모든 제품 생성
+GOOGLE_SERVICE_ACCOUNT_FILE="$PWD/credentials/service-account.json" \
+GOOGLE_SHEET_ID="$(grep GOOGLE_SHEET_ID .env 2>/dev/null | cut -d '=' -f2)" \
+SHEET_TAB_NAME="$(grep SHEET_TAB_NAME .env 2>/dev/null | cut -d '=' -f2 || echo 'new_raw')" \
 python3 "$SCRIPT_PATH" --all
 
 # 특정 행 선택
+GOOGLE_SERVICE_ACCOUNT_FILE="$PWD/credentials/service-account.json" \
+GOOGLE_SHEET_ID="$(grep GOOGLE_SHEET_ID .env 2>/dev/null | cut -d '=' -f2)" \
+SHEET_TAB_NAME="$(grep SHEET_TAB_NAME .env 2>/dev/null | cut -d '=' -f2 || echo 'new_raw')" \
 python3 "$SCRIPT_PATH" --rows 2,5,10
 
 # 행 범위 지정
+GOOGLE_SERVICE_ACCOUNT_FILE="$PWD/credentials/service-account.json" \
+GOOGLE_SHEET_ID="$(grep GOOGLE_SHEET_ID .env 2>/dev/null | cut -d '=' -f2)" \
+SHEET_TAB_NAME="$(grep SHEET_TAB_NAME .env 2>/dev/null | cut -d '=' -f2 || echo 'new_raw')" \
 python3 "$SCRIPT_PATH" --start 2 --end 50
 ```
 
