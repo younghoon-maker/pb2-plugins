@@ -31,8 +31,8 @@ Version: 0.2.1
 
 ```bash
 # Claude Code에서 실행
-/plugin marketplace add younghoon-maker/pb2-plugins pb2-marketplace
-/plugin install pb-product-generator@pb2-marketplace
+/plugin marketplace add younghoon-maker/pb2-plugins
+/plugin install pb-product-generator@pb2-plugins
 ```
 
 ### Step 2: PRIVATE_SETUP.md 파일 받기
