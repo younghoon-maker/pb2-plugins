@@ -31,7 +31,7 @@ Version: 0.2.1
 
 ```bash
 # Claude Code에서 실행
-/marketplace add younghoon-maker/pb2-plugins pb2-marketplace
+/plugin add younghoon-maker/pb2-plugins pb2-marketplace
 /plugin install pb-product-generator@pb2-marketplace
 ```
 
