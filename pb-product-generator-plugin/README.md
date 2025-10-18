@@ -302,6 +302,11 @@ FLASK_DEBUG=False
 ### 🤖 에이전트 문서
 - [product-builder.md](./agents/product-builder.md) - 제품 페이지 생성 전문가
 
+### 📖 Claude Code 공식 문서 (참고)
+- [Plugins Guide](./reference/claude-code-docs/01-plugins-guide.md) - 플러그인 개요 및 설치 방법
+- [Plugins Reference](./reference/claude-code-docs/02-plugins-reference.md) - 커맨드 및 에이전트 작성 가이드
+- [Plugin Marketplaces](./reference/claude-code-docs/03-plugin-marketplaces.md) - Marketplace 생성 및 관리
+
 ---
 
 ## 🔍 Troubleshooting
