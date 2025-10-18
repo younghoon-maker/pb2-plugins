@@ -1,103 +1,248 @@
-# Private Setup Configuration
+# 🔐 PB Product Generator - Private Setup Guide (Template)
 
-> **⚠️ 보안 주의**
->
-> 이 파일은 개인 설정 정보를 포함합니다. Git에 커밋하지 마세요!
+**⚠️ 주의: 이 문서는 서비스 어카운트 인증 정보를 포함하므로 Git에 올리지 마세요!**
+
+Version: 0.2.1
+Last Updated: 2025-10-18
 
 ---
 
-## 📋 설정 방법
+## 📋 사용 방법
 
 1. **이 템플릿을 복사**:
    ```bash
    cp PRIVATE_SETUP.md.template PRIVATE_SETUP.md
    ```
 
-2. **`PRIVATE_SETUP.md` 파일을 열어서 아래 값들을 수정**
+2. **아래 플레이스홀더를 실제 값으로 교체**:
+   - `YOUR_PROJECT_ID` → 실제 Google Cloud 프로젝트 ID
+   - `YOUR_PRIVATE_KEY_ID` → Service Account private key ID
+   - `YOUR_PRIVATE_KEY_CONTENT_HERE` → 실제 private key 전체 내용
+   - `YOUR_SERVICE_ACCOUNT` → Service Account 이메일 주소
+   - `YOUR_CLIENT_ID` → Service Account 클라이언트 ID
+   - `YOUR_GOOGLE_SHEET_ID_HERE` → Google Sheets 문서 ID
+   - `YOUR_TAB_NAME_HERE` → 시트 탭 이름 (기본값: `new_raw`)
 
-3. **절대 Git에 커밋하지 마세요** (`.gitignore`에 등록되어 있음)
-
----
-
-## 🔑 Google Service Account
-
-**Service Account JSON 파일 경로**:
-```
-SERVICE_ACCOUNT_FILE=credentials/service-account.json
-```
-
-**설명**:
-- Google Cloud Console에서 다운로드한 Service Account JSON 파일의 경로
-- 프로젝트 폴더 기준 상대 경로 또는 절대 경로 사용 가능
-- 예시: `credentials/my-project-123abc.json`
+3. **Claude Code에서 자동 설정 실행**:
+   ```bash
+   /setup-from-private
+   ```
 
 ---
 
-## 📊 Google Sheets
+## 🔑 Service Account Configuration
 
-**Google Sheets Document ID**:
-```
-GOOGLE_SHEET_ID=your_google_sheet_id_here
+**자동 설정용 JSON 블록** (플레이스홀더를 실제 값으로 교체):
+
+```json
+{
+  "type": "service_account",
+  "project_id": "YOUR_PROJECT_ID",
+  "private_key_id": "YOUR_PRIVATE_KEY_ID",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nYOUR_PRIVATE_KEY_CONTENT_HERE\n-----END PRIVATE KEY-----\n",
+  "client_email": "YOUR_SERVICE_ACCOUNT@YOUR_PROJECT.iam.gserviceaccount.com",
+  "client_id": "YOUR_CLIENT_ID",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/YOUR_SERVICE_ACCOUNT%40YOUR_PROJECT.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
 ```
 
-**Sheet ID 찾는 방법**:
+**환경 설정**:
 ```
-https://docs.google.com/spreadsheets/d/[여기가_SHEET_ID]/edit
-```
-
-**시트 탭 이름** (선택사항):
-```
-SHEET_TAB_NAME=Sheet1
-```
-
-**설명**:
-- 기본값: `Sheet1`
-- 제품 데이터가 있는 시트 탭 이름
-- 예시: `Products`, `2025년 제품`, `VD25 시리즈`
-
----
-
-## 🔧 추가 설정 (선택사항)
-
-**Flask 서버 포트**:
-```
+GOOGLE_SHEET_ID=YOUR_GOOGLE_SHEET_ID_HERE
+SHEET_TAB_NAME=YOUR_TAB_NAME_HERE
 FLASK_PORT=5001
 ```
 
-**출력 디렉토리**:
+---
+
+## 🔧 Service Account JSON 가져오는 방법
+
+### Google Cloud Console에서 생성:
+
+1. **Google Cloud Console** 접속: https://console.cloud.google.com/
+2. **프로젝트 선택** 또는 새로 생성
+3. **API 및 서비스 > 사용자 인증 정보** 메뉴
+4. **사용자 인증 정보 만들기 > 서비스 계정** 선택
+5. 서비스 계정 생성 및 **키 생성 (JSON)** 클릭
+6. 다운로드된 JSON 파일 내용을 위 템플릿의 ```json 블록에 복사
+
+### Google Sheets API 활성화:
+
+1. **API 및 서비스 > 라이브러리** 메뉴
+2. "Google Sheets API" 검색
+3. **사용 설정** 클릭
+
+### Google Sheets 공유:
+
+1. Google Sheets 문서 열기
+2. **공유** 버튼 클릭
+3. Service Account 이메일 주소 추가 (JSON의 `client_email` 값)
+4. 권한: **뷰어** 선택
+5. **보내기** 클릭
+
+---
+
+## 📊 Google Sheets ID 찾는 방법
+
+Google Sheets URL에서 ID 추출:
 ```
-OUTPUT_DIR=output
+https://docs.google.com/spreadsheets/d/[GOOGLE_SHEET_ID]/edit
+                                        ↑ 이 부분이 Sheet ID
+```
+
+**예시**:
+```
+URL: https://docs.google.com/spreadsheets/d/1ipkHdYdQhIAfUBkNUWHkFqcgP0aOXLVO14MYXWscEPk/edit
+Sheet ID: 1ipkHdYdQhIAfUBkNUWHkFqcgP0aOXLVO14MYXWscEPk
 ```
 
 ---
 
-## ✅ 설정 완료 후
+## ⏱️ 5분 완성 세팅 가이드
 
-설정 파일 작성 후 자동 설정 스크립트 실행:
+### ✅ **사전 요구사항**
+
+- Claude Code 최신 버전 설치
+- Python 3.11+ 설치
+- `pip` 또는 `pip3` 사용 가능
+
+---
+
+## 📋 **Step 1: 플러그인 설치 (2분)**
+
+### 1.1 마켓플레이스 추가
 
 ```bash
-~/.claude/plugins/pb-product-generator/setup.sh
+# Claude Code 실행
+claude
+
+# 마켓플레이스 추가
+/plugin marketplace add younghoon-maker/pb2-plugins
 ```
 
-스크립트가 자동으로:
-1. `PRIVATE_SETUP.md`에서 설정값 읽기
-2. `.env` 파일 생성
-3. Python 의존성 설치
-4. Service Account 파일 확인
+### 1.2 플러그인 설치
+
+```bash
+/plugin install pb-product-generator@pb2-plugins
+```
+
+**설치 위치 확인**:
+```bash
+# macOS/Linux
+~/.claude/plugins/marketplaces/pb2-marketplace/pb-product-generator-plugin/
+
+# Windows
+%USERPROFILE%\.claude\plugins\marketplaces\pb2-marketplace\pb-product-generator-plugin\
+```
 
 ---
 
-## 📝 예시
+## 🔧 **Step 2: 자동 세팅 실행 (3분)**
 
-**완성된 `PRIVATE_SETUP.md` 예시**:
+### 2.1 이 템플릿 파일 복사 및 수정
 
+```bash
+# 1. 이 파일을 PRIVATE_SETUP.md로 복사
+cp PRIVATE_SETUP.md.template PRIVATE_SETUP.md
+
+# 2. 편집기로 열어서 플레이스홀더 교체
+nano PRIVATE_SETUP.md  # 또는 vi, code 등
 ```
-SERVICE_ACCOUNT_FILE=credentials/pb-generator-sa.json
-GOOGLE_SHEET_ID=1ipkHdYdQhIAfUBkNUWHkFqcgP0aOXLVO14MYXWscEPk
-SHEET_TAB_NAME=Products 2025
-FLASK_PORT=5001
-OUTPUT_DIR=output
+
+### 2.2 자동 세팅 커맨드 실행
+
+```bash
+# Claude Code에서 실행
+/setup-from-private
 ```
+
+**자동으로 처리되는 작업**:
+1. ✅ `credentials/` 폴더 확인/생성
+2. ✅ `credentials/service-account.json` 자동 생성
+3. ✅ `.env` 파일 자동 생성
+4. ✅ Python 의존성 자동 설치
+5. ✅ 출력 폴더 자동 생성
+
+**예상 출력**:
+```
+🚀 PB Product Generator - Automatic Setup
+==================================================
+
+✅ Found PRIVATE_SETUP.md
+
+📋 Parsing PRIVATE_SETUP.md...
+   ✓ Service Account: your-account@project.iam.gserviceaccount.com
+   ✓ Sheet ID: YOUR_GOOGLE_SHEET_ID_HERE
+   ✓ Tab Name: YOUR_TAB_NAME_HERE
+
+✅ Setup completed successfully!
+```
+
+---
+
+## 🎯 **Step 3: 테스트 (30초)**
+
+### 3.1 Claude Code에서 테스트
+
+```bash
+# Claude Code에서 실행
+/generate YOUR_PRODUCT_CODE
+```
+
+**예상 결과**:
+```
+✅ Successfully loaded 1 products
+✅ Generated: output/20251018/editable/YOUR_PRODUCT_CODE_editable_v4.html (70 MB)
+
+🎨 Features:
+- Image crop/zoom editor
+- Text editing (contenteditable)
+- Page zoom (30-100%)
+- HTML/JPG download
+```
+
+---
+
+## 🔧 **트러블슈팅**
+
+### ❌ "Service Account JSON not found"
+**원인**: PRIVATE_SETUP.md에 ```json 코드 블록이 없거나 형식이 잘못됨
+
+**해결**:
+- JSON 블록이 `` ```json ``으로 시작하고 `` ``` ``로 끝나는지 확인
+- JSON 구문이 유효한지 확인 (https://jsonlint.com/)
+- 플레이스홀더를 실제 값으로 교체했는지 확인
+
+### ❌ "Google Sheets ID not found"
+**원인**: PRIVATE_SETUP.md에 Sheet ID 정보 없음
+
+**해결**:
+- `GOOGLE_SHEET_ID=...` 라인이 있는지 확인
+- 플레이스홀더 `YOUR_GOOGLE_SHEET_ID_HERE`를 실제 Sheet ID로 교체
+
+### ❌ "HttpError 403: Forbidden"
+**원인**: Service Account가 Google Sheets에 공유되지 않음
+
+**해결**:
+1. Google Sheets 열기
+2. 공유 버튼 클릭
+3. Service Account 이메일 추가 (JSON의 `client_email` 값)
+4. 권한: **뷰어** 선택
+5. 보내기 클릭
+
+---
+
+## 🎯 **사용 가능한 커맨드**
+
+| 커맨드 | 설명 | 예시 |
+|--------|------|------|
+| `/generate` | 단일 제품 HTML 생성 | `/generate VD25FPT003` |
+| `/batch-generate` | 여러 제품 배치 생성 | `/batch-generate VD25FPT003 VD25FPT005` |
+| `/start-server` | Flask 편집 서버 실행 | `/start-server` |
 
 ---
 
@@ -110,4 +255,12 @@ OUTPUT_DIR=output
 
 ---
 
-**다음 단계**: 설정 완료 후 `/generate [제품코드]`로 첫 제품 생성!
+## 📞 **지원**
+
+- **팀 슬랙**: #pb-product-generator
+- **이메일**: pb-team@company.com
+- **문서**: `README.md`
+
+---
+
+**Happy Generating! 🎨**

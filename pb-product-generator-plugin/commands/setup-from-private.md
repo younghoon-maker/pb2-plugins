@@ -193,12 +193,27 @@ GOOGLE_SHEET_ID=1ipkHdYdQhIAfUBkNUWHkFqcgP0aOXLVO14MYXWscEPk
 
 ## 구현
 
-현재 프로젝트 폴더의 PRIVATE_SETUP.md를 읽어서 자동 설정합니다:
+현재 프로젝트 폴더의 PRIVATE_SETUP.md를 읽어서 자동 설정합니다.
 
+**스크립트 위치**:
+플러그인이 마켓플레이스를 통해 설치된 경우, 경로는 다음과 같습니다:
 ```bash
-python3 ~/.claude/plugins/pb-product-generator/scripts/auto_setup.py
+~/.claude/plugins/marketplaces/{marketplace-name}/{plugin-name}/scripts/auto_setup.py
+```
+
+예시:
+```bash
+~/.claude/plugins/marketplaces/pb2-marketplace/pb-product-generator-plugin/scripts/auto_setup.py
+```
+
+**자동 탐지 방법**:
+```bash
+# find 명령으로 동적으로 경로 찾기
+SCRIPT_PATH=$(find ~/.claude/plugins -name "auto_setup.py" -path "*/pb-product-generator*/scripts/*" | head -1)
+python3 "$SCRIPT_PATH"
 ```
 
 **참고**:
 - 스크립트는 현재 작업 디렉토리 기준으로 실행됩니다
 - 모든 파일은 프로젝트 폴더에 생성됩니다 (credentials/, .env, output/)
+- 마켓플레이스 이름은 설치 방법에 따라 다를 수 있습니다
