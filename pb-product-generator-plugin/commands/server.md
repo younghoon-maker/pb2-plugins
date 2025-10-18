@@ -72,6 +72,23 @@ FLASK_PORT=5002
 - **파일 없음**: `No editable files found`
   → `/generate` 또는 `/batch-generate`로 먼저 파일 생성
 
+## 필수 설정
+
+### PRIVATE_SETUP.md 사용 (권장)
+
+서버 실행 전 프로젝트 폴더에서 설정 완료:
+
+```bash
+# 1. 템플릿 복사
+cp ~/.claude/plugins/pb-product-generator/PRIVATE_SETUP.md.template ./PRIVATE_SETUP.md
+
+# 2. PRIVATE_SETUP.md 편집 (Service Account, Sheet ID 등)
+# 3. 자동 설정 실행
+~/.claude/plugins/pb-product-generator/setup.sh
+```
+
+자세한 설정 방법은 `/generate` 커맨드 문서 참조.
+
 ## 구현
 
 현재 프로젝트 폴더의 `output/` 디렉토리를 기준으로 서버를 실행합니다:

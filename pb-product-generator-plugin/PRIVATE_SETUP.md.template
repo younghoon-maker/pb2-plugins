@@ -1,0 +1,113 @@
+# Private Setup Configuration
+
+> **⚠️ 보안 주의**
+>
+> 이 파일은 개인 설정 정보를 포함합니다. Git에 커밋하지 마세요!
+
+---
+
+## 📋 설정 방법
+
+1. **이 템플릿을 복사**:
+   ```bash
+   cp PRIVATE_SETUP.md.template PRIVATE_SETUP.md
+   ```
+
+2. **`PRIVATE_SETUP.md` 파일을 열어서 아래 값들을 수정**
+
+3. **절대 Git에 커밋하지 마세요** (`.gitignore`에 등록되어 있음)
+
+---
+
+## 🔑 Google Service Account
+
+**Service Account JSON 파일 경로**:
+```
+SERVICE_ACCOUNT_FILE=credentials/service-account.json
+```
+
+**설명**:
+- Google Cloud Console에서 다운로드한 Service Account JSON 파일의 경로
+- 프로젝트 폴더 기준 상대 경로 또는 절대 경로 사용 가능
+- 예시: `credentials/my-project-123abc.json`
+
+---
+
+## 📊 Google Sheets
+
+**Google Sheets Document ID**:
+```
+GOOGLE_SHEET_ID=your_google_sheet_id_here
+```
+
+**Sheet ID 찾는 방법**:
+```
+https://docs.google.com/spreadsheets/d/[여기가_SHEET_ID]/edit
+```
+
+**시트 탭 이름** (선택사항):
+```
+SHEET_TAB_NAME=Sheet1
+```
+
+**설명**:
+- 기본값: `Sheet1`
+- 제품 데이터가 있는 시트 탭 이름
+- 예시: `Products`, `2025년 제품`, `VD25 시리즈`
+
+---
+
+## 🔧 추가 설정 (선택사항)
+
+**Flask 서버 포트**:
+```
+FLASK_PORT=5001
+```
+
+**출력 디렉토리**:
+```
+OUTPUT_DIR=output
+```
+
+---
+
+## ✅ 설정 완료 후
+
+설정 파일 작성 후 자동 설정 스크립트 실행:
+
+```bash
+~/.claude/plugins/pb-product-generator/setup.sh
+```
+
+스크립트가 자동으로:
+1. `PRIVATE_SETUP.md`에서 설정값 읽기
+2. `.env` 파일 생성
+3. Python 의존성 설치
+4. Service Account 파일 확인
+
+---
+
+## 📝 예시
+
+**완성된 `PRIVATE_SETUP.md` 예시**:
+
+```
+SERVICE_ACCOUNT_FILE=credentials/pb-generator-sa.json
+GOOGLE_SHEET_ID=1ipkHdYdQhIAfUBkNUWHkFqcgP0aOXLVO14MYXWscEPk
+SHEET_TAB_NAME=Products 2025
+FLASK_PORT=5001
+OUTPUT_DIR=output
+```
+
+---
+
+## 🛡️ 보안 체크리스트
+
+- [ ] `PRIVATE_SETUP.md` 파일은 `.gitignore`에 등록됨 (자동)
+- [ ] Service Account JSON 파일도 Git에 커밋하지 않음
+- [ ] 팀원과 공유 시 별도 채널 사용 (이메일, 슬랙 DM 등)
+- [ ] GitHub, Notion 등 공개 플랫폼에 업로드 금지
+
+---
+
+**다음 단계**: 설정 완료 후 `/generate [제품코드]`로 첫 제품 생성!

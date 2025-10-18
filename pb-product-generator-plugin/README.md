@@ -27,37 +27,61 @@ Version: 0.2.0
 
 ## 🚀 Quick Start (5분)
 
-### Step 1: 플러그인 설치
+### Step 1: Marketplace 등록 및 플러그인 설치
 
 ```bash
 # Claude Code에서 실행
-/plugin marketplace add /path/to/pb-marketplace
-/plugin install pb-product-generator@pb-marketplace
+/marketplace add younghoon-maker/pb2-plugins pb2-marketplace
+/plugin install pb-product-generator@pb2-marketplace
 ```
 
-### Step 2: 자동 세팅
+### Step 2: 개인 설정 파일 작성 (권장)
+
+**프로젝트 폴더에서 실행**:
 
 ```bash
-# 플러그인 디렉토리로 이동
-cd ~/.claude/plugins/pb-product-generator/
+# 1. 템플릿 파일 복사
+cp ~/.claude/plugins/pb-product-generator/PRIVATE_SETUP.md.template ./PRIVATE_SETUP.md
 
-# PRIVATE_SETUP.md 열어서 서비스 어카운트 JSON 복사
-# (프라이빗 가이드 - Git에 올리지 않음)
+# 2. PRIVATE_SETUP.md 파일 편집
+# - SERVICE_ACCOUNT_FILE: 서비스 어카운트 JSON 파일 경로
+# - GOOGLE_SHEET_ID: Google Sheets ID
+# - SHEET_TAB_NAME: 시트 탭 이름
+```
+
+**PRIVATE_SETUP.md 예시**:
+```
+SERVICE_ACCOUNT_FILE=credentials/service-account.json
+GOOGLE_SHEET_ID=1ipkHdYdQhIAfUBkNUWHkFqcgP0aOXLVO14MYXWscEPk
+SHEET_TAB_NAME=new_raw
+FLASK_PORT=5001
+OUTPUT_DIR=output
+```
+
+> **🔒 보안**: `PRIVATE_SETUP.md`는 Git에 커밋되지 않습니다 (.gitignore 등록됨)
+
+### Step 3: 자동 세팅 실행
+
+```bash
+# Service Account JSON 파일 준비
+mkdir -p credentials
+cp /path/to/your-service-account.json credentials/service-account.json
 
 # 자동 세팅 스크립트 실행
-bash setup.sh
+~/.claude/plugins/pb-product-generator/setup.sh
 ```
 
 **setup.sh가 자동으로 처리**:
+- ✅ `PRIVATE_SETUP.md` 파일 읽기 (있는 경우)
+- ✅ `.env` 파일 생성 (설정값 반영)
 - ✅ credentials/ 폴더 확인
-- ✅ .env 파일 생성 (Sheet ID, 탭 이름 하드코딩)
 - ✅ Python 의존성 설치
 - ✅ 실행 권한 설정
 
-### Step 3: 사용
+### Step 4: 사용
 
 ```bash
-# Claude Code로 돌아와서
+# Claude Code에서 실행
 /generate VD25FPT003
 ```
 

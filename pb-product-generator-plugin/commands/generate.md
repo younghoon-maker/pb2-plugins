@@ -40,13 +40,34 @@ tools: [Bash]
 
 ## 필수 설정
 
-커맨드 실행 전 다음 파일들이 준비되어 있어야 합니다:
+### 방법 1: PRIVATE_SETUP.md 사용 (권장)
+
+**프로젝트 폴더에서 한 번만 설정**:
+
+```bash
+# 1. 템플릿 복사
+cp ~/.claude/plugins/pb-product-generator/PRIVATE_SETUP.md.template ./PRIVATE_SETUP.md
+
+# 2. PRIVATE_SETUP.md 편집 (Service Account, Sheet ID 등)
+# 3. 자동 설정 실행
+~/.claude/plugins/pb-product-generator/setup.sh
+```
+
+**PRIVATE_SETUP.md 예시**:
+```
+SERVICE_ACCOUNT_FILE=credentials/service-account.json
+GOOGLE_SHEET_ID=your_google_sheet_id
+SHEET_TAB_NAME=new_raw
+```
+
+### 방법 2: 수동 설정
 
 1. **Service Account 인증**: `credentials/service-account.json`
 2. **환경 변수**: `.env` 파일
    ```bash
    GOOGLE_SHEET_ID=your_google_sheet_id
    GOOGLE_SERVICE_ACCOUNT_FILE=credentials/service-account.json
+   SHEET_TAB_NAME=new_raw
    ```
 
 ## 에러 처리

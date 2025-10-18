@@ -57,6 +57,25 @@ tools: [Bash]
 ✅ Batch Complete: 2 succeeded, 1 failed
 ```
 
+## 필수 설정
+
+### 방법 1: PRIVATE_SETUP.md 사용 (권장)
+
+**프로젝트 폴더에서 한 번만 설정**:
+
+```bash
+# 1. 템플릿 복사
+cp ~/.claude/plugins/pb-product-generator/PRIVATE_SETUP.md.template ./PRIVATE_SETUP.md
+
+# 2. PRIVATE_SETUP.md 편집 (Service Account, Sheet ID 등)
+# 3. 자동 설정 실행
+~/.claude/plugins/pb-product-generator/setup.sh
+```
+
+### 방법 2: 수동 설정
+
+Service Account 및 환경 변수 설정이 필요합니다. `/generate` 커맨드 문서 참조.
+
 ## 구현
 
 현재 프로젝트 폴더의 `output/{YYYYMMDD}/editable/`에 HTML 파일을 생성합니다:
