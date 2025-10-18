@@ -18,6 +18,5 @@
     "jinja2",
     "flask"
   ],
-  "commands": "./commands",
-  "agents": "./agents"
+  "commands": "./commands"
 }
