@@ -1,6 +1,6 @@
 #!/bin/bash
 # PB Product Generator - Automatic Setup Script
-# Version: 0.2.0
+# Version: 0.2.1
 
 set -e  # 오류 발생 시 즉시 종료
 
@@ -20,6 +20,26 @@ cd "$PLUGIN_DIR"
 
 echo "📂 Plugin directory: $PLUGIN_DIR"
 echo ""
+
+# Auto-detect PRIVATE_SETUP.md with JSON and delegate to Python script
+if [ -f "PRIVATE_SETUP.md" ]; then
+    # Check if PRIVATE_SETUP.md contains JSON blocks (```json)
+    if grep -q '```json' "PRIVATE_SETUP.md"; then
+        echo -e "${GREEN}📋 PRIVATE_SETUP.md with Service Account JSON detected${NC}"
+        echo "   Delegating to auto_setup.py for full parsing..."
+        echo ""
+
+        # Run Python auto setup script
+        if command -v python3 &> /dev/null; then
+            python3 "$PLUGIN_DIR/scripts/auto_setup.py"
+            exit $?
+        else
+            echo -e "${RED}❌ python3 not found${NC}"
+            echo "   Please install Python 3 to use auto setup"
+            exit 1
+        fi
+    fi
+fi
 
 # Step 1: credentials 폴더 확인
 echo "Step 1/4: Checking credentials..."

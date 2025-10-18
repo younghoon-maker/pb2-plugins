@@ -2,21 +2,21 @@
 
 **Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 - 완전 자동화 세팅**
 
-Version: 0.2.0
+Version: 0.2.1
 
 ---
 
-## ✨ What's New in v0.2.0
+## ✨ What's New in v0.2.1
 
-🎯 **완전 자동화 세팅**
-- 5분 만에 설치부터 실행까지 완료
-- `setup.sh` 스크립트로 원클릭 설정
-- `PRIVATE_SETUP.md` 프라이빗 세팅 가이드 제공
+🤖 **완전 자동 환경 설정**
+- PRIVATE_SETUP.md 파일만 받으면 모든 설정 완료
+- Service Account JSON 자동 추출 및 설정
+- `/setup-from-private` 커맨드로 원클릭 설정
+- Python 기반 스마트 파싱 (JSON, Sheet ID, Tab Name)
 
-🏗️ **원본 코드 포함**
-- 검증된 원본 스크립트 (2116 lines) 직접 실행
-- 전체 소스 코드 (`src/`, `templates/`) 패키징
-- 코드 재생성 없이 안정적인 결과물 보장
+🎯 **2단계 간소화 워크플로우**
+1. PRIVATE_SETUP.md 파일 받기 (사용자로부터 배포)
+2. `/setup-from-private` 실행 → 완료!
 
 📊 **70MB 고품질 출력**
 - 원본 프로세스와 동일한 결과물 생성
@@ -25,7 +25,7 @@ Version: 0.2.0
 
 ---
 
-## 🚀 Quick Start (5분)
+## 🚀 Quick Start (2분)
 
 ### Step 1: Marketplace 등록 및 플러그인 설치
 
@@ -35,48 +35,47 @@ Version: 0.2.0
 /plugin install pb-product-generator@pb2-marketplace
 ```
 
-### Step 2: 개인 설정 파일 작성 (권장)
+### Step 2: PRIVATE_SETUP.md 파일 받기
 
-**프로젝트 폴더에서 실행**:
-
-```bash
-# 1. 템플릿 파일 복사
-cp ~/.claude/plugins/pb-product-generator/PRIVATE_SETUP.md.template ./PRIVATE_SETUP.md
-
-# 2. PRIVATE_SETUP.md 파일 편집
-# - SERVICE_ACCOUNT_FILE: 서비스 어카운트 JSON 파일 경로
-# - GOOGLE_SHEET_ID: Google Sheets ID
-# - SHEET_TAB_NAME: 시트 탭 이름
-```
-
-**PRIVATE_SETUP.md 예시**:
-```
-SERVICE_ACCOUNT_FILE=credentials/service-account.json
-GOOGLE_SHEET_ID=1ipkHdYdQhIAfUBkNUWHkFqcgP0aOXLVO14MYXWscEPk
-SHEET_TAB_NAME=new_raw
-FLASK_PORT=5001
-OUTPUT_DIR=output
-```
-
-> **🔒 보안**: `PRIVATE_SETUP.md`는 Git에 커밋되지 않습니다 (.gitignore 등록됨)
-
-### Step 3: 자동 세팅 실행
+**관리자로부터 PRIVATE_SETUP.md 파일을 받아서 프로젝트 폴더에 복사**:
 
 ```bash
-# Service Account JSON 파일 준비
-mkdir -p credentials
-cp /path/to/your-service-account.json credentials/service-account.json
-
-# 자동 세팅 스크립트 실행
-~/.claude/plugins/pb-product-generator/setup.sh
+# PRIVATE_SETUP.md 파일을 프로젝트 폴더에 복사
+cp /path/to/PRIVATE_SETUP.md ./
 ```
 
-**setup.sh가 자동으로 처리**:
-- ✅ `PRIVATE_SETUP.md` 파일 읽기 (있는 경우)
-- ✅ `.env` 파일 생성 (설정값 반영)
-- ✅ credentials/ 폴더 확인
-- ✅ Python 의존성 설치
-- ✅ 실행 권한 설정
+> **🔒 보안**: `PRIVATE_SETUP.md`는 Service Account JSON을 포함하므로 절대 Git에 커밋하지 마세요 (.gitignore 등록됨)
+
+### Step 3: 자동 환경 설정
+
+**Claude Code에서 실행**:
+
+```bash
+/setup-from-private
+```
+
+**자동으로 처리되는 작업**:
+- ✅ Service Account JSON 자동 추출 및 생성
+- ✅ Google Sheets ID, Tab Name 자동 설정
+- ✅ `.env` 파일 자동 생성
+- ✅ `credentials/service-account.json` 자동 생성
+- ✅ Python 의존성 자동 설치
+- ✅ 출력 폴더 자동 생성
+
+**예상 출력**:
+```
+🚀 PB Product Generator - Automatic Setup
+==================================================
+
+✅ Found PRIVATE_SETUP.md
+
+📋 Parsing PRIVATE_SETUP.md...
+   ✓ Service Account: test-account-n8n@damoa-fb351.iam.gserviceaccount.com
+   ✓ Sheet ID: 1ipkHdYdQhIAfUBkNUWHkFqcgP0aOXLVO14MYXWscEPk
+   ✓ Tab Name: new_raw
+
+✅ Setup completed successfully!
+```
 
 ### Step 4: 사용
 
@@ -115,13 +114,34 @@ cp /path/to/your-service-account.json credentials/service-account.json
 - **익스포트**: HTML/JPG 다운로드
 
 ### 🚀 Claude Code 플러그인
-- **슬래시 커맨드**: `/generate`, `/batch-generate`, `/start-server`
+- **슬래시 커맨드**: `/setup-from-private`, `/generate`, `/batch-generate`, `/start-server`
 - **전문 에이전트**: `@agent-product-builder`
 - **원본 스크립트**: `generate_editable_html.py` (2116 lines)
+- **자동 설정**: `auto_setup.py` (Python 기반 PRIVATE_SETUP.md 파싱)
 
 ---
 
 ## 📋 Commands
+
+### 0. 자동 환경 설정 (필수 - 최초 1회)
+
+```bash
+/setup-from-private
+```
+
+**설명**: PRIVATE_SETUP.md 파일에서 자동으로 모든 환경 설정
+
+**요구사항**: 프로젝트 폴더에 `PRIVATE_SETUP.md` 파일 존재
+
+**자동 처리**:
+- Service Account JSON 추출 및 생성
+- Google Sheets ID, Tab Name 자동 설정
+- .env 파일 생성
+- Python 의존성 설치
+
+**상세 문서**: [setup-from-private.md](./commands/setup-from-private.md)
+
+---
 
 ### 1. 단일 제품 생성
 
@@ -139,6 +159,10 @@ cp /path/to/your-service-account.json credentials/service-account.json
 ✅ Successfully loaded 1 products
 ✅ Generated: output/20251018/editable/VD25FPT003_editable_v4.html (70 MB)
 ```
+
+**상세 문서**: [generate.md](./commands/generate.md)
+
+---
 
 ### 2. 여러 제품 배치 생성
 
@@ -163,6 +187,10 @@ cp /path/to/your-service-account.json credentials/service-account.json
 ✅ Batch Complete: 3 succeeded, 0 failed
 ```
 
+**상세 문서**: [batch.md](./commands/batch.md)
+
+---
+
 ### 3. Flask 편집 서버 실행
 
 ```bash
@@ -173,6 +201,10 @@ cp /path/to/your-service-account.json credentials/service-account.json
 - `http://localhost:5001` 자동 실행
 - Editable HTML 파일 목록 제공
 - 이미지 편집 및 HTML/JPG 익스포트
+
+**상세 문서**: [server.md](./commands/server.md)
+
+---
 
 ### 4. 에이전트 사용
 
@@ -186,6 +218,8 @@ cp /path/to/your-service-account.json credentials/service-account.json
 3. Editable HTML 생성
 4. 결과 검증 및 후속 조치 안내
 
+**상세 문서**: [product-builder.md](./agents/product-builder.md)
+
 ---
 
 ## 📁 Plugin Structure
@@ -193,14 +227,16 @@ cp /path/to/your-service-account.json credentials/service-account.json
 ```
 pb-product-generator-plugin/
 ├── .claude-plugin/
-│   └── plugin.json                # 플러그인 메타데이터 (v0.2.0)
+│   └── plugin.json                # 플러그인 메타데이터 (v0.2.1)
 ├── commands/
+│   ├── setup-from-private.md      # /setup-from-private 커맨드 (NEW!)
 │   ├── generate.md                # /generate 커맨드
 │   ├── batch.md                   # /batch-generate 커맨드
 │   └── server.md                  # /start-server 커맨드
 ├── agents/
 │   └── product-builder.md         # Product Builder 에이전트
 ├── scripts/
+│   ├── auto_setup.py              # 자동 환경 설정 (NEW! - PRIVATE_SETUP.md 파싱)
 │   ├── generate_editable_html.py  # 원본 단일 제품 생성 (2116 lines)
 │   ├── generate_batch.py          # 원본 배치 생성 (311 lines)
 │   └── server.py                  # 원본 Flask 서버 (13K)
@@ -222,8 +258,9 @@ pb-product-generator-plugin/
 │   └── service-account.json       # Service Account (자동 생성)
 ├── .env                           # 환경 변수 (자동 생성)
 ├── .gitignore                     # PRIVATE_SETUP.md 제외
-├── setup.sh                       # 자동 세팅 스크립트
-├── PRIVATE_SETUP.md               # 프라이빗 세팅 가이드 (Git 제외)
+├── setup.sh                       # 자동 세팅 스크립트 (v0.2.1 - 스마트 감지)
+├── PRIVATE_SETUP.md.template      # PRIVATE_SETUP.md 템플릿 (참고용)
+├── PRIVATE_SETUP.md               # 프라이빗 세팅 가이드 (Git 제외, 관리자가 배포)
 ├── requirements.txt               # Python 의존성
 └── README.md
 ```
@@ -257,6 +294,7 @@ FLASK_DEBUG=False
 - **📖 플러그인 가이드**: [pb-plugins/INSTALLATION_GUIDE.md](../INSTALLATION_GUIDE.md)
 
 ### 📝 커맨드 문서
+- [setup-from-private.md](./commands/setup-from-private.md) - 자동 환경 설정 ⭐
 - [generate.md](./commands/generate.md) - 단일 제품 생성
 - [batch.md](./commands/batch.md) - 배치 생성
 - [server.md](./commands/server.md) - Flask 서버
@@ -318,6 +356,25 @@ taskkill /PID <PID> /F
 ---
 
 ## 📊 Version History
+
+### v0.2.1 (2025-10-18) - 🤖 Intelligent Auto-Setup
+
+**Major Changes**:
+- ✅ **완전 자동 환경 설정**: PRIVATE_SETUP.md 파일만 받으면 모든 설정 완료
+- ✅ **Python 기반 스마트 파싱**: Service Account JSON, Sheet ID, Tab Name 자동 추출
+- ✅ **/setup-from-private 커맨드**: 원클릭 설정 (사용자 친화적)
+- ✅ **setup.sh 스마트 감지**: JSON 포함 시 auto_setup.py 자동 위임
+- ✅ **2단계 간소화 워크플로우**: PRIVATE_SETUP.md 받기 → /setup-from-private 실행
+
+**New Files**:
+- `scripts/auto_setup.py` - PRIVATE_SETUP.md 파싱 및 자동 설정
+- `commands/setup-from-private.md` - 자동 설정 커맨드 문서
+
+**Enhanced Files**:
+- `setup.sh` v0.2.1 - PRIVATE_SETUP.md JSON 자동 감지 및 Python 위임
+- `README.md` - Quick Start 2분으로 단축, 새 워크플로우 반영
+
+---
 
 ### v0.2.0 (2025-10-18) - 🎯 Complete Automation
 
