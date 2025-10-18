@@ -1,5 +1,6 @@
 ---
 description: 여러 제품을 한 번에 배치 생성
+tools: [Bash]
 ---
 
 # Batch Generate Product Pages
@@ -15,7 +16,6 @@ description: 여러 제품을 한 번에 배치 생성
 
 ## 사용법
 
-### 기본: 수동 입력
 ```bash
 /batch-generate {product_code1} {product_code2} {product_code3} ...
 ```
@@ -25,25 +25,9 @@ description: 여러 제품을 한 번에 배치 생성
 /batch-generate VD25FTS002 VD25FPT003 VD25FCA004
 ```
 
-### 전체 제품 생성
-Google Sheets A열의 모든 제품 코드를 자동으로 감지하여 생성:
-```bash
-/batch-generate --all
-```
-
-### 필터링 생성
-특정 패턴과 매칭되는 제품만 생성 (대소문자 무시):
-```bash
-/batch-generate --filter=FTS      # FTS 포함하는 제품만
-/batch-generate --filter=VD25     # VD25 포함하는 제품만
-/batch-generate --filter=FPT003   # FPT003 포함하는 제품만
-```
-
 ## 출력
 
-### 수동 입력 모드
 ```
-📋 수동 입력: 3개 제품
 🚀 Batch Generation Started
 📋 Products: 3
 
@@ -52,38 +36,6 @@ Google Sheets A열의 모든 제품 코드를 자동으로 감지하여 생성:
 [3/3] VD25FCA004 ✅ (45.8 MB)
 
 ✅ Batch Complete: 3 succeeded, 0 failed
-📁 Output: output/20251017/editable/
-```
-
-### --all 플래그
-```
-📊 시트에서 47개 제품 발견
-🚀 Batch Generation Started
-📋 Products: 47
-
-[1/47] VD25FTS002 ✅ (51.4 MB)
-[2/47] VD25FPT003 ✅ (73.2 MB)
-[3/47] VD25FCA004 ✅ (45.8 MB)
-...
-[47/47] VD25FDP013 ✅ (62.1 MB)
-
-✅ Batch Complete: 45 succeeded, 2 failed
-📁 Output: output/20251017/editable/
-```
-
-### --filter 플래그
-```
-🔍 8개 제품 매칭 (필터: FTS)
-🚀 Batch Generation Started
-📋 Products: 8
-
-[1/8] VD25FTS002 ✅ (51.4 MB)
-[2/8] VD25FTS005 ✅ (68.1 MB)
-[3/8] VD25FTS009 ✅ (55.3 MB)
-...
-[8/8] VD25FTS027 ✅ (71.2 MB)
-
-✅ Batch Complete: 8 succeeded, 0 failed
 📁 Output: output/20251017/editable/
 ```
 
@@ -107,9 +59,10 @@ Google Sheets A열의 모든 제품 코드를 자동으로 감지하여 생성:
 
 ## 구현
 
-이 커맨드는 플러그인 내부의 원본 배치 생성 스크립트를 직접 실행합니다:
+현재 프로젝트 폴더의 `output/{YYYYMMDD}/editable/`에 HTML 파일을 생성합니다:
 
-```python
-# pb-product-generator-plugin/scripts/generate_batch.py
-python3 scripts/generate_batch.py {product_code1} {product_code2} ...
+```bash
+python3 ~/.claude/plugins/pb-product-generator/scripts/generate_batch.py --rows 2,5,10
 ```
+
+**참고**: 출력 파일은 현재 작업 디렉토리의 `output/` 폴더에 저장됩니다.

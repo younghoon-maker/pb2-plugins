@@ -1,5 +1,6 @@
 ---
 description: Google Sheets 데이터로 단일 제품 Editable HTML 생성
+tools: [Bash]
 ---
 
 # Generate Product Page
@@ -56,9 +57,10 @@ description: Google Sheets 데이터로 단일 제품 Editable HTML 생성
 
 ## 구현
 
-이 커맨드는 플러그인 내부의 원본 Python 스크립트를 직접 실행합니다:
+현재 프로젝트 폴더의 `output/`에 HTML 파일을 생성합니다:
 
-```python
-# pb-product-generator-plugin/scripts/generate_editable_html.py
-python3 scripts/generate_editable_html.py {product_code}
+```bash
+python3 ~/.claude/plugins/pb-product-generator/scripts/generate_editable_html.py {product_code}
 ```
+
+**참고**: 출력 파일은 현재 작업 디렉토리의 `output/` 폴더에 저장됩니다.
