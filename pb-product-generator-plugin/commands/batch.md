@@ -1,20 +1,22 @@
 ---
-description: 여러 제품을 한 번에 배치 생성
+description: 여러 제품을 한 번에 배치 생성 (개별 선택 또는 전체 자동)
 tools: [Bash]
 ---
 
 # Batch Generate Product Pages
 
-여러 제품 코드를 받아 순차적으로 Editable HTML을 생성합니다.
+여러 제품을 순차적으로 Editable HTML을 생성합니다. 개별 제품 코드 지정 또는 시트 전체 자동 생성을 지원합니다.
 
 ## 작업 프로세스
 
-1. **제품 코드 목록 입력**: 공백 또는 쉼표로 구분된 제품 코드
+1. **제품 선택**: 개별 코드, 전체 자동, 행 범위, 또는 특정 행 선택
 2. **순차 생성**: 각 제품별로 Google Sheets 데이터 로드 및 HTML 생성
 3. **진행 상황 보고**: 실시간 진행 상황 및 성공/실패 통계
 4. **일괄 저장**: `output/{YYYYMMDD}/editable/` 폴더에 모든 파일 저장
 
 ## 사용법
+
+### 방법 1: 개별 제품 코드 지정 (기존 방식)
 
 ```bash
 /batch-generate {product_code1} {product_code2} {product_code3} ...
@@ -25,7 +27,44 @@ tools: [Bash]
 /batch-generate VD25FTS002 VD25FPT003 VD25FCA004
 ```
 
+### 방법 2: 시트의 모든 제품 자동 생성 ⭐ NEW
+
+```bash
+/batch-generate --all
+```
+
+**동작**:
+- Google Sheets를 스캔하여 제품 코드가 있는 모든 행 자동 탐지
+- 빈 행 건너뛰기
+- 모든 제품 순차 생성
+
+### 방법 3: 행 범위 지정
+
+```bash
+/batch-generate --start N --end M
+```
+
+**예시**:
+```bash
+# 2번 행부터 50번 행까지 생성
+/batch-generate --start 2 --end 50
+```
+
+### 방법 4: 특정 행 선택
+
+```bash
+/batch-generate --rows N,M,K
+```
+
+**예시**:
+```bash
+# 2번, 5번, 10번, 15번 행만 생성
+/batch-generate --rows 2,5,10,15
+```
+
 ## 출력
+
+### 개별 제품 코드 지정 시:
 
 ```
 🚀 Batch Generation Started
@@ -36,7 +75,25 @@ tools: [Bash]
 [3/3] VD25FCA004 ✅ (45.8 MB)
 
 ✅ Batch Complete: 3 succeeded, 0 failed
-📁 Output: output/20251017/editable/
+📁 Output: output/20251018/editable/
+```
+
+### `--all` 사용 시:
+
+```
+🚀 Batch Generation Started
+📋 Scanning sheet for all products...
+✅ Found 15 products
+
+[1/15] VD25FPT003 ✅ (73.2 MB)
+[2/15] VD25FPT005 ✅ (68.5 MB)
+[3/15] VD25FCA004 ✅ (45.8 MB)
+...
+[15/15] VD25XXX015 ✅ (55.1 MB)
+
+✅ Batch Complete: 15 succeeded, 0 failed
+📁 Output: output/20251018/editable/
+⏱️  Total time: 3m 45s
 ```
 
 ## 성능
@@ -78,10 +135,28 @@ Service Account 및 환경 변수 설정이 필요합니다. `/generate` 커맨�
 
 ## 구현
 
-현재 프로젝트 폴더의 `output/{YYYYMMDD}/editable/`에 HTML 파일을 생성합니다:
+현재 프로젝트 폴더의 `output/{YYYYMMDD}/editable/`에 HTML 파일을 생성합니다.
 
+**스크립트 위치**:
 ```bash
-python3 ~/.claude/plugins/pb-product-generator/scripts/generate_batch.py --rows 2,5,10
+~/.claude/plugins/marketplaces/{marketplace-name}/{plugin-name}/scripts/generate_batch.py
 ```
 
-**참고**: 출력 파일은 현재 작업 디렉토리의 `output/` 폴더에 저장됩니다.
+**실행 예시**:
+```bash
+# 스크립트 경로 자동 탐지
+SCRIPT_PATH=$(find ~/.claude/plugins -name "generate_batch.py" -path "*/pb-product-generator*/scripts/*" | head -1)
+
+# 모든 제품 생성
+python3 "$SCRIPT_PATH" --all
+
+# 특정 행 선택
+python3 "$SCRIPT_PATH" --rows 2,5,10
+
+# 행 범위 지정
+python3 "$SCRIPT_PATH" --start 2 --end 50
+```
+
+**참고**:
+- 출력 파일은 현재 작업 디렉토리의 `output/` 폴더에 저장됩니다
+- 마켓플레이스 이름은 설치 방법에 따라 다를 수 있습니다 (예: `pb2-marketplace`)

@@ -166,25 +166,44 @@ cp /path/to/PRIVATE_SETUP.md ./
 
 ### 2. 여러 제품 배치 생성
 
+**개별 제품 코드 지정**:
 ```bash
 /batch-generate {code1} {code2} {code3} ...
 ```
 
+**시트의 모든 제품 자동 생성** ⭐ NEW:
+```bash
+/batch-generate --all
+```
+
+**행 범위 또는 특정 행 선택**:
+```bash
+/batch-generate --start 2 --end 50
+/batch-generate --rows 2,5,10,15
+```
+
 **예시**:
 ```bash
+# 개별 제품 선택
 /batch-generate VD25FPT003 VD25FPT005 VD25FCA004
+
+# 모든 제품 자동 생성
+/batch-generate --all
 ```
 
-**출력**:
+**출력 (`--all` 사용 시)**:
 ```
 🚀 Batch Generation Started
-📋 Products: 3
+📋 Scanning sheet for all products...
+✅ Found 15 products
 
-[1/3] VD25FPT003 ✅ (70 MB)
-[2/3] VD25FPT005 ✅ (68 MB)
-[3/3] VD25FCA004 ✅ (65 MB)
+[1/15] VD25FPT003 ✅ (73.2 MB)
+[2/15] VD25FPT005 ✅ (68.5 MB)
+...
+[15/15] VD25XXX015 ✅ (55.1 MB)
 
-✅ Batch Complete: 3 succeeded, 0 failed
+✅ Batch Complete: 15 succeeded, 0 failed
+⏱️  Total time: 3m 45s
 ```
 
 **상세 문서**: [batch.md](./commands/batch.md)
