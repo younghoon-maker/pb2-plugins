@@ -1,7 +1,7 @@
 {
   "name": "pb-product-generator",
   "description": "Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 - Editable HTML V4 (완전 자동화 세팅, 원본 코드 포함)",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "author": {
     "name": "PB Product Team",
     "email": "pb-team@company.com"

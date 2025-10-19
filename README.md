@@ -2,22 +2,22 @@
 
 **제품 상세 페이지 생성 도구 플러그인 마켓플레이스**
 
-Version: 0.2.3
+Version: 0.2.4
 
 ---
 
 ## 📦 Available Plugins
 
-### pb-product-generator (v0.2.3)
+### pb-product-generator (v0.2.4)
 
 Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 - **완전 자동화 세팅**
 
-**✨ What's New in v0.2.3**:
-- 🐛 **사이즈 테이블 버그 수정**: Pydantic 모델에 누락된 필드 추가
-  - TopSize에 `hem`, `sleeve_cuff` 필드 추가
-  - BottomSize에 `length` 필드 추가
-  - 모든 측정값을 Optional로 변경 (size_name 제외)
-- ✅ product_builder.py 파서와 완벽 정렬
+**✨ What's New in v0.2.4**:
+- 🐛 **generate_editable_html.py 경로 버그 수정**
+  - Service account 경로를 CWD 기반으로 변경
+  - Output 디렉토리 경로를 CWD 기반으로 변경
+  - .env 파일 자동 로드 추가
+- ✅ `/pb-product-generator:generate` 커맨드 정상 작동
 
 **✨ v0.2.0 Features**:
 - 🎯 5분 완성 자동 세팅 (`/pb-product-generator:setup-from-private`)
@@ -190,6 +190,22 @@ pb2-plugins/                          # GitHub repository
 ---
 
 ## 📊 Version History
+
+### v0.2.4 (2025-10-19) - 🐛 Single Product Script Path Fix
+
+**Bug Fixes**:
+- ✅ generate_editable_html.py 경로 버그 수정
+  - Service account: `project_root` → `cwd / "credentials"`
+  - Output directory: `project_root / "output"` → `cwd / "output"`
+  - .env 파일 자동 로드 추가 (dotenv)
+- ✅ `/pb-product-generator:generate {code}` 커맨드 정상 작동
+
+**영향받는 커맨드**:
+- `/pb-product-generator:generate` - 단일 제품 생성 ✅ 수정됨
+
+**이미 수정된 스크립트** (v0.2.2):
+- `/pb-product-generator:batch` - 배치 생성 (generate_batch.py)
+- `/pb-product-generator:server` - Flask 서버 (server.py)
 
 ### v0.2.3 (2025-10-19) - 🐛 Size Table Fix
 

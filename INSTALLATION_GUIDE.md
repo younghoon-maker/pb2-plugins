@@ -1,6 +1,6 @@
 # 📦 PB Product Generator - 설치 가이드
 
-**Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 v0.2.3**
+**Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 v0.2.4**
 
 > **⏱️ 총 소요 시간: 5분**
 > - 마켓플레이스 추가 및 플러그인 설치 (1분)
@@ -31,7 +31,7 @@ Claude Code를 실행하고 다음 명령어를 입력하세요:
 **예상 결과**:
 ```
 ✅ Marketplace "pb2-plugins" added successfully
-📦 Available plugins: pb-product-generator (v0.2.3)
+📦 Available plugins: pb-product-generator (v0.2.4)
 ```
 
 ### Step 2: 플러그인 설치
@@ -42,7 +42,7 @@ Claude Code를 실행하고 다음 명령어를 입력하세요:
 
 **예상 결과**:
 ```
-✅ Plugin "pb-product-generator" (v0.2.3) installed successfully
+✅ Plugin "pb-product-generator" (v0.2.4) installed successfully
 ```
 
 ### Step 3: Claude 재시작
@@ -311,7 +311,7 @@ taskkill /PID <PID> /F
 
 ---
 
-**Version**: 0.2.3
+**Version**: 0.2.4
 **Last Updated**: 2025-10-19
 **Repository**: https://github.com/younghoon-maker/pb2-plugins
 

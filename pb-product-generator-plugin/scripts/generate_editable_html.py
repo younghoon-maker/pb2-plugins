@@ -16,10 +16,19 @@ import json
 import re
 from pathlib import Path
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv
 
-# 프로젝트 루트를 sys.path에 추가
+# 프로젝트 루트를 sys.path에 추가 (모듈 임포트용)
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
+
+# 현재 작업 디렉토리 (파일 경로용)
+cwd = Path.cwd()
+
+# .env 파일 로드 (CWD 기준)
+env_file = cwd / ".env"
+if env_file.exists():
+    load_dotenv(env_file)
 
 from src.sheets_loader.loader import SheetsLoader
 from src.sheets_loader.product_builder import ProductDataBuilder
@@ -2005,10 +2014,10 @@ def generate_editable_html(product, loader: SheetsLoader) -> str:
 
 def main():
     """메인 실행 함수"""
-    # 환경변수 또는 기본값
+    # 환경변수 또는 기본값 (CWD 기준)
     service_account_file = os.getenv(
         "GOOGLE_SERVICE_ACCOUNT_FILE",
-        str(project_root / "service-account.json")
+        str(cwd / "credentials" / "service-account.json")
     )
     sheet_id = os.getenv(
         "GOOGLE_SHEET_ID",
@@ -2081,8 +2090,8 @@ def main():
         print(f"\n📝 Editable HTML V4 생성 중...")
         html_content = generate_editable_html(product, loader)
 
-        # 파일 저장
-        output_dir = project_root / "output"
+        # 파일 저장 (CWD 기준)
+        output_dir = cwd / "output"
         output_dir.mkdir(exist_ok=True)
         output_file = output_dir / f"{product.product_code}_editable_v4.html"
 
