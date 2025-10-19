@@ -44,13 +44,12 @@ class ProductDataBuilder:
             ColorExtractor(sheets_loader) if enable_color_extraction else None
         )
 
-    def build_product_data(self, row: List[str], text_formatting: Optional[List[Optional[List[dict]]]] = None) -> ProductData:
+    def build_product_data(self, row: List[str]) -> ProductData:
         """
         292개 컬럼 행 데이터를 ProductData로 변환
 
         Args:
             row: Google Sheets 행 데이터 (292개 컬럼)
-            text_formatting: 셀별 textFormatRuns 리스트 (선택, loader.extract_text_formatting 결과)
 
         Returns:
             ProductData 인스턴스
@@ -61,13 +60,6 @@ class ProductDataBuilder:
         # 기본 정보
         product_code = self._get_value(row, cm.COL_PRODUCT_CODE)
         product_name = self._get_value(row, cm.COL_PRODUCT_NAME)
-        product_description = self._get_value(row, cm.COL_PRODUCT_DESCRIPTION)
-
-        # 볼드 서식 적용 (product_description에만)
-        if product_description and text_formatting and cm.COL_PRODUCT_DESCRIPTION < len(text_formatting):
-            format_runs = text_formatting[cm.COL_PRODUCT_DESCRIPTION]
-            if format_runs:
-                product_description = self._apply_text_formatting(product_description, format_runs)
         main_image = self._get_value(row, cm.COL_MAIN_IMAGE)
 
         # 색상 정보 (1-6개 동적 파싱)
@@ -94,7 +86,6 @@ class ProductDataBuilder:
         return ProductData(
             product_code=product_code,
             product_name=product_name,
-            product_description=product_description,
             main_image=main_image,
             colors=colors,
             gallery_by_color=gallery_by_color,
@@ -195,17 +186,12 @@ class ProductDataBuilder:
         return FabricInfo(fabric_image=image, fabric_composition=composition, fabric_care=care)
 
     def _parse_checkpoint(self, row: List[str]) -> Optional[CheckpointInfo]:
-        """체크포인트 파싱 (선택) - 이미지 없이 텍스트만 사용"""
+        """체크포인트 파싱 (선택)"""
+        img = self._get_value(row, cm.COL_CHECKPOINT_IMAGE)
         text = self._get_value(row, cm.COL_CHECKPOINT_TEXT)
 
-        if text:
-            # 체크포인트 이미지는 삭제되었으므로 더미 URL 사용
-            # CheckpointInfo는 checkpoint_image가 필수이므로 None 처리 불가
-            # 빈 문자열 또는 더미 URL 필요
-            return CheckpointInfo(
-                checkpoint_image="https://placeholder.com/checkpoint",
-                checkpoint_text=text
-            )
+        if img and text:
+            return CheckpointInfo(checkpoint_image=img, checkpoint_text=text)
         return None
 
     def _parse_model_info(self, row: List[str]) -> List[ModelInfo]:
@@ -244,37 +230,20 @@ class ProductDataBuilder:
             size_name = self._get_value(row, indices["size_name"])
             shoulder = self._get_value(row, indices["shoulder"])
             chest = self._get_value(row, indices["chest"])
-            hem = self._get_value(row, indices["hem"])
             sleeve = self._get_value(row, indices["sleeve"])
-            sleeve_cuff = self._get_value(row, indices["sleeve_cuff"])
             length = self._get_value(row, indices["length"])
 
-            # 사이즈명만 있으면 사이즈 항목 생성 (나머지는 Optional)
-            if size_name:
-                try:
-                    # 각 필드를 안전하게 변환 (비어있거나 변환 실패 시 None)
-                    def safe_float(value):
-                        if not value:
-                            return None
-                        try:
-                            return float(value)
-                        except (ValueError, TypeError):
-                            return None
-
-                    sizes.append(
-                        TopSize(
-                            size_name=size_name,
-                            shoulder=safe_float(shoulder),
-                            chest=safe_float(chest),
-                            hem=safe_float(hem),
-                            sleeve=safe_float(sleeve),
-                            sleeve_cuff=safe_float(sleeve_cuff),
-                            length=safe_float(length),
-                        )
+            # 필수 필드가 모두 있는 경우만 추가
+            if all([size_name, shoulder, chest, sleeve, length]):
+                sizes.append(
+                    TopSize(
+                        size_name=size_name,
+                        shoulder=float(shoulder),
+                        chest=float(chest),
+                        sleeve=float(sleeve),
+                        length=float(length),
                     )
-                except Exception:
-                    # 예외 발생 시 건너뛰기
-                    continue
+                )
 
         return sizes
 
@@ -290,78 +259,18 @@ class ProductDataBuilder:
             thigh = self._get_value(row, indices["thigh"])
             hem = self._get_value(row, indices["hem"])
             rise = self._get_value(row, indices["rise"])
-            length = self._get_value(row, indices["length"])
 
-            # 사이즈명만 있으면 사이즈 항목 생성 (나머지는 Optional)
-            if size_name:
-                try:
-                    # 각 필드를 안전하게 변환 (비어있거나 변환 실패 시 None)
-                    def safe_float(value):
-                        if not value:
-                            return None
-                        try:
-                            return float(value)
-                        except (ValueError, TypeError):
-                            return None
-
-                    sizes.append(
-                        BottomSize(
-                            size_name=size_name,
-                            waist=safe_float(waist),
-                            hip=safe_float(hip),
-                            thigh=safe_float(thigh),
-                            hem=safe_float(hem),
-                            rise=safe_float(rise),
-                            length=safe_float(length),
-                        )
+            # 필수 필드가 모두 있는 경우만 추가
+            if all([size_name, waist, hip, thigh, hem, rise]):
+                sizes.append(
+                    BottomSize(
+                        size_name=size_name,
+                        waist=float(waist),
+                        hip=float(hip),
+                        thigh=float(thigh),
+                        hem=float(hem),
+                        rise=float(rise),
                     )
-                except Exception:
-                    # 예외 발생 시 건너뛰기
-                    continue
+                )
 
         return sizes
-
-    def _apply_text_formatting(self, text: str, format_runs: List[dict]) -> str:
-        """
-        textFormatRuns를 바탕으로 텍스트에 HTML 서식 적용
-
-        Args:
-            text: 원본 텍스트
-            format_runs: Google Sheets textFormatRuns 리스트
-                각 run: {'startIndex': int, 'format': {'bold': bool, 'italic': bool, ...}}
-
-        Returns:
-            HTML 태그가 적용된 텍스트
-
-        Example:
-            text = "Hello World"
-            format_runs = [
-                {'startIndex': 0, 'format': {'bold': False}},
-                {'startIndex': 6, 'format': {'bold': True}}
-            ]
-            → "Hello <b>World</b>"
-        """
-        if not format_runs:
-            return text
-
-        # 결과 텍스트 조립
-        result = []
-
-        for i, run in enumerate(format_runs):
-            start_index = run.get('startIndex', 0)
-            format_info = run.get('format', {})
-            is_bold = format_info.get('bold', False)
-
-            # 다음 run의 시작 인덱스 (없으면 텍스트 끝)
-            next_index = format_runs[i + 1].get('startIndex', len(text)) if i + 1 < len(format_runs) else len(text)
-
-            # 현재 구간 텍스트
-            segment = text[start_index:next_index]
-
-            # 볼드 적용
-            if is_bold:
-                result.append(f"<b>{segment}</b>")
-            else:
-                result.append(segment)
-
-        return ''.join(result)

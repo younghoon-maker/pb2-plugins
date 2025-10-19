@@ -1,13 +1,13 @@
 {
   "name": "pb-product-generator",
-  "description": "Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 - Editable HTML V4 (완전 자동 환경 설정, 배치 생성 --all 지원)",
-  "version": "0.2.2",
+  "description": "Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 - Editable HTML V4 (완전 자동화 세팅, 원본 코드 포함)",
+  "version": "0.2.1",
   "author": {
     "name": "PB Product Team",
     "email": "pb-team@company.com"
   },
-  "homepage": "https://github.com/younghoon-maker/pb2-plugins",
-  "repository": "https://github.com/younghoon-maker/pb2-plugins",
+  "homepage": "https://github.com/your-org/pb-plugins",
+  "repository": "https://github.com/your-org/pb-plugins",
   "license": "MIT",
   "keywords": [
     "product-page",
@@ -18,5 +18,7 @@
     "jinja2",
     "flask"
   ],
-  "commands": "./commands"
+  "category": "productivity",
+  "commands": "./commands",
+  "agents": "./agents"
 }

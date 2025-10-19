@@ -2081,8 +2081,8 @@ def main():
         print(f"\n📝 Editable HTML V4 생성 중...")
         html_content = generate_editable_html(product, loader)
 
-        # 파일 저장 (현재 작업 디렉토리 기준)
-        output_dir = Path(os.getcwd()) / "output"
+        # 파일 저장
+        output_dir = project_root / "output"
         output_dir.mkdir(exist_ok=True)
         output_file = output_dir / f"{product.product_code}_editable_v4.html"
 

@@ -222,8 +222,8 @@ def main():
         sheets_loader=loader
     )
 
-    # 오늘 날짜 폴더 생성 (현재 작업 디렉토리 기준)
-    output_dir = Path(os.getcwd()) / "output"
+    # 오늘 날짜 폴더 생성
+    output_dir = project_root / "output"
     editable_dir, export_dir = get_today_folder(output_dir)
 
     today = datetime.now().strftime("%Y%m%d")
