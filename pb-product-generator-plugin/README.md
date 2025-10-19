@@ -2,9 +2,16 @@
 
 **Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 - 완전 자동화 세팅**
 
-Version: 0.2.0
+Version: 0.2.1
 
 ---
+
+## ✨ What's New in v0.2.1
+
+🐛 **Bug Fixes**
+- 사이즈표 파싱 로직 버그 수정 (hem, sleeve_cuff, length 필드 추가)
+- product_description 필드 볼드 서식 지원
+- safe_float() 헬퍼 함수로 안정성 향상
 
 ## ✨ What's New in v0.2.0
 
@@ -27,38 +34,45 @@ Version: 0.2.0
 
 ## 🚀 Quick Start (5분)
 
-### Step 1: 플러그인 설치
+### Step 1: 마켓플레이스 추가
 
 ```bash
-# Claude Code에서 실행
-/plugin marketplace add /path/to/pb-marketplace
-/plugin install pb-product-generator@pb-marketplace
+# Claude Code 실행
+/plugin marketplace add younghoon-maker/pb2-plugins
 ```
 
-### Step 2: 자동 세팅
+### Step 2: 플러그인 설치
 
 ```bash
-# 플러그인 디렉토리로 이동
-cd ~/.claude/plugins/pb-product-generator/
-
-# PRIVATE_SETUP.md 열어서 서비스 어카운트 JSON 복사
-# (프라이빗 가이드 - Git에 올리지 않음)
-
-# 자동 세팅 스크립트 실행
-bash setup.sh
+/plugin install pb-product-generator@pb2-plugins
 ```
 
-**setup.sh가 자동으로 처리**:
-- ✅ credentials/ 폴더 확인
-- ✅ .env 파일 생성 (Sheet ID, 탭 이름 하드코딩)
+### Step 3: Claude 재시작
+
+```bash
+/quit
+claude
+```
+
+### Step 4: 자동 세팅
+
+PRIVATE_SETUP.md 파일을 관리자로부터 받아 프로젝트 폴더에 복사한 후:
+
+```bash
+/pb-product-generator:setup-from-private
+```
+
+**자동으로 처리되는 작업**:
+- ✅ credentials/ 폴더 생성
+- ✅ service-account.json 생성
+- ✅ .env 파일 생성
 - ✅ Python 의존성 설치
-- ✅ 실행 권한 설정
+- ✅ output/ 폴더 생성
 
-### Step 3: 사용
+### Step 5: 사용
 
 ```bash
-# Claude Code로 돌아와서
-/generate VD25FPT003
+/pb-product-generator:generate VD25FPT003
 ```
 
 **예상 결과**:
@@ -91,8 +105,8 @@ bash setup.sh
 - **익스포트**: HTML/JPG 다운로드
 
 ### 🚀 Claude Code 플러그인
-- **슬래시 커맨드**: `/generate`, `/batch-generate`, `/start-server`
-- **전문 에이전트**: `@agent-product-builder`
+- **슬래시 커맨드**: `/pb-product-generator:generate`, `/pb-product-generator:batch`, `/pb-product-generator:server`
+- **자동 세팅**: `/pb-product-generator:setup-from-private`
 - **원본 스크립트**: `generate_editable_html.py` (2116 lines)
 
 ---
@@ -102,12 +116,12 @@ bash setup.sh
 ### 1. 단일 제품 생성
 
 ```bash
-/generate {product_code}
+/pb-product-generator:generate {product_code}
 ```
 
 **예시**:
 ```bash
-/generate VD25FPT003
+/pb-product-generator:generate VD25FPT003
 ```
 
 **출력**:
@@ -119,12 +133,12 @@ bash setup.sh
 ### 2. 여러 제품 배치 생성
 
 ```bash
-/batch-generate {code1} {code2} {code3} ...
+/pb-product-generator:batch {code1} {code2} {code3} ...
 ```
 
 **예시**:
 ```bash
-/batch-generate VD25FPT003 VD25FPT005 VD25FCA004
+/pb-product-generator:batch VD25FPT003 VD25FPT005 VD25FCA004
 ```
 
 **출력**:
@@ -142,7 +156,7 @@ bash setup.sh
 ### 3. Flask 편집 서버 실행
 
 ```bash
-/start-server
+/pb-product-generator:server
 ```
 
 **결과**:
@@ -150,17 +164,18 @@ bash setup.sh
 - Editable HTML 파일 목록 제공
 - 이미지 편집 및 HTML/JPG 익스포트
 
-### 4. 에이전트 사용
+### 4. 자동 세팅
 
 ```bash
-@agent-product-builder "VD25FPT003 생성해줘"
+/pb-product-generator:setup-from-private
 ```
 
-**에이전트 작업**:
-1. Google Sheets 데이터 로드
-2. 이미지 다운로드 및 Base64 인코딩
-3. Editable HTML 생성
-4. 결과 검증 및 후속 조치 안내
+**자동 설정 작업**:
+1. PRIVATE_SETUP.md 파일 읽기
+2. Service Account JSON 추출
+3. credentials/ 폴더 및 파일 생성
+4. .env 파일 생성
+5. Python 의존성 설치
 
 ---
 
@@ -169,7 +184,7 @@ bash setup.sh
 ```
 pb-product-generator-plugin/
 ├── .claude-plugin/
-│   └── plugin.json                # 플러그인 메타데이터 (v0.2.0)
+│   └── plugin.json                # 플러그인 메타데이터 (v0.2.1)
 ├── commands/
 │   ├── generate.md                # /generate 커맨드
 │   ├── batch.md                   # /batch-generate 커맨드
@@ -294,6 +309,22 @@ taskkill /PID <PID> /F
 ---
 
 ## 📊 Version History
+
+### v0.2.1 (2025-10-19) - 🐛 Bug Fixes
+
+**Bug Fixes**:
+- ✅ 사이즈표 파싱 로직 버그 수정
+  - _parse_top_sizes(): hem, sleeve_cuff 필드 추가
+  - _parse_bottom_sizes(): length 필드 추가
+  - safe_float() 헬퍼 함수 도입
+  - 검증 로직 개선 (size_name만 필수)
+- ✅ product_description 필드 볼드 서식 지원
+- ✅ column_mapping.py 인덱스 보정 (+1 shift)
+
+**Documentation**:
+- ✅ 네임스페이스 접두사 추가 (`/pb-product-generator:*`)
+- ✅ GitHub 마켓플레이스 URL 업데이트
+- ✅ 사용자 프로젝트 폴더 기반 워크플로우 문서화
 
 ### v0.2.0 (2025-10-18) - 🎯 Complete Automation
 
