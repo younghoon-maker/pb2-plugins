@@ -1,0 +1,208 @@
+"""
+@CODE:SHEETS-001 | SPEC: SPEC-SHEETS-001.md
+
+Google Sheets 컬럼 인덱스 매핑 (294개)
+"""
+
+from typing import Dict, Tuple
+
+# 기본 정보 (0-3)
+COL_PRODUCT_CODE = 0
+COL_PRODUCT_NAME = 1
+COL_MAIN_IMAGE = 2
+COL_PRODUCT_DESCRIPTION = 3  # 상품 설명
+
+# 색상 이미지 (4-9) - 6개 (+1 이동)
+COL_COLOR_IMAGE_START = 4
+COL_COLOR_IMAGE_END = 9  # inclusive
+
+# 색상 메타데이터 (10-21) - 6개 × 2필드 (+1 이동)
+COL_COLOR_NAME_START = 10
+COL_COLOR_NAME_STEP = 2  # 10, 12, 14, 16, 18, 20
+COL_COLOR_HEX_START = 11
+COL_COLOR_HEX_STEP = 2  # 11, 13, 15, 17, 19, 21
+
+# 갤러리 (22-117) - Color1-8 × 12개 = 96개 (+1 이동)
+COL_GALLERY_START = 22
+COL_GALLERY_END = 117  # inclusive
+COL_GALLERY_IMAGES_PER_COLOR = 12
+COL_GALLERY_TOTAL_COLORS = 8
+
+# 포인트 (118-123) - 3개 × 2필드 (+1 이동)
+COL_DETAIL_POINT_START = 118
+COL_DETAIL_POINT_IMAGE_STEP = 2  # 118, 120, 122
+COL_DETAIL_POINT_TEXT_STEP = 2  # 119, 121, 123
+COL_DETAIL_POINT_COUNT = 3
+
+# 소재 정보 (124-126) (+1 이동)
+COL_FABRIC_IMAGE = 124
+COL_FABRIC_COMPOSITION = 125
+COL_FABRIC_CARE = 126
+
+# 체크포인트 (127) - 이미지 삭제됨
+# COL_CHECKPOINT_IMAGE = 126  # 삭제됨
+COL_CHECKPOINT_TEXT = 127
+
+# 모델 정보 (128-133) - 2개 × 3필드 (이미지, 신장, 사이즈)
+COL_MODEL1_IMAGE = 128
+COL_MODEL1_HEIGHT = 129
+COL_MODEL1_SIZE = 130
+COL_MODEL2_IMAGE = 131
+COL_MODEL2_HEIGHT = 132
+COL_MODEL2_SIZE = 133
+
+# 상의 사이즈 (134-213) - 10개 × 8필드 = 80개
+COL_TOP_SIZE_START = 134
+COL_TOP_SIZE_FIELDS_PER_SIZE = 8
+COL_TOP_SIZE_COUNT = 10
+# 각 사이즈 내 필드 오프셋
+COL_TOP_SIZE_NAME_OFFSET = 0
+COL_TOP_SHOULDER_OFFSET = 1
+COL_TOP_CHEST_OFFSET = 2
+COL_TOP_HEM_OFFSET = 3  # 밑단둘레 (SPEC에는 없지만 실제 데이터 존재)
+COL_TOP_SLEEVE_OFFSET = 4
+COL_TOP_SLEEVE_CUFF_OFFSET = 5  # 소매통 (SPEC에는 없지만 실제 데이터 존재)
+COL_TOP_LENGTH_OFFSET = 6
+COL_TOP_OPTIONAL_OFFSET = 7  # 옵셔널Row (무시)
+
+# 하의 사이즈 (214-293) - 10개 × 8필드 = 80개
+COL_BOTTOM_SIZE_START = 214
+COL_BOTTOM_SIZE_FIELDS_PER_SIZE = 8
+COL_BOTTOM_SIZE_COUNT = 10
+# 각 사이즈 내 필드 오프셋
+COL_BOTTOM_SIZE_NAME_OFFSET = 0
+COL_BOTTOM_WAIST_OFFSET = 1
+COL_BOTTOM_HIP_OFFSET = 2
+COL_BOTTOM_THIGH_OFFSET = 3
+COL_BOTTOM_HEM_OFFSET = 4  # 밑단둘레
+COL_BOTTOM_RISE_OFFSET = 5  # 밑위길이
+COL_BOTTOM_LENGTH_OFFSET = 6  # 총장 (SPEC에는 없지만 실제 데이터 존재)
+COL_BOTTOM_OPTIONAL_OFFSET = 7  # 옵셔널Row (무시)
+
+
+def get_color_image_index(color_number: int) -> int:
+    """
+    색상 이미지 컬럼 인덱스 반환
+
+    Args:
+        color_number: 색상 번호 (1-6)
+
+    Returns:
+        컬럼 인덱스 (4부터 시작, D 컬럼 추가로 +1 이동)
+    """
+    if not 1 <= color_number <= 6:
+        raise ValueError("color_number는 1-6 범위여야 합니다")
+    return COL_COLOR_IMAGE_START + (color_number - 1)
+
+
+def get_color_name_index(color_number: int) -> int:
+    """
+    색상명 컬럼 인덱스 반환
+
+    Args:
+        color_number: 색상 번호 (1-6)
+
+    Returns:
+        컬럼 인덱스
+    """
+    if not 1 <= color_number <= 6:
+        raise ValueError("color_number는 1-6 범위여야 합니다")
+    return COL_COLOR_NAME_START + (color_number - 1) * COL_COLOR_NAME_STEP
+
+
+def get_color_hex_index(color_number: int) -> int:
+    """
+    HEX 코드 컬럼 인덱스 반환
+
+    Args:
+        color_number: 색상 번호 (1-6)
+
+    Returns:
+        컬럼 인덱스
+    """
+    if not 1 <= color_number <= 6:
+        raise ValueError("color_number는 1-6 범위여야 합니다")
+    return COL_COLOR_HEX_START + (color_number - 1) * COL_COLOR_HEX_STEP
+
+
+def get_gallery_indices(color_number: int) -> range:
+    """
+    특정 색상의 갤러리 이미지 컬럼 인덱스 범위 반환
+
+    Args:
+        color_number: 색상 번호 (1-8)
+
+    Returns:
+        컬럼 인덱스 범위
+    """
+    if not 1 <= color_number <= COL_GALLERY_TOTAL_COLORS:
+        raise ValueError(f"color_number는 1-{COL_GALLERY_TOTAL_COLORS} 범위여야 합니다")
+
+    start = COL_GALLERY_START + (color_number - 1) * COL_GALLERY_IMAGES_PER_COLOR
+    end = start + COL_GALLERY_IMAGES_PER_COLOR
+    return range(start, end)
+
+
+def get_detail_point_indices(point_number: int) -> Tuple[int, int]:
+    """
+    디테일 포인트 이미지/텍스트 컬럼 인덱스 반환
+
+    Args:
+        point_number: 포인트 번호 (1-3)
+
+    Returns:
+        (이미지 인덱스, 텍스트 인덱스)
+    """
+    if not 1 <= point_number <= COL_DETAIL_POINT_COUNT:
+        raise ValueError(f"point_number는 1-{COL_DETAIL_POINT_COUNT} 범위여야 합니다")
+
+    image_idx = COL_DETAIL_POINT_START + (point_number - 1) * COL_DETAIL_POINT_IMAGE_STEP
+    text_idx = image_idx + 1
+    return (image_idx, text_idx)
+
+
+def get_top_size_indices(size_number: int) -> Dict[str, int]:
+    """
+    상의 사이즈 필드 컬럼 인덱스 반환
+
+    Args:
+        size_number: 사이즈 번호 (1-10)
+
+    Returns:
+        필드명 -> 컬럼 인덱스 딕셔너리
+    """
+    if not 1 <= size_number <= COL_TOP_SIZE_COUNT:
+        raise ValueError(f"size_number는 1-{COL_TOP_SIZE_COUNT} 범위여야 합니다")
+
+    base = COL_TOP_SIZE_START + (size_number - 1) * COL_TOP_SIZE_FIELDS_PER_SIZE
+    return {
+        "size_name": base + COL_TOP_SIZE_NAME_OFFSET,
+        "shoulder": base + COL_TOP_SHOULDER_OFFSET,
+        "chest": base + COL_TOP_CHEST_OFFSET,
+        "sleeve": base + COL_TOP_SLEEVE_OFFSET,
+        "length": base + COL_TOP_LENGTH_OFFSET,
+    }
+
+
+def get_bottom_size_indices(size_number: int) -> Dict[str, int]:
+    """
+    하의 사이즈 필드 컬럼 인덱스 반환
+
+    Args:
+        size_number: 사이즈 번호 (1-10)
+
+    Returns:
+        필드명 -> 컬럼 인덱스 딕셔너리
+    """
+    if not 1 <= size_number <= COL_BOTTOM_SIZE_COUNT:
+        raise ValueError(f"size_number는 1-{COL_BOTTOM_SIZE_COUNT} 범위여야 합니다")
+
+    base = COL_BOTTOM_SIZE_START + (size_number - 1) * COL_BOTTOM_SIZE_FIELDS_PER_SIZE
+    return {
+        "size_name": base + COL_BOTTOM_SIZE_NAME_OFFSET,
+        "waist": base + COL_BOTTOM_WAIST_OFFSET,
+        "hip": base + COL_BOTTOM_HIP_OFFSET,
+        "thigh": base + COL_BOTTOM_THIGH_OFFSET,
+        "hem": base + COL_BOTTOM_HEM_OFFSET,
+        "rise": base + COL_BOTTOM_RISE_OFFSET,
+    }

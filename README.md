@@ -2,20 +2,20 @@
 
 **제품 상세 페이지 생성 도구 플러그인 마켓플레이스**
 
-Version: 0.2.1
+Version: 0.2.2
 
 ---
 
 ## 📦 Available Plugins
 
-### pb-product-generator (v0.2.1)
+### pb-product-generator (v0.2.2)
 
 Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 - **완전 자동화 세팅**
 
-**✨ What's New in v0.2.1**:
-- 🐛 사이즈표 파싱 로직 버그 수정 (hem, sleeve_cuff, length 필드)
-- 📝 네임스페이스 접두사 추가 (모든 명령어)
-- 📚 GitHub 마켓플레이스 기반 워크플로우 문서화
+**✨ What's New in v0.2.2**:
+- 🐛 스크립트 경로 버그 수정 (CWD 기반으로 변경)
+- 📂 서비스 어카운트 및 출력 폴더가 프로젝트 폴더에 정상 저장
+- 🔧 .env 파일 자동 로드 추가
 
 **✨ v0.2.0 Features**:
 - 🎯 5분 완성 자동 세팅 (`/pb-product-generator:setup-from-private`)
@@ -188,6 +188,21 @@ pb2-plugins/                          # GitHub repository
 ---
 
 ## 📊 Version History
+
+### v0.2.2 (2025-10-19) - 🐛 Path Fix
+
+**Bug Fixes**:
+- ✅ 스크립트 경로를 CWD 기반으로 수정
+  - generate_batch.py: service_account, output 경로를 CWD 사용
+  - server.py: OUTPUT_DIR을 CWD 기반으로 변경
+  - .env 파일 자동 로드 추가 (python-dotenv)
+- ✅ 서비스 어카운트 파일이 프로젝트 폴더에서 정상 로드
+- ✅ 결과물이 프로젝트 폴더의 output/에 저장
+
+**Technical Changes**:
+- `Path(__file__).parent.parent` (플러그인 디렉토리) → `Path.cwd()` (현재 작업 디렉토리)
+- 기존: `~/.claude/plugins/.../service-account.json`
+- 수정: `{프로젝트 폴더}/credentials/service-account.json`
 
 ### v0.2.1 (2025-10-19) - 🐛 Bug Fixes
 
