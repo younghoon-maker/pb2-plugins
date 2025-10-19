@@ -26,15 +26,15 @@ from datetime import datetime
 from flask import Flask, send_file, jsonify, request
 from flask_cors import CORS
 
-# 프로젝트 루트
+# 프로젝트 루트 (모듈 임포트용)
 project_root = Path(__file__).parent.parent.resolve()
 
 # Flask 앱 초기화
 app = Flask(__name__)
 CORS(app)  # CORS 활성화 (브라우저 보안)
 
-# 출력 디렉토리
-OUTPUT_DIR = project_root / "output"
+# 출력 디렉토리 (CWD 기준)
+OUTPUT_DIR = Path.cwd() / "output"
 
 
 def get_latest_date_folder() -> Path:
