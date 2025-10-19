@@ -17,6 +17,7 @@ import re
 from pathlib import Path
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
+from googleapiclient.errors import HttpError
 
 # 프로젝트 루트를 sys.path에 추가 (모듈 임포트용)
 project_root = Path(__file__).parent.parent
@@ -2048,19 +2049,32 @@ def main():
     try:
         # 헤더 행 (1행) 건너뛰고 2행부터 스캔
         found_row_index = None
-        for row_index in range(2, 100):  # 최대 100개 행 검색
+        target_code_clean = target_product_code.strip()
+
+        for row_index in range(2, 1000):  # 최대 1000개 행 검색
             try:
                 row = loader.load_row(sheet_id, row_index)
-                if row and len(row) > 0 and row[0] == target_product_code:
-                    found_row_index = row_index
-                    print(f"✅ 제품 발견: {row_index}행")
+                if row and len(row) > 0:
+                    # 공백 제거 후 비교
+                    code = str(row[0]).strip()
+                    if code == target_code_clean:
+                        found_row_index = row_index
+                        print(f"✅ 제품 발견: {row_index}행 (코드: {code})")
+                        break
+            except HttpError as e:
+                # 400 에러는 범위 초과 (더 이상 행 없음)
+                if e.resp.status == 400:
                     break
-            except Exception:
-                # 더 이상 행이 없으면 중단
-                break
+                print(f"⚠️  Row {row_index} 스캔 실패 (HttpError): {e}")
+            except Exception as e:
+                # 기타 예외는 로그 출력 후 계속 진행
+                print(f"⚠️  Row {row_index} 예외 발생: {e}")
+                continue
 
         if found_row_index is None:
             print(f"❌ 제품 코드 '{target_product_code}'를 찾을 수 없습니다.")
+            print(f"   검색 범위: 2-999행")
+            print(f"   시트 탭: new_raw")
             sys.exit(1)
 
         # 찾은 행 데이터 로드

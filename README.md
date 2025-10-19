@@ -2,22 +2,22 @@
 
 **제품 상세 페이지 생성 도구 플러그인 마켓플레이스**
 
-Version: 0.2.4
+Version: 0.2.5
 
 ---
 
 ## 📦 Available Plugins
 
-### pb-product-generator (v0.2.4)
+### pb-product-generator (v0.2.5)
 
 Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 - **완전 자동화 세팅**
 
-**✨ What's New in v0.2.4**:
-- 🐛 **generate_editable_html.py 경로 버그 수정**
-  - Service account 경로를 CWD 기반으로 변경
-  - Output 디렉토리 경로를 CWD 기반으로 변경
-  - .env 파일 자동 로드 추가
-- ✅ `/pb-product-generator:generate` 커맨드 정상 작동
+**✨ What's New in v0.2.5**:
+- 🔍 **제품 코드 검색 로직 개선**
+  - 공백 처리 추가 (`.strip()`) - 정확한 매칭 보장
+  - 검색 범위 확장 (100행 → 1000행)
+  - 예외 처리 개선 - HttpError 분리, 디버그 메시지 추가
+- ✅ `/pb-product-generator:generate` 검색 안정성 향상
 
 **✨ v0.2.0 Features**:
 - 🎯 5분 완성 자동 세팅 (`/pb-product-generator:setup-from-private`)
@@ -190,6 +190,33 @@ pb2-plugins/                          # GitHub repository
 ---
 
 ## 📊 Version History
+
+### v0.2.5 (2025-10-19) - 🔍 Product Code Search Enhancement
+
+**Bug Fixes**:
+- ✅ 제품 코드 검색 로직 개선
+  - 공백 처리 추가: `.strip()` 사용으로 정확한 매칭 보장
+  - 검색 범위 확장: 100행 → 1000행
+  - 예외 처리 개선: HttpError와 일반 예외 분리, 디버그 메시지 추가
+- ✅ HttpError import 추가 (googleapiclient.errors)
+- ✅ 검색 실패 시 상세 정보 출력 (검색 범위, 탭 이름)
+
+**Technical Changes**:
+```python
+# Before: 정확한 문자열 매칭만
+if row[0] == target_product_code:
+
+# After: 공백 제거 후 비교
+code = str(row[0]).strip()
+if code == target_product_code.strip():
+```
+
+**영향받는 커맨드**:
+- `/pb-product-generator:generate` - 단일 제품 생성 ✅ 검색 안정성 향상
+
+**Root Cause**:
+- 시트 데이터에 공백이 포함된 경우 정확 매칭 실패
+- 예외 발생 시 디버깅 불가 (`except Exception: break`)
 
 ### v0.2.4 (2025-10-19) - 🐛 Single Product Script Path Fix
 
