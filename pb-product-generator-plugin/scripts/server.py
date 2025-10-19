@@ -33,8 +33,8 @@ project_root = Path(__file__).parent.parent.resolve()
 app = Flask(__name__)
 CORS(app)  # CORS 활성화 (브라우저 보안)
 
-# 출력 디렉토리 (현재 작업 디렉토리 기준)
-OUTPUT_DIR = Path(os.getcwd()) / "output"
+# 출력 디렉토리
+OUTPUT_DIR = project_root / "output"
 
 
 def get_latest_date_folder() -> Path:

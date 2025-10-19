@@ -1,6 +1,5 @@
 ---
 description: Google Sheets 데이터로 단일 제품 Editable HTML 생성
-tools: [Bash]
 ---
 
 # Generate Product Page
@@ -40,34 +39,13 @@ tools: [Bash]
 
 ## 필수 설정
 
-### 방법 1: PRIVATE_SETUP.md 사용 (권장)
-
-**프로젝트 폴더에서 한 번만 설정**:
-
-```bash
-# 1. 템플릿 복사
-cp ~/.claude/plugins/pb-product-generator/PRIVATE_SETUP.md.template ./PRIVATE_SETUP.md
-
-# 2. PRIVATE_SETUP.md 편집 (Service Account, Sheet ID 등)
-# 3. 자동 설정 실행
-~/.claude/plugins/pb-product-generator/setup.sh
-```
-
-**PRIVATE_SETUP.md 예시**:
-```
-SERVICE_ACCOUNT_FILE=credentials/service-account.json
-GOOGLE_SHEET_ID=your_google_sheet_id
-SHEET_TAB_NAME=new_raw
-```
-
-### 방법 2: 수동 설정
+커맨드 실행 전 다음 파일들이 준비되어 있어야 합니다:
 
 1. **Service Account 인증**: `credentials/service-account.json`
 2. **환경 변수**: `.env` 파일
    ```bash
    GOOGLE_SHEET_ID=your_google_sheet_id
    GOOGLE_SERVICE_ACCOUNT_FILE=credentials/service-account.json
-   SHEET_TAB_NAME=new_raw
    ```
 
 ## 에러 처리
@@ -78,17 +56,9 @@ SHEET_TAB_NAME=new_raw
 
 ## 구현
 
-현재 프로젝트 폴더의 `output/`에 HTML 파일을 생성합니다:
+이 커맨드는 플러그인 내부의 원본 Python 스크립트를 직접 실행합니다:
 
-```bash
-# 스크립트 경로 자동 탐지
-SCRIPT_PATH=$(find ~/.claude/plugins -name "generate_editable_html.py" -path "*/pb-product-generator*/scripts/*" | head -1)
-
-# 환경 변수 로드 및 실행
-GOOGLE_SERVICE_ACCOUNT_FILE="$PWD/credentials/service-account.json" \
-GOOGLE_SHEET_ID="$(grep GOOGLE_SHEET_ID .env 2>/dev/null | cut -d '=' -f2)" \
-SHEET_TAB_NAME="$(grep SHEET_TAB_NAME .env 2>/dev/null | cut -d '=' -f2 || echo 'new_raw')" \
-python3 "$SCRIPT_PATH" {product_code}
+```python
+# pb-product-generator-plugin/scripts/generate_editable_html.py
+python3 scripts/generate_editable_html.py {product_code}
 ```
-
-**참고**: 출력 파일은 현재 작업 디렉토리의 `output/` 폴더에 저장됩니다.

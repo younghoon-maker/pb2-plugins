@@ -6,41 +6,40 @@ Google Sheets 컬럼 인덱스 매핑 (294개)
 
 from typing import Dict, Tuple
 
-# 기본 정보 (0-3)
+# 기본 정보 (0-2)
 COL_PRODUCT_CODE = 0
 COL_PRODUCT_NAME = 1
 COL_MAIN_IMAGE = 2
-COL_PRODUCT_DESCRIPTION = 3  # 상품 설명
 
-# 색상 이미지 (4-9) - 6개 (+1 이동)
-COL_COLOR_IMAGE_START = 4
-COL_COLOR_IMAGE_END = 9  # inclusive
+# 색상 이미지 (3-8) - 6개
+COL_COLOR_IMAGE_START = 3
+COL_COLOR_IMAGE_END = 8  # inclusive
 
-# 색상 메타데이터 (10-21) - 6개 × 2필드 (+1 이동)
-COL_COLOR_NAME_START = 10
-COL_COLOR_NAME_STEP = 2  # 10, 12, 14, 16, 18, 20
-COL_COLOR_HEX_START = 11
-COL_COLOR_HEX_STEP = 2  # 11, 13, 15, 17, 19, 21
+# 색상 메타데이터 (9-20) - 6개 × 2필드
+COL_COLOR_NAME_START = 9
+COL_COLOR_NAME_STEP = 2  # 9, 11, 13, 15, 17, 19
+COL_COLOR_HEX_START = 10
+COL_COLOR_HEX_STEP = 2  # 10, 12, 14, 16, 18, 20
 
-# 갤러리 (22-117) - Color1-8 × 12개 = 96개 (+1 이동)
-COL_GALLERY_START = 22
-COL_GALLERY_END = 117  # inclusive
+# 갤러리 (21-116) - Color1-8 × 12개 = 96개
+COL_GALLERY_START = 21
+COL_GALLERY_END = 116  # inclusive
 COL_GALLERY_IMAGES_PER_COLOR = 12
 COL_GALLERY_TOTAL_COLORS = 8
 
-# 포인트 (118-123) - 3개 × 2필드 (+1 이동)
-COL_DETAIL_POINT_START = 118
-COL_DETAIL_POINT_IMAGE_STEP = 2  # 118, 120, 122
-COL_DETAIL_POINT_TEXT_STEP = 2  # 119, 121, 123
+# 포인트 (117-122) - 3개 × 2필드
+COL_DETAIL_POINT_START = 117
+COL_DETAIL_POINT_IMAGE_STEP = 2  # 117, 119, 121
+COL_DETAIL_POINT_TEXT_STEP = 2  # 118, 120, 122
 COL_DETAIL_POINT_COUNT = 3
 
-# 소재 정보 (124-126) (+1 이동)
-COL_FABRIC_IMAGE = 124
-COL_FABRIC_COMPOSITION = 125
-COL_FABRIC_CARE = 126
+# 소재 정보 (123-125)
+COL_FABRIC_IMAGE = 123
+COL_FABRIC_COMPOSITION = 124
+COL_FABRIC_CARE = 125
 
-# 체크포인트 (127) - 이미지 삭제됨
-# COL_CHECKPOINT_IMAGE = 126  # 삭제됨
+# 체크포인트 (126-127)
+COL_CHECKPOINT_IMAGE = 126
 COL_CHECKPOINT_TEXT = 127
 
 # 모델 정보 (128-133) - 2개 × 3필드 (이미지, 신장, 사이즈)
@@ -88,7 +87,7 @@ def get_color_image_index(color_number: int) -> int:
         color_number: 색상 번호 (1-6)
 
     Returns:
-        컬럼 인덱스 (4부터 시작, D 컬럼 추가로 +1 이동)
+        컬럼 인덱스
     """
     if not 1 <= color_number <= 6:
         raise ValueError("color_number는 1-6 범위여야 합니다")
@@ -179,9 +178,7 @@ def get_top_size_indices(size_number: int) -> Dict[str, int]:
         "size_name": base + COL_TOP_SIZE_NAME_OFFSET,
         "shoulder": base + COL_TOP_SHOULDER_OFFSET,
         "chest": base + COL_TOP_CHEST_OFFSET,
-        "hem": base + COL_TOP_HEM_OFFSET,
         "sleeve": base + COL_TOP_SLEEVE_OFFSET,
-        "sleeve_cuff": base + COL_TOP_SLEEVE_CUFF_OFFSET,
         "length": base + COL_TOP_LENGTH_OFFSET,
     }
 
@@ -207,5 +204,4 @@ def get_bottom_size_indices(size_number: int) -> Dict[str, int]:
         "thigh": base + COL_BOTTOM_THIGH_OFFSET,
         "hem": base + COL_BOTTOM_HEM_OFFSET,
         "rise": base + COL_BOTTOM_RISE_OFFSET,
-        "length": base + COL_BOTTOM_LENGTH_OFFSET,
     }

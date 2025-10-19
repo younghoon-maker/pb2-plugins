@@ -1,6 +1,5 @@
 ---
 description: Flask 편집 서버 실행 (Port 5001)
-tools: [Bash]
 ---
 
 # Start Edit Server
@@ -72,34 +71,14 @@ FLASK_PORT=5002
 - **파일 없음**: `No editable files found`
   → `/generate` 또는 `/batch-generate`로 먼저 파일 생성
 
-## 필수 설정
-
-### PRIVATE_SETUP.md 사용 (권장)
-
-서버 실행 전 프로젝트 폴더에서 설정 완료:
-
-```bash
-# 1. 템플릿 복사
-cp ~/.claude/plugins/pb-product-generator/PRIVATE_SETUP.md.template ./PRIVATE_SETUP.md
-
-# 2. PRIVATE_SETUP.md 편집 (Service Account, Sheet ID 등)
-# 3. 자동 설정 실행
-~/.claude/plugins/pb-product-generator/setup.sh
-```
-
-자세한 설정 방법은 `/generate` 커맨드 문서 참조.
-
 ## 구현
 
-현재 프로젝트 폴더의 `output/` 디렉토리를 기준으로 서버를 실행합니다:
+이 커맨드는 플러그인 내부의 원본 Flask 서버 스크립트를 직접 실행합니다:
 
-```bash
-python3 ~/.claude/plugins/pb-product-generator/scripts/server.py
+```python
+# pb-product-generator-plugin/scripts/server.py
+python3 scripts/server.py
 ```
-
-**참고**:
-- 서버는 현재 작업 디렉토리의 `output/` 폴더를 스캔하여 Editable HTML을 제공합니다.
-- 익스포트 파일도 현재 작업 디렉토리의 `output/{YYYYMMDD}/export/`에 저장됩니다.
 
 ## 서버 종료
 
