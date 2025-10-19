@@ -2,20 +2,22 @@
 
 **제품 상세 페이지 생성 도구 플러그인 마켓플레이스**
 
-Version: 0.2.2
+Version: 0.2.3
 
 ---
 
 ## 📦 Available Plugins
 
-### pb-product-generator (v0.2.2)
+### pb-product-generator (v0.2.3)
 
 Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 - **완전 자동화 세팅**
 
-**✨ What's New in v0.2.2**:
-- 🐛 스크립트 경로 버그 수정 (CWD 기반으로 변경)
-- 📂 서비스 어카운트 및 출력 폴더가 프로젝트 폴더에 정상 저장
-- 🔧 .env 파일 자동 로드 추가
+**✨ What's New in v0.2.3**:
+- 🐛 **사이즈 테이블 버그 수정**: Pydantic 모델에 누락된 필드 추가
+  - TopSize에 `hem`, `sleeve_cuff` 필드 추가
+  - BottomSize에 `length` 필드 추가
+  - 모든 측정값을 Optional로 변경 (size_name 제외)
+- ✅ product_builder.py 파서와 완벽 정렬
 
 **✨ v0.2.0 Features**:
 - 🎯 5분 완성 자동 세팅 (`/pb-product-generator:setup-from-private`)
@@ -188,6 +190,22 @@ pb2-plugins/                          # GitHub repository
 ---
 
 ## 📊 Version History
+
+### v0.2.3 (2025-10-19) - 🐛 Size Table Fix
+
+**Bug Fixes**:
+- ✅ Pydantic 모델에 누락된 사이즈 필드 추가
+  - TopSize: `hem`, `sleeve_cuff` 필드 추가
+  - BottomSize: `length` 필드 추가
+- ✅ 모든 측정값을 Optional로 변경 (size_name만 필수)
+  - 시트 데이터 부분 누락 시에도 정상 처리
+  - Pydantic 검증 에러 방지
+- ✅ product_builder.py 파서와 완벽 정렬
+
+**Technical Changes**:
+- `TopSize` 모델: 4개 필드 → 7개 필드 (hem, sleeve_cuff 추가)
+- `BottomSize` 모델: 6개 필드 → 7개 필드 (length 추가)
+- 모든 측정값: `Field(..., gt=0)` → `Field(None, gt=0)`
 
 ### v0.2.2 (2025-10-19) - 🐛 Path Fix
 

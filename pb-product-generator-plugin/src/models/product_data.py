@@ -60,21 +60,24 @@ class TopSize(BaseModel):
     """상의 사이즈"""
 
     size_name: str = Field(..., min_length=1, description="사이즈명 (S, M, L 등)")
-    chest: float = Field(..., gt=0, description="가슴 둘레 (cm)")
-    shoulder: float = Field(..., gt=0, description="어깨 너비 (cm)")
-    sleeve: float = Field(..., gt=0, description="소매 길이 (cm)")
-    length: float = Field(..., gt=0, description="총장 (cm)")
+    shoulder: Optional[float] = Field(None, gt=0, description="어깨 너비 (cm)")
+    chest: Optional[float] = Field(None, gt=0, description="가슴 둘레 (cm)")
+    hem: Optional[float] = Field(None, gt=0, description="밑단 둘레 (cm)")
+    sleeve: Optional[float] = Field(None, gt=0, description="소매 길이 (cm)")
+    sleeve_cuff: Optional[float] = Field(None, gt=0, description="소매통 (cm)")
+    length: Optional[float] = Field(None, gt=0, description="총장 (cm)")
 
 
 class BottomSize(BaseModel):
     """하의 사이즈"""
 
     size_name: str = Field(..., min_length=1, description="사이즈명 (S, M, L 등)")
-    waist: float = Field(..., gt=0, description="허리 둘레 (cm)")
-    hip: float = Field(..., gt=0, description="엉덩이 둘레 (cm)")
-    thigh: float = Field(..., gt=0, description="허벅지 둘레 (cm)")
-    rise: float = Field(..., gt=0, description="밑위 (cm)")
-    hem: float = Field(..., gt=0, description="밑단 둘레 (cm)")
+    waist: Optional[float] = Field(None, gt=0, description="허리 둘레 (cm)")
+    hip: Optional[float] = Field(None, gt=0, description="엉덩이 둘레 (cm)")
+    thigh: Optional[float] = Field(None, gt=0, description="허벅지 둘레 (cm)")
+    hem: Optional[float] = Field(None, gt=0, description="밑단 둘레 (cm)")
+    rise: Optional[float] = Field(None, gt=0, description="밑위 (cm)")
+    length: Optional[float] = Field(None, gt=0, description="총장 (cm)")
 
 
 class SizeInfo(BaseModel):
