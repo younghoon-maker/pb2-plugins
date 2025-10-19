@@ -6,8 +6,8 @@
     "name": "PB Product Team",
     "email": "pb-team@company.com"
   },
-  "homepage": "https://github.com/your-org/pb-plugins",
-  "repository": "https://github.com/your-org/pb-plugins",
+  "homepage": "https://github.com/younghoon-maker/pb2-plugins",
+  "repository": "https://github.com/younghoon-maker/pb2-plugins",
   "license": "MIT",
   "keywords": [
     "product-page",
@@ -18,7 +18,11 @@
     "jinja2",
     "flask"
   ],
-  "category": "productivity",
-  "commands": "./commands",
-  "agents": "./agents"
+  "commands": [
+    "./commands/generate.md",
+    "./commands/batch.md",
+    "./commands/server.md",
+    "./commands/setup-from-private.md"
+  ],
+  "agents": "./agents/product-builder.md"
 }
