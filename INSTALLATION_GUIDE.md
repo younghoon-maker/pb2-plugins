@@ -1,11 +1,11 @@
 # 📦 PB Product Generator - 설치 가이드
 
-**Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 v0.2.0**
+**Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 v0.2.1**
 
-> **⏱️ 총 소요 시간: 10분**
-> - Phase 1: GitHub 설치 (2분)
-> - Phase 2: 자동 세팅 (5분)
-> - Phase 3: 기능 테스트 (3분)
+> **⏱️ 총 소요 시간: 5분**
+> - 마켓플레이스 추가 및 플러그인 설치 (1분)
+> - Claude 재시작 (1분)
+> - 자동 세팅 실행 (3분)
 
 ---
 
@@ -18,181 +18,122 @@
 
 ---
 
-## 🚀 Phase 1: GitHub 기반 설치 (2분)
+## 🚀 Installation Steps
 
-### Step 1.1: 마켓플레이스 추가
+### Step 1: 마켓플레이스 추가
 
-Claude Code를 실행하고 다음 명령어 중 하나를 입력하세요:
+Claude Code를 실행하고 다음 명령어를 입력하세요:
 
 ```bash
-# 방법 1: GitHub 사용자명/저장소명 (권장)
 /plugin marketplace add younghoon-maker/pb2-plugins
-
-# 방법 2: 전체 HTTPS URL
-/plugin marketplace add https://github.com/younghoon-maker/pb2-plugins
-
-# 방법 3: Git URL
-/plugin marketplace add git@github.com:younghoon-maker/pb2-plugins.git
 ```
 
 **예상 결과**:
 ```
-✅ Marketplace "pb2-marketplace" added successfully
-📦 Available plugins: pb-product-generator (v0.2.0)
+✅ Marketplace "pb2-plugins" added successfully
+📦 Available plugins: pb-product-generator (v0.2.1)
 ```
 
-### Step 1.2: 플러그인 설치
+### Step 2: 플러그인 설치
 
 ```bash
-/plugin install pb-product-generator@pb2-marketplace
+/plugin install pb-product-generator@pb2-plugins
 ```
 
 **예상 결과**:
 ```
-✅ Plugin "pb-product-generator" (v0.2.0) installed successfully
-📁 Location: ~/.claude/plugins/pb-product-generator/
+✅ Plugin "pb-product-generator" (v0.2.1) installed successfully
 ```
 
-**설치 위치 확인**:
-```bash
-# macOS/Linux
-ls -la ~/.claude/plugins/pb-product-generator/
+### Step 3: Claude 재시작
 
-# Windows
-dir %USERPROFILE%\.claude\plugins\pb-product-generator\
-```
-
----
-
-## 🔧 Phase 2: 자동 세팅 (5분)
-
-### Step 2.1: 플러그인 디렉토리로 이동
+**⚠️ 중요**: 플러그인이 제대로 로드되려면 Claude를 재시작해야 합니다.
 
 ```bash
-cd ~/.claude/plugins/pb-product-generator/
+/quit
 ```
 
-### Step 2.2: PRIVATE_SETUP.md 파일 준비
+그리고 터미널에서 다시 시작:
+```bash
+claude
+```
 
-**⚠️ 중요**: 이 파일은 Git에 포함되어 있지 않습니다. 팀에서 Slack/이메일로 전달받은 **PRIVATE_SETUP.md**를 준비하세요.
+### Step 4: PRIVATE_SETUP.md 파일 복사
 
-**PRIVATE_SETUP.md 파일 위치**:
+**⚠️ 중요**: 팀에서 전달받은 PRIVATE_SETUP.md 파일을 **Claude를 실행하는 프로젝트 폴더**에 복사하세요.
+
+```bash
+# 예시: Downloads에서 현재 프로젝트 폴더로 복사
+cp ~/Downloads/PRIVATE_SETUP.md .
+```
+
+**PRIVATE_SETUP.md 위치**:
 - 팀 Slack 채널: #pb-product-generator
 - 또는 이메일로 전달받은 첨부 파일
 
 **파일에 포함된 내용**:
 - ✅ 서비스 어카운트 JSON (Google Sheets 접근 인증)
 - ✅ Google Sheet ID 및 탭 이름
-- ✅ 자동 세팅 상세 가이드
+- ✅ 자동 세팅 가이드
 
-### Step 2.3: 서비스 어카운트 JSON 생성
-
-PRIVATE_SETUP.md의 **Step 2.2** 섹션을 참고하여 서비스 어카운트 JSON을 생성하세요:
+### Step 5: 자동 세팅 실행
 
 ```bash
-# PRIVATE_SETUP.md에서 서비스 어카운트 JSON 복사
-mkdir -p credentials
-cat > credentials/service-account.json << 'EOF'
-{
-  # PRIVATE_SETUP.md의 JSON 내용을 여기에 붙여넣기
-}
-EOF
+/pb-product-generator:setup-from-private
 ```
 
-**또는 수동으로 생성**:
-1. `credentials/` 폴더 생성: `mkdir -p credentials`
-2. 텍스트 에디터로 `credentials/service-account.json` 파일 생성
-3. PRIVATE_SETUP.md에서 JSON 내용 복사/붙여넣기
-
-### Step 2.4: 자동 세팅 스크립트 실행
-
-```bash
-bash setup.sh
-```
-
-**스크립트가 자동으로 처리하는 작업**:
-1. ✅ `credentials/` 폴더 확인/생성
-2. ✅ `.env` 파일 자동 생성 (Sheet ID, 탭 이름 하드코딩)
-3. ✅ Python 의존성 자동 설치 (`requirements.txt`)
-4. ✅ 스크립트 실행 권한 설정
+**자동으로 처리되는 작업**:
+1. ✅ PRIVATE_SETUP.md 파일 읽기
+2. ✅ Service Account JSON 추출
+3. ✅ `credentials/` 폴더 생성
+4. ✅ `service-account.json` 파일 생성
+5. ✅ `.env` 파일 생성 (Sheet ID, 탭 이름 자동 설정)
+6. ✅ Python 의존성 설치
 
 **예상 출력**:
 ```
-🔍 Step 1: Environment Check
-✅ credentials/ directory exists
-✅ Service Account file found
+🚀 PB Product Generator - Automatic Setup
+==================================================
 
-🔧 Step 2: Environment Configuration
-✅ .env file created
+✅ Found PRIVATE_SETUP.md
+📋 Parsing PRIVATE_SETUP.md...
+   ✓ Service Account: test-account-n8n@damoa-fb351.iam.gserviceaccount.com
+   ✓ Sheet ID: 1ipkHdYdQhIAfUBkNUWHkFqcgP0aOXLVO14MYXWscEPk
 
-📦 Step 3: Python Dependencies
-✅ Installing dependencies...
-✅ All dependencies installed successfully
+📁 Creating credentials directory...
+🔐 Writing Service Account JSON...
+⚙️  Writing .env file...
+📦 Installing Python dependencies...
 
-✅ Setup Complete! Ready to use.
+✅ Setup completed successfully!
 
 You can now use:
-  /generate VD25FPT003
-  /batch-generate VD25FPT003 VD25FPT005
-  /start-server
+  /pb-product-generator:generate VD25FPT003
+  /pb-product-generator:batch VD25FPT003 VD25FPT005
+  /pb-product-generator:server
 ```
 
----
+### Step 6: Google Sheets 권한 설정
 
-## 🎯 Phase 3: 기능 테스트 (3분)
+Google Sheets에 Service Account 이메일을 공유해야 합니다:
 
-### Step 3.1: 단일 제품 생성 테스트
+1. Google Sheets 열기: https://docs.google.com/spreadsheets/d/1ipkHdYdQhIAfUBkNUWHkFqcgP0aOXLVO14MYXWscEPk/edit
+2. 공유 버튼 클릭
+3. Service Account 이메일 추가: `test-account-n8n@damoa-fb351.iam.gserviceaccount.com`
+4. 권한: **뷰어** 선택
+5. 보내기 클릭
 
-Claude Code로 돌아와서 다음 명령어를 실행하세요:
+### Step 7: 테스트 실행
 
 ```bash
-/generate VD25FPT003
+/pb-product-generator:generate VD25FPT003
 ```
 
 **예상 결과**:
 ```
 ✅ Successfully loaded 1 products
-✅ Generated: output/20251018/editable/VD25FPT003_editable_v4.html (70 MB)
-
-🎨 Features:
-- Image crop/zoom editor (Pan X/Y: -50~+50, Zoom: 100~500%)
-- Text editing (contenteditable - 모든 텍스트 편집 가능)
-- Page zoom (30-100%, 기본 60%)
-- HTML/JPG download (Export 기능)
+✅ Generated: output/20251019/editable/VD25FPT003_editable_v4.html (70 MB)
 ```
-
-### Step 3.2: 결과물 확인
-
-```bash
-# 생성된 파일 확인
-ls -lh ~/.claude/plugins/pb-product-generator/output/*/editable/*.html
-
-# 브라우저에서 열기 (macOS)
-open ~/.claude/plugins/pb-product-generator/output/20251018/editable/VD25FPT003_editable_v4.html
-
-# 브라우저에서 열기 (Linux)
-xdg-open ~/.claude/plugins/pb-product-generator/output/20251018/editable/VD25FPT003_editable_v4.html
-
-# 브라우저에서 열기 (Windows)
-start %USERPROFILE%\.claude\plugins\pb-product-generator\output\20251018\editable\VD25FPT003_editable_v4.html
-```
-
-### Step 3.3: Flask 편집 서버 테스트 (선택적)
-
-```bash
-/start-server
-```
-
-**예상 결과**:
-```
-🚀 Flask server starting on port 5001...
-✅ Server running at http://localhost:5001
-🌐 Opening browser...
-```
-
-**브라우저 자동 실행**: http://localhost:5001
-- 생성된 모든 Editable HTML 파일 목록 표시
-- 이미지 편집 및 HTML/JPG 익스포트 기능 사용
 
 ---
 
@@ -200,9 +141,10 @@ start %USERPROFILE%\.claude\plugins\pb-product-generator\output\20251018\editabl
 
 | 커맨드 | 설명 | 예시 |
 |--------|------|------|
-| `/generate` | 단일 제품 HTML 생성 | `/generate VD25FPT003` |
-| `/batch-generate` | 여러 제품 배치 생성 | `/batch-generate VD25FPT003 VD25FPT005 VD25FCA004` |
-| `/start-server` | Flask 편집 서버 실행 | `/start-server` |
+| `/pb-product-generator:generate` | 단일 제품 HTML 생성 | `/pb-product-generator:generate VD25FPT003` |
+| `/pb-product-generator:batch` | 여러 제품 배치 생성 | `/pb-product-generator:batch VD25FPT003 VD25FPT005 VD25FCA004` |
+| `/pb-product-generator:server` | Flask 편집 서버 실행 | `/pb-product-generator:server` |
+| `/pb-product-generator:setup-from-private` | 자동 세팅 | `/pb-product-generator:setup-from-private` |
 
 ### 에이전트 사용
 
@@ -336,18 +278,18 @@ taskkill /PID <PID> /F
 
 ### 1. 추가 제품 생성
 ```bash
-/generate VD25FPT005
-/generate VD25FCA004
+/pb-product-generator:generate VD25FPT005
+/pb-product-generator:generate VD25FCA004
 ```
 
 ### 2. 배치 생성
 ```bash
-/batch-generate VD25FPT003 VD25FPT005 VD25FCA004
+/pb-product-generator:batch VD25FPT003 VD25FPT005 VD25FCA004
 ```
 
 ### 3. Flask 서버로 편집
 ```bash
-/start-server
+/pb-product-generator:server
 # http://localhost:5001에서 이미지 편집 및 익스포트
 ```
 
@@ -369,8 +311,8 @@ taskkill /PID <PID> /F
 
 ---
 
-**Version**: 0.2.0
-**Last Updated**: 2025-10-18
+**Version**: 0.2.1
+**Last Updated**: 2025-10-19
 **Repository**: https://github.com/younghoon-maker/pb2-plugins
 
 **Happy Generating! 🎨**

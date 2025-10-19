@@ -2,18 +2,23 @@
 
 **제품 상세 페이지 생성 도구 플러그인 마켓플레이스**
 
-Version: 0.2.0
+Version: 0.2.1
 
 ---
 
 ## 📦 Available Plugins
 
-### pb-product-generator (v0.2.0)
+### pb-product-generator (v0.2.1)
 
 Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 - **완전 자동화 세팅**
 
-**✨ What's New in v0.2.0**:
-- 🎯 5분 완성 자동 세팅 (setup.sh)
+**✨ What's New in v0.2.1**:
+- 🐛 사이즈표 파싱 로직 버그 수정 (hem, sleeve_cuff, length 필드)
+- 📝 네임스페이스 접두사 추가 (모든 명령어)
+- 📚 GitHub 마켓플레이스 기반 워크플로우 문서화
+
+**✨ v0.2.0 Features**:
+- 🎯 5분 완성 자동 세팅 (`/pb-product-generator:setup-from-private`)
 - 🏗️ 원본 코드 직접 포함 (2116 lines)
 - 📊 70MB 고품질 출력 보장
 - 🔐 PRIVATE_SETUP.md (서비스 어카운트 JSON 포함)
@@ -24,10 +29,11 @@ Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 - **�
 - 🚀 Flask 편집 서버 (Port 5001)
 - 📊 배치 생성 지원
 
-**Commands**:
-- `/generate {product_code}` - 단일 제품 생성
-- `/batch-generate {code1} {code2} ...` - 배치 생성
-- `/start-server` - Flask 편집 서버 실행
+**Commands** (네임스페이스 접두사 필수):
+- `/pb-product-generator:generate {product_code}` - 단일 제품 생성
+- `/pb-product-generator:batch {code1} {code2} ...` - 배치 생성
+- `/pb-product-generator:server` - Flask 편집 서버 실행
+- `/pb-product-generator:setup-from-private` - 자동 세팅
 
 **Agent**:
 - `@agent-product-builder` - 제품 페이지 생성 전문 에이전트
@@ -36,33 +42,27 @@ Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 - **�
 
 ## 🚀 Installation
 
-### Quick Start (GitHub에서 직접 설치)
+### Quick Start (5분)
 
 ```bash
-# Claude Code에서 실행
+# Step 1: 마켓플레이스 추가
 /plugin marketplace add younghoon-maker/pb2-plugins
 
-# 또는 HTTPS URL
-/plugin marketplace add https://github.com/younghoon-maker/pb2-plugins
+# Step 2: 플러그인 설치
+/plugin install pb-product-generator@pb2-plugins
 
-# 플러그인 설치
-/plugin install pb-product-generator
-```
+# Step 3: Claude 재시작
+/quit
+claude
 
-### 자동 세팅 (5분)
+# Step 4: PRIVATE_SETUP.md를 관리자로부터 받아 프로젝트 폴더에 복사
+# (중요: Claude를 실행하는 프로젝트 폴더에 복사)
 
-```bash
-# 플러그인 디렉토리로 이동
-cd ~/.claude/plugins/pb-product-generator/
+# Step 5: 자동 세팅 실행
+/pb-product-generator:setup-from-private
 
-# PRIVATE_SETUP.md 열어서 서비스 어카운트 JSON 복사
-# (팀 슬랙/이메일로 전달받은 파일)
-
-# 자동 세팅 스크립트 실행
-bash setup.sh
-
-# Claude Code로 돌아와서
-/generate VD25FPT003
+# Step 6: 사용
+/pb-product-generator:generate VD25FPT003
 ```
 
 ---
@@ -95,17 +95,17 @@ bash setup.sh
 
 #### 1. 단일 제품 생성
 ```bash
-/generate VD25FPT003
+/pb-product-generator:generate VD25FPT003
 ```
 
 #### 2. 배치 생성
 ```bash
-/batch-generate VD25FPT003 VD25FPT005 VD25FCA004
+/pb-product-generator:batch VD25FPT003 VD25FPT005 VD25FCA004
 ```
 
 #### 3. Flask 서버
 ```bash
-/start-server
+/pb-product-generator:server
 # http://localhost:5001 자동 실행
 ```
 
@@ -188,6 +188,22 @@ pb2-plugins/                          # GitHub repository
 ---
 
 ## 📊 Version History
+
+### v0.2.1 (2025-10-19) - 🐛 Bug Fixes
+
+**Bug Fixes**:
+- ✅ 사이즈표 파싱 로직 버그 수정
+  - _parse_top_sizes(): hem, sleeve_cuff 필드 추가
+  - _parse_bottom_sizes(): length 필드 추가
+  - safe_float() 헬퍼 함수 도입
+  - 검증 로직 개선 (size_name만 필수)
+- ✅ product_description 필드 볼드 서식 지원
+- ✅ column_mapping.py 인덱스 보정 (+1 shift)
+
+**Documentation**:
+- ✅ 네임스페이스 접두사 추가 (`/pb-product-generator:*`)
+- ✅ GitHub 마켓플레이스 URL 업데이트
+- ✅ 사용자 프로젝트 폴더 기반 워크플로우 문서화
 
 ### v0.2.0 (2025-10-18) - 🎯 Complete Automation
 
