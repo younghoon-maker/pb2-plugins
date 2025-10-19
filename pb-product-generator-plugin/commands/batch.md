@@ -17,26 +17,26 @@ description: 여러 제품을 한 번에 배치 생성
 
 ### 기본: 수동 입력
 ```bash
-/batch-generate {product_code1} {product_code2} {product_code3} ...
+/pb-product-generator:batch {product_code1} {product_code2} {product_code3} ...
 ```
 
 **예시**:
 ```bash
-/batch-generate VD25FTS002 VD25FPT003 VD25FCA004
+/pb-product-generator:batch VD25FTS002 VD25FPT003 VD25FCA004
 ```
 
 ### 전체 제품 생성
 Google Sheets A열의 모든 제품 코드를 자동으로 감지하여 생성:
 ```bash
-/batch-generate --all
+/pb-product-generator:batch --all
 ```
 
 ### 필터링 생성
 특정 패턴과 매칭되는 제품만 생성 (대소문자 무시):
 ```bash
-/batch-generate --filter=FTS      # FTS 포함하는 제품만
-/batch-generate --filter=VD25     # VD25 포함하는 제품만
-/batch-generate --filter=FPT003   # FPT003 포함하는 제품만
+/pb-product-generator:batch --filter=FTS      # FTS 포함하는 제품만
+/pb-product-generator:batch --filter=VD25     # VD25 포함하는 제품만
+/pb-product-generator:batch --filter=FPT003   # FPT003 포함하는 제품만
 ```
 
 ## 출력

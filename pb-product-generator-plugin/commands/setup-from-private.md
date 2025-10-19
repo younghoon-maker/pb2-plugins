@@ -21,7 +21,7 @@ PRIVATE_SETUP.md 파일을 읽어서 자동으로 전체 환경을 설정합니�
 **프로젝트 폴더에 PRIVATE_SETUP.md 파일이 있어야 합니다**:
 
 ```bash
-/setup-from-private
+/pb-product-generator:setup-from-private
 ```
 
 ## 출력
@@ -56,9 +56,9 @@ PRIVATE_SETUP.md 파일을 읽어서 자동으로 전체 환경을 설정합니�
 ✅ Setup completed successfully!
 
 You can now use:
-  /generate VD25FPT003
-  /batch-generate VD25FPT003 VD25FPT005
-  /start-server
+  /pb-product-generator:generate VD25FPT003
+  /pb-product-generator:batch VD25FPT003 VD25FPT005
+  /pb-product-generator:server
 ```
 
 ## PRIVATE_SETUP.md 형식
@@ -178,17 +178,17 @@ GOOGLE_SHEET_ID=1ipkHdYdQhIAfUBkNUWHkFqcgP0aOXLVO14MYXWscEPk
 
 1. **제품 생성 테스트**:
    ```bash
-   /generate VD25FPT003
+   /pb-product-generator:generate VD25FPT003
    ```
 
 2. **서버 실행**:
    ```bash
-   /start-server
+   /pb-product-generator:server
    ```
 
 3. **배치 생성**:
    ```bash
-   /batch-generate VD25FPT003 VD25FPT005 VD25FCA004
+   /pb-product-generator:batch VD25FPT003 VD25FPT005 VD25FCA004
    ```
 
 ## 구현

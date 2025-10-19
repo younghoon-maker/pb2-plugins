@@ -16,12 +16,12 @@ description: Google Sheets 데이터로 단일 제품 Editable HTML 생성
 ## 사용법
 
 ```bash
-/generate {product_code}
+/pb-product-generator:generate {product_code}
 ```
 
 **예시**:
 ```bash
-/generate VD25FTS002
+/pb-product-generator:generate VD25FTS002
 ```
 
 ## 출력

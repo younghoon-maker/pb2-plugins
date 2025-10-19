@@ -16,7 +16,7 @@ Editable HTML 파일 목록 제공 및 HTML/JPG 익스포트 기능을 제공하
 ## 사용법
 
 ```bash
-/start-server
+/pb-product-generator:server
 ```
 
 **브라우저 자동 실행**:
@@ -69,7 +69,7 @@ FLASK_PORT=5002
   ```
 
 - **파일 없음**: `No editable files found`
-  → `/generate` 또는 `/batch-generate`로 먼저 파일 생성
+  → `/pb-product-generator:generate` 또는 `/pb-product-generator:batch`로 먼저 파일 생성
 
 ## 구현
 
