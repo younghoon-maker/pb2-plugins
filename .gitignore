@@ -72,3 +72,7 @@ debug_*.html
 # Backup Files
 *.backup
 *.backup2
+
+# Deployment Archives
+pb_pb2_deploy*.zip
+pb_pb2_deploy*/
