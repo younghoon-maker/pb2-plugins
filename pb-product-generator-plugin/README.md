@@ -2,9 +2,18 @@
 
 **Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 - 완전 자동화 세팅**
 
-Version: 1.0.2
+Version: 1.0.3
 
 ---
+
+## ✨ What's New in v1.0.3
+
+✨ **New Features**
+- `/pb-product-generator:cleanup` 커맨드 추가 - 자동 output 폴더 정리
+- 날짜 기반 정리 (--days N): N일 이전 파일 자동 삭제
+- 크기 기반 정리 (--max-size MB): 폴더 크기 제한
+- 통계 표시 (--stats): 용량 및 파일 현황 확인
+- Dry-run 모드: 삭제 전 시뮬레이션
 
 ## ✨ What's New in v1.0.2
 

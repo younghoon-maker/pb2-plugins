@@ -1,6 +1,6 @@
 {
   "name": "pb-product-generator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Google Sheets 292컬럼 기반 제품 상세 페이지 생성기 - Editable HTML V4",
   "author": {
     "name": "PB Product Team",
@@ -23,7 +23,8 @@
     "./commands/generate.md",
     "./commands/batch.md",
     "./commands/server.md",
-    "./commands/setup-from-private.md"
+    "./commands/setup-from-private.md",
+    "./commands/cleanup.md"
   ],
   "agents": "./agents/product-builder.md"
 }

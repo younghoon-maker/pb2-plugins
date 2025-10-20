@@ -5,6 +5,35 @@ All notable changes to the pb-product-generator plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.3] - 2025-10-20
+
+### ✨ Added
+- **cleanup 커맨드 추가** - output 폴더 자동 정리 기능
+  - `/pb-product-generator:cleanup --stats`: 용량 및 파일 통계 표시
+  - `/pb-product-generator:cleanup --days N`: N일 이전 파일 자동 삭제
+  - `/pb-product-generator:cleanup --max-size MB`: 폴더 크기 제한
+  - `/pb-product-generator:cleanup --all`: 전체 삭제 (확인 필요)
+  - `--dry-run` 모드: 실제 삭제 전 시뮬레이션
+
+### 📦 Files Changed
+- `scripts/cleanup.py`: 정리 스크립트 (230 lines)
+- `commands/cleanup.md`: 커맨드 문서
+- `.claude-plugin/plugin.json`: cleanup 커맨드 등록
+
+### 🎯 Use Cases
+- **용량 관리**: output 폴더가 수백 MB 이상일 때 자동 정리
+- **주기적 유지보수**: 오래된 파일 자동 삭제 (예: 7일 이전)
+- **크기 제한**: 최대 크기 설정 (예: 500MB)
+- **통계 확인**: 현재 용량 및 파일 현황 파악
+
+### 🔧 Technical Details
+- 날짜별 폴더 (YYYYMMDD) 기반 정리
+- 파일 수정 시간 기준 정렬
+- 크기 계산 및 포맷팅 (KB/MB/GB)
+- 안전한 삭제 (dry-run, 사용자 확인)
+
+---
+
 ## [1.0.2] - 2025-10-20
 
 ### 🐛 Fixed
