@@ -6,8 +6,8 @@ DANA&PETA Page Builder Configuration
 import os
 from pathlib import Path
 
-# Project root directory
-PROJECT_ROOT = Path(__file__).parent.parent
+# Project root directory (current working directory)
+PROJECT_ROOT = Path.cwd()
 
 # Google Sheets Configuration
 SHEET_ID = "1m1f784rij74eSpuHOEOqbAzQu97ZenfLa3QuO-Egjxk"  # DANA&PETA Products Sheet

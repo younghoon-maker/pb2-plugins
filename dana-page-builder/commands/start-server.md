@@ -128,7 +128,8 @@ output/날짜/익스포트/
 이 커맨드는 다음 Python 스크립트를 실행합니다:
 
 ```bash
-cd /Users/younghoonjung/ai-project/pb_pb2_new_page/dana-page-builder
+PLUGIN_DIR="$HOME/.claude/plugins/marketplaces/pb2-marketplace/dana-page-builder"
+cd "$PLUGIN_DIR"
 python3 scripts/server.py
 ```
 

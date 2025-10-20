@@ -89,13 +89,13 @@ Google Sheets에서 여러 제품 데이터를 한 번에 로드하여 Editable 
 이 커맨드는 다음 Python 스크립트를 실행합니다:
 
 ```bash
-cd /Users/younghoonjung/ai-project/pb_pb2_new_page/dana-page-builder
+PLUGIN_DIR="$HOME/.claude/plugins/marketplaces/pb2-marketplace/dana-page-builder"
 
 # 개별 제품
-python3 scripts/generate_pages_dana.py --products DN25FW001 DN25FW002
+python3 "$PLUGIN_DIR/scripts/generate_pages_dana.py" --products DN25FW001 DN25FW002
 
 # 전체 제품
-python3 scripts/generate_pages_dana.py
+python3 "$PLUGIN_DIR/scripts/generate_pages_dana.py"
 ```
 
 ## 출력 파일 구조
