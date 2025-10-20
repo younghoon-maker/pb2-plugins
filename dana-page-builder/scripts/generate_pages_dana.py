@@ -116,13 +116,13 @@ class DanaPageGenerator:
         # Convert images to base64
         main_image_base64 = self.image_to_base64(product["images"].get("main_single"))
 
-        # Load DANA&PETA logo from reference folder
+        # Load DANA&PETA logo from reference/logo folder
         # Load white logo for hero section
-        logo_white_path = Path(__file__).parent.parent / "reference" / "dana&peta_logo.png"
+        logo_white_path = Path(__file__).parent.parent / "reference" / "logo" / "dana&peta_logo.png"
         logo_white_base64 = self.image_to_base64(str(logo_white_path))
 
         # Load black logo for gallery logo groups (avoids filter: invert(1) issues with html2canvas)
-        logo_black_path = Path(__file__).parent.parent / "reference" / "dana&peta_logo_black.png"
+        logo_black_path = Path(__file__).parent.parent / "reference" / "logo" / "dana&peta_logo_black.png"
         logo_black_base64 = self.image_to_base64(str(logo_black_path))
 
         # Build colors section HTML (horizontal swatches with color picker)
@@ -376,7 +376,8 @@ class DanaPageGenerator:
 
         # Build fabric info HTML
         fabric_info = product.get("fabricInfo", {})
-        fabric_image_base64 = self.image_to_base64(fabric_info.get("image"))
+        fabric_image_path = fabric_info.get("image")
+        fabric_image_base64 = self.image_to_base64(fabric_image_path) if fabric_image_path else None
         fabric_properties = fabric_info.get("properties", {})
 
         # Build fabric properties 4-column grid (Figma node 53-101)
@@ -1690,7 +1691,20 @@ class DanaPageGenerator:
 
                     }} catch (error) {{
                         console.error('Export error:', error);
-                        alert('❌ 서버 연결 실패. 서버가 실행 중인지 확인하세요.\\n(python3 scripts/server.py)');
+
+                        // Fallback: Download directly in browser when server is not running
+                        try {{
+                            const link = document.createElement('a');
+                            const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
+                            link.download = `{product["productCode"]}_${{timestamp}}.jpg`;
+                            link.href = base64Image;
+                            link.click();
+
+                            alert('✅ JPG 다운로드 완료\\n위치: 다운로드 폴더\\n(서버 미실행 시 브라우저 다운로드)');
+                        }} catch (downloadError) {{
+                            console.error('Download error:', downloadError);
+                            alert('❌ 서버 연결 실패. 서버가 실행 중인지 확인하세요.\\n(python3 scripts/server.py)');
+                        }}
                     }} finally {{
                         imageTransformStates.forEach(state => {{
                             state.img.style.transform = state.transform;

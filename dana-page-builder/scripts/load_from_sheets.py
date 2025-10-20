@@ -406,7 +406,12 @@ class DanaDataLoader:
 
             product["productShots"] = product_shots
 
-            # Fabric info
+            # Fabric info (fabricImage is optional, other fields are always processed)
+            fabric_composition = row[TEMPLATE_COLUMNS["fabricComposition"]].strip()
+            fabric_desc = row[TEMPLATE_COLUMNS["fabricDesc"]].strip()
+
+            # Download fabricImage if available
+            fabric_image_path = None
             fabric_image_url = row[TEMPLATE_COLUMNS["fabricImage"]].strip()
             if fabric_image_url and not self.is_empty_value(fabric_image_url):
                 fabric_image_path = self.download_image(
@@ -414,21 +419,19 @@ class DanaDataLoader:
                     f"{product_code}_fabric.jpg"
                 )
 
-                fabric_composition = row[TEMPLATE_COLUMNS["fabricComposition"]].strip()
-                fabric_desc = row[TEMPLATE_COLUMNS["fabricDesc"]].strip()
-
-                product["fabricInfo"] = {
-                    "image": fabric_image_path,
-                    "composition": fabric_composition if not self.is_empty_value(fabric_composition) else "",
-                    "description": fabric_desc if not self.is_empty_value(fabric_desc) else "",
-                    "properties": {
-                        "transparency": row[TEMPLATE_COLUMNS["fabricTransparency"]].strip(),
-                        "stretch": row[TEMPLATE_COLUMNS["fabricStretch"]].strip(),
-                        "lining": row[TEMPLATE_COLUMNS["fabricLining"]].strip(),
-                        "thickness": row[TEMPLATE_COLUMNS["fabricThickness"]].strip(),
-                        "season": row[TEMPLATE_COLUMNS["fabricSeason"]].strip()
-                    }
+            # fabricInfo is always created (image can be None)
+            product["fabricInfo"] = {
+                "image": fabric_image_path,  # Can be None
+                "composition": fabric_composition if not self.is_empty_value(fabric_composition) else "",
+                "description": fabric_desc if not self.is_empty_value(fabric_desc) else "",
+                "properties": {
+                    "transparency": row[TEMPLATE_COLUMNS["fabricTransparency"]].strip(),
+                    "stretch": row[TEMPLATE_COLUMNS["fabricStretch"]].strip(),
+                    "lining": row[TEMPLATE_COLUMNS["fabricLining"]].strip(),
+                    "thickness": row[TEMPLATE_COLUMNS["fabricThickness"]].strip(),
+                    "season": row[TEMPLATE_COLUMNS["fabricSeason"]].strip()
                 }
+            }
 
             # Size image (column 135 / EF)
             size_image_value = row[TEMPLATE_COLUMNS["sizeImage"]].strip()
