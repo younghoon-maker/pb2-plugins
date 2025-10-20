@@ -5,6 +5,24 @@ All notable changes to the pb-product-generator plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2025-10-20
+
+### 🐛 Fixed
+- **setup-from-private 커맨드 Bash 파싱 에러 수정**
+  - 복잡한 변수 할당 `$(...)` 구문을 단계별 실행으로 변경
+  - Step 1, 2, 3 명확하게 분리하여 파싱 에러 방지
+  - Claude 실행 지침 추가 (Internal section)
+
+### 📦 Files Changed
+- `commands/setup-from-private.md`: Lines 210-245 수정
+
+### 🔧 Technical Details
+- 기존: `SCRIPT_PATH=$(find ...) && python3 "$SCRIPT_PATH"` (파싱 에러)
+- 개선: Step 1 (파일 확인) → Step 2 (경로 찾기) → Step 3 (실행) 분리
+- 각 단계를 별도의 Bash 도구 호출로 실행하도록 명시
+
+---
+
 ## [1.0.1] - 2025-10-20
 
 ### 🎨 Changed

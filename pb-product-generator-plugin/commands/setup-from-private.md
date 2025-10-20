@@ -208,12 +208,38 @@ GOOGLE_SHEET_ID=1ipkHdYdQhIAfUBkNUWHkFqcgP0aOXLVO14MYXWscEPk
 
 **자동 탐지 방법**:
 ```bash
-# find 명령으로 동적으로 경로 찾기
-SCRIPT_PATH=$(find ~/.claude/plugins -name "auto_setup.py" -path "*/pb-product-generator*/scripts/*" | head -1)
-python3 "$SCRIPT_PATH"
+# Step 1: find 명령으로 동적으로 경로 찾기
+find ~/.claude/plugins -name "auto_setup.py" -path "*/pb-product-generator*/scripts/*" 2>/dev/null | head -1
+
+# Step 2: 찾은 경로로 Python 스크립트 실행
+python3 /Users/username/.claude/plugins/marketplaces/pb2-marketplace/pb-product-generator-plugin/scripts/auto_setup.py
 ```
 
 **참고**:
 - 스크립트는 현재 작업 디렉토리 기준으로 실행됩니다
 - 모든 파일은 프로젝트 폴더에 생성됩니다 (credentials/, .env, output/)
 - 마켓플레이스 이름은 설치 방법에 따라 다를 수 있습니다
+
+---
+
+## ⚙️ Claude 실행 지침 (Internal)
+
+**이 커맨드를 실행할 때 다음 단계를 따르세요**:
+
+### Step 1: PRIVATE_SETUP.md 파일 확인
+```bash
+ls -la PRIVATE_SETUP.md 2>/dev/null && echo "✅ PRIVATE_SETUP.md found" || echo "❌ PRIVATE_SETUP.md not found"
+```
+
+### Step 2: auto_setup.py 스크립트 경로 찾기
+```bash
+find ~/.claude/plugins -name "auto_setup.py" -path "*/pb-product-generator*/scripts/*" 2>/dev/null | head -1
+```
+
+### Step 3: Python 스크립트 실행
+위 Step 2에서 찾은 경로를 사용하여 다음 명령 실행:
+```bash
+python3 {SCRIPT_PATH}
+```
+
+**중요**: Step 2와 Step 3은 **별도의 Bash 도구 호출**로 실행해야 합니다. 변수 할당 `$(...)` 구문을 사용하지 마세요.
