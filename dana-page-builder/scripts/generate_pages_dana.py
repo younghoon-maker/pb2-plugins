@@ -1636,6 +1636,9 @@ class DanaPageGenerator:
                         controlPanel.style.display = 'none';
                     }}
 
+                    // Declare base64Image outside try block so catch can access it
+                    let base64Image;
+
                     try {{
                         // Reset container transform and height for capture
                         container.style.transform = 'none';
@@ -1667,7 +1670,7 @@ class DanaPageGenerator:
                         }});
 
                         // Convert canvas to base64
-                        const base64Image = canvas.toDataURL('image/jpeg', 0.95);
+                        base64Image = canvas.toDataURL('image/jpeg', 0.95);
 
                         // Send to server
                         const response = await fetch('http://localhost:5001/save-jpg', {{
@@ -1685,25 +1688,29 @@ class DanaPageGenerator:
                             const result = await response.json();
                             alert(`✅ JPG 저장 완료\\n경로: ${{result.path}}`);
                         }} else {{
-                            const error = await response.json();
-                            alert(`❌ 서버 저장 실패: ${{error.error}}`);
+                            // 서버 저장 실패 시 fallback으로 진행
+                            throw new Error('Server save failed');
                         }}
 
                     }} catch (error) {{
                         console.error('Export error:', error);
 
                         // Fallback: Download directly in browser when server is not running
-                        try {{
-                            const link = document.createElement('a');
-                            const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
-                            link.download = `{product["productCode"]}_${{timestamp}}.jpg`;
-                            link.href = base64Image;
-                            link.click();
+                        if (base64Image) {{
+                            try {{
+                                const link = document.createElement('a');
+                                const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
+                                link.download = `{product["productCode"]}_${{timestamp}}.jpg`;
+                                link.href = base64Image;
+                                link.click();
 
-                            alert('✅ JPG 다운로드 완료\\n위치: 다운로드 폴더\\n(서버 미실행 시 브라우저 다운로드)');
-                        }} catch (downloadError) {{
-                            console.error('Download error:', downloadError);
-                            alert('❌ 서버 연결 실패. 서버가 실행 중인지 확인하세요.\\n(python3 scripts/server.py)');
+                                alert('✅ JPG 다운로드 완료\\n위치: 다운로드 폴더\\n(서버 미실행 시 브라우저 다운로드)');
+                            }} catch (downloadError) {{
+                                console.error('Download error:', downloadError);
+                                alert('❌ 다운로드 실패: ' + downloadError.message);
+                            }}
+                        }} else {{
+                            alert('❌ 이미지 생성 실패. 페이지를 새로고침 후 다시 시도하세요.');
                         }}
                     }} finally {{
                         imageTransformStates.forEach(state => {{
