@@ -5,6 +5,48 @@ All notable changes to the pb-product-generator plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.5] - 2025-10-20
+
+### ✨ Added
+- **스토리지 타입별 세분화 정리** - HTML, 이미지, 캐시를 개별 선택 가능
+  - `--html --days N`: HTML 파일만 정리 (날짜별 폴더 + 루트 HTML)
+  - `--images`: 이미지 캐시만 정리 (output/assets/images/)
+  - `--images --days N`: N일 이전 이미지만 정리
+  - `--cache`: Figma 캐시만 정리 (기존 기능 유지)
+
+### 📋 Changed
+- **cleanup 커맨드 완전 재구성** - 타입별 선택적 정리
+  - `--all`: HTML + 이미지 + Figma 캐시 모두 삭제 (기존: HTML + 캐시)
+  - `--stats`: HTML, 이미지, Figma 캐시 통합 통계 표시
+  - 타이틀 변경: "Output & Cache Cleanup" → "Storage Cleanup (세분화)"
+  - `--max-size`: HTML 파일만 해당 (명확화)
+
+### 📦 Files Changed
+- `scripts/cleanup.py`: 타입별 정리 함수 추가 (439 → 596 lines, +157 lines)
+  - `cleanup_images()`: 이미지 캐시 정리 함수
+  - `cleanup_html()`: HTML 파일 정리 함수 (별칭)
+  - `cleanup_cache()`: Figma 캐시 정리 함수 (기존)
+  - `cleanup_all()`: HTML + 이미지 + 캐시 통합 삭제
+  - `show_stats()`: 3가지 타입 통합 통계
+- `commands/cleanup.md`: 세분화 가이드 전면 개편 (328 → 399 lines, +71 lines)
+  - 스토리지 구조 섹션 추가
+  - 타입별 정리 방법 상세 설명
+  - 워크플로우 타입별로 재구성
+
+### 🎯 Use Cases
+- **선택적 정리**: HTML만, 이미지만, 캐시만 개별 정리 가능
+- **디스크 최적화**: 용량이 큰 이미지부터 선택적 삭제
+- **정밀 관리**: 각 스토리지 타입에 다른 정책 적용 가능
+- **타입별 주기 설정**: HTML 14일, 이미지 7일, 캐시 30일 등
+
+### 🔧 Technical Details
+- 이미지 디렉토리: `output/assets/images/` (기본값, 변경 가능)
+- 지원 이미지 형식: jpg, jpeg, png, webp, gif
+- HTML 폴더: `output/` (날짜별 폴더 + 루트 HTML)
+- Figma 캐시: `.cache/figma/` (JSON 메타데이터)
+
+---
+
 ## [1.0.4] - 2025-10-20
 
 ### ✨ Added

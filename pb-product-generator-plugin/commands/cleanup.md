@@ -1,22 +1,39 @@
 ---
-description: Output 폴더 및 캐시 자동 정리 (오래된 파일 삭제)
+description: 스토리지 세분화 정리 (HTML, 이미지, 캐시 개별 정리)
 tools: [Bash]
 ---
 
-# Storage Cleanup - 자동 정리
+# Storage Cleanup - 세분화 자동 정리
 
-오래된 output 파일과 캐시 파일들을 자동으로 정리하여 디스크 공간을 확보합니다.
+스토리지를 타입별로 세분화하여 선택적으로 정리합니다.
 
 ## 문제 상황
 
 - HTML 파일이 각각 50-130MB (base64 이미지 포함)
-- output 폴더가 수백 MB~GB까지 증가
-- Figma 캐시 파일들이 누적
-- 주기적인 정리 필요
+- 이미지 캐시가 누적 (output/assets/images/)
+- Figma 캐시 파일들이 누적 (.cache/figma/)
+- 타입별 선택적 정리 필요
+
+## 스토리지 구조
+
+```
+프로젝트/
+├── output/                    # HTML 파일 (--html)
+│   ├── 20251017/
+│   │   ├── editable/          # 편집 가능 HTML
+│   │   └── export/            # JPG 파일
+│   └── *.html                 # 루트 HTML
+├── output/assets/images/      # 이미지 캐시 (--images)
+│   ├── DN25WOP002_01.jpg
+│   └── ...
+└── .cache/figma/              # Figma 캐시 (--cache)
+    ├── 1-95.json
+    └── ...
+```
 
 ## 사용법
 
-### 1. 통계 확인
+### 1. 통계 확인 (전체)
 ```bash
 /pb-product-generator:cleanup --stats
 ```
@@ -25,7 +42,7 @@ tools: [Bash]
 ```
 📊 스토리지 통계
 =================================================
-📁 Output 폴더: /path/to/output
+📄 HTML 파일: /path/to/output
 💾 크기: 784.0 MB
 📅 날짜별 폴더: 4개
 📄 루트 HTML 파일: 12개
@@ -41,53 +58,60 @@ tools: [Bash]
    VD25FJP003_editable_v4.html -   62.1 MB (1일 전)
    ...
 
-📦 캐시 폴더: .cache/figma
+🖼️  이미지 캐시: output/assets/images
+💾 크기: 45.0 MB
+📄 이미지 파일: 128개
+
+📦 Figma 캐시: .cache/figma
 💾 크기: 5.2 MB
 📄 캐시 파일: 24개
 
-💾 전체 크기: 789.2 MB
+💾 전체 크기: 834.2 MB
 ```
 
-### 2. 날짜 기반 정리 (권장)
+### 2. HTML 파일만 정리
 ```bash
-/pb-product-generator:cleanup --days 7
+/pb-product-generator:cleanup --html --days 7
 ```
 
 **기능**:
 - 7일 이상 오래된 날짜 폴더 삭제
 - 7일 이상 오래된 루트 HTML 파일 삭제
+- 이미지와 캐시는 그대로 유지
 
-**시뮬레이션 (삭제 예정 목록만 표시)**:
+**시뮬레이션**:
 ```bash
-/pb-product-generator:cleanup --days 7 --dry-run
+/pb-product-generator:cleanup --html --days 7 --dry-run
 ```
 
-### 3. 크기 기반 정리
+### 3. 이미지만 정리
 ```bash
-/pb-product-generator:cleanup --max-size 500
+/pb-product-generator:cleanup --images
 ```
 
 **기능**:
-- output 폴더를 최대 500MB로 제한
-- 초과 시 오래된 것부터 자동 삭제
+- output/assets/images/ 폴더의 모든 이미지 삭제
+- HTML과 캐시는 그대로 유지
 
-**예시**:
+**날짜 기반 이미지 정리**:
 ```bash
-# 현재 784MB → 500MB로 축소
-/pb-product-generator:cleanup --max-size 500
-
-# 시뮬레이션
-/pb-product-generator:cleanup --max-size 500 --dry-run
+/pb-product-generator:cleanup --images --days 7
 ```
 
-### 4. 캐시만 정리
+**시뮬레이션**:
+```bash
+/pb-product-generator:cleanup --images --dry-run
+/pb-product-generator:cleanup --images --days 7 --dry-run
+```
+
+### 4. Figma 캐시만 정리
 ```bash
 /pb-product-generator:cleanup --cache
 ```
 
 **기능**:
-- .cache/figma 폴더의 모든 캐시 파일 삭제
-- Figma 메타데이터 캐시 초기화
+- .cache/figma/ 폴더의 모든 캐시 파일 삭제
+- HTML과 이미지는 그대로 유지
 
 **날짜 기반 캐시 정리**:
 ```bash
@@ -100,14 +124,29 @@ tools: [Bash]
 /pb-product-generator:cleanup --cache --days 7 --dry-run
 ```
 
-### 5. 전체 삭제 (주의!)
+### 5. 크기 기반 정리 (HTML만)
+```bash
+/pb-product-generator:cleanup --max-size 500
+```
+
+**기능**:
+- HTML 폴더를 최대 500MB로 제한
+- 초과 시 오래된 것부터 자동 삭제
+
+**시뮬레이션**:
+```bash
+/pb-product-generator:cleanup --max-size 500 --dry-run
+```
+
+### 6. 전체 삭제 (주의!)
 ```bash
 /pb-product-generator:cleanup --all
 ```
 
 **경고**:
-- output 폴더 전체 삭제
-- .cache/figma 폴더 전체 삭제
+- HTML 전체 삭제
+- 이미지 전체 삭제
+- Figma 캐시 전체 삭제
 - 사용자 확인 필요 (yes 입력)
 
 **시뮬레이션**:
@@ -117,15 +156,18 @@ tools: [Bash]
 
 ## 추천 워크플로우
 
-### 일반 사용자
+### 일반 사용자 (타입별 정리)
 ```bash
 # 1. 통계 확인
 /pb-product-generator:cleanup --stats
 
-# 2. 1주일 이전 output 정리
-/pb-product-generator:cleanup --days 7
+# 2. HTML만 정리 (1주일 이전)
+/pb-product-generator:cleanup --html --days 7
 
-# 3. 오래된 캐시 정리
+# 3. 이미지만 정리 (1주일 이전)
+/pb-product-generator:cleanup --images --days 7
+
+# 4. Figma 캐시만 정리 (1주일 이전)
 /pb-product-generator:cleanup --cache --days 7
 ```
 
@@ -134,17 +176,21 @@ tools: [Bash]
 # 1. 통계 확인
 /pb-product-generator:cleanup --stats
 
-# 2. 캐시 전체 삭제 (즉시 효과)
+# 2. 이미지 전체 삭제 (가장 큰 용량)
+/pb-product-generator:cleanup --images
+
+# 3. Figma 캐시 전체 삭제 (즉시 효과)
 /pb-product-generator:cleanup --cache
 
-# 3. 크기 제한 (예: 300MB)
+# 4. HTML 크기 제한 (예: 300MB)
 /pb-product-generator:cleanup --max-size 300
 ```
 
 ### 정기 유지보수
 ```bash
-# 매주 실행 (cron 등)
-/pb-product-generator:cleanup --days 14
+# 매주 실행 (cron 등) - 타입별
+/pb-product-generator:cleanup --html --days 14
+/pb-product-generator:cleanup --images --days 14
 /pb-product-generator:cleanup --cache --days 30
 ```
 
@@ -152,18 +198,21 @@ tools: [Bash]
 
 | 옵션 | 설명 | 예시 |
 |-----|------|------|
-| `--stats` | 통계만 표시 | `--stats` |
+| `--stats` | 통계만 표시 (HTML + 이미지 + 캐시) | `--stats` |
+| `--html` | HTML 파일만 정리 (--days 필수) | `--html --days 7` |
+| `--images` | 이미지만 정리 | `--images` |
+| `--cache` | Figma 캐시만 정리 | `--cache` |
+| `--all` | 전체 삭제 (HTML + 이미지 + 캐시) | `--all` |
 | `--days N` | N일 이전 파일 삭제 | `--days 7` |
-| `--max-size MB` | 최대 크기 제한 (MB) | `--max-size 500` |
-| `--cache` | 캐시 파일만 정리 | `--cache` |
-| `--all` | 전체 삭제 (output + cache) | `--all` |
+| `--max-size MB` | 최대 크기 제한 (HTML만, MB) | `--max-size 500` |
 | `--dry-run` | 시뮬레이션 (실제 삭제 안함) | `--dry-run` |
-| `--output-dir PATH` | output 디렉토리 경로 | `--output-dir /custom/path` |
+| `--output-dir PATH` | HTML 디렉토리 경로 | `--output-dir /custom/path` |
+| `--images-dir PATH` | 이미지 디렉토리 경로 | `--images-dir output/assets/images` |
 | `--cache-dir PATH` | 캐시 디렉토리 경로 | `--cache-dir .cache/figma` |
 
-## 정리 대상
+## 정리 대상 (타입별)
 
-### 1. Output 폴더
+### 1. HTML 파일 (--html)
 
 **날짜별 폴더 (YYYYMMDD)**:
 ```
@@ -183,21 +232,35 @@ output/
   └── ...
 ```
 
-### 2. 캐시 폴더
+### 2. 이미지 캐시 (--images)
+
+**제품 이미지**:
+```
+output/assets/images/
+  ├── DN25WOP002_01.jpg
+  ├── DN25WOP002_02.jpg
+  └── ...
+```
+
+**특성**:
+- 용량이 가장 큼 (수십~수백 MB)
+- 재다운로드 가능
+- 네트워크 대역폭 절약용
+
+### 3. Figma 캐시 (--cache)
 
 **Figma 메타데이터 캐시**:
 ```
-.cache/
-  └── figma/
-      ├── 1-95.json   ← Figma 노드 캐시
-      ├── 1-96.json
-      └── ...
+.cache/figma/
+  ├── 1-95.json   ← Figma 노드 캐시
+  ├── 1-96.json
+  └── ...
 ```
 
-**캐시 특성**:
+**특성**:
 - TTL 기반 (기본 1시간)
 - 재생성 가능 (삭제해도 다음 실행 시 재생성)
-- 네트워크 요청 감소용
+- Figma API 요청 감소용
 
 ## 자동화 예시
 
@@ -285,10 +348,11 @@ find ~/.claude/plugins -name "cleanup.py" -path "*/pb-product-generator*/scripts
 
 ### Step 2: 사용자에게 옵션 확인
 - `--stats` (통계만 표시)
-- `--days N` (N일 이전 파일 삭제)
-- `--max-size MB` (크기 제한)
-- `--cache` (캐시만 정리)
-- `--all` (전체 삭제: output + cache)
+- `--html --days N` (HTML만 정리)
+- `--images` (이미지만 정리)
+- `--cache` (Figma 캐시만 정리)
+- `--all` (전체 삭제: HTML + 이미지 + 캐시)
+- `--max-size MB` (HTML 크기 제한)
 - `--dry-run` (시뮬레이션)
 
 ### Step 3: Python 스크립트 실행
@@ -301,27 +365,34 @@ python3 {SCRIPT_PATH} {OPTIONS}
 # 통계 표시
 python3 /path/to/cleanup.py --stats
 
-# 7일 이전 output 파일 삭제
-python3 /path/to/cleanup.py --days 7
+# HTML만 정리 (7일 이전)
+python3 /path/to/cleanup.py --html --days 7
 
-# 캐시만 정리 (전체)
+# 이미지만 정리 (전체)
+python3 /path/to/cleanup.py --images
+
+# 이미지만 정리 (7일 이전)
+python3 /path/to/cleanup.py --images --days 7
+
+# Figma 캐시만 정리 (전체)
 python3 /path/to/cleanup.py --cache
 
-# 캐시만 정리 (7일 이전)
+# Figma 캐시만 정리 (7일 이전)
 python3 /path/to/cleanup.py --cache --days 7
 
-# 크기 제한 (500MB)
+# HTML 크기 제한 (500MB)
 python3 /path/to/cleanup.py --max-size 500
 
-# 전체 삭제 (output + cache)
+# 전체 삭제 (HTML + 이미지 + 캐시)
 python3 /path/to/cleanup.py --all
 
 # 시뮬레이션
-python3 /path/to/cleanup.py --days 7 --dry-run
-python3 /path/to/cleanup.py --cache --dry-run
+python3 /path/to/cleanup.py --html --days 7 --dry-run
+python3 /path/to/cleanup.py --images --dry-run
+python3 /path/to/cleanup.py --all --dry-run
 ```
 
 **중요**:
 - Step 1과 Step 3은 **별도의 Bash 도구 호출**로 실행
 - 변수 할당 `$(...)` 사용 금지
-- 사용자가 옵션을 지정하지 않으면 `--stats` 기본 실행
+- 사용자가 옵션을 지정하지 않으면 도움말 표시
