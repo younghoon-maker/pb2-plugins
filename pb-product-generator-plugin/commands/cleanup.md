@@ -1,16 +1,17 @@
 ---
-description: Output 폴더 자동 정리 (오래된 파일 삭제)
+description: Output 폴더 및 캐시 자동 정리 (오래된 파일 삭제)
 tools: [Bash]
 ---
 
-# Output Cleanup - 자동 정리
+# Storage Cleanup - 자동 정리
 
-오래된 output 파일들을 자동으로 정리하여 디스크 공간을 확보합니다.
+오래된 output 파일과 캐시 파일들을 자동으로 정리하여 디스크 공간을 확보합니다.
 
 ## 문제 상황
 
 - HTML 파일이 각각 50-130MB (base64 이미지 포함)
 - output 폴더가 수백 MB~GB까지 증가
+- Figma 캐시 파일들이 누적
 - 주기적인 정리 필요
 
 ## 사용법
@@ -22,10 +23,10 @@ tools: [Bash]
 
 **출력 예시**:
 ```
-📊 Output 폴더 통계
+📊 스토리지 통계
 =================================================
-📁 위치: /path/to/output
-💾 전체 크기: 784.0 MB
+📁 Output 폴더: /path/to/output
+💾 크기: 784.0 MB
 📅 날짜별 폴더: 4개
 📄 루트 HTML 파일: 12개
 
@@ -39,6 +40,12 @@ tools: [Bash]
    VD25FDP013_editable_v4_backup.html -  128.2 MB (4일 전)
    VD25FJP003_editable_v4.html -   62.1 MB (1일 전)
    ...
+
+📦 캐시 폴더: .cache/figma
+💾 크기: 5.2 MB
+📄 캐시 파일: 24개
+
+💾 전체 크기: 789.2 MB
 ```
 
 ### 2. 날짜 기반 정리 (권장)
@@ -73,13 +80,34 @@ tools: [Bash]
 /pb-product-generator:cleanup --max-size 500 --dry-run
 ```
 
-### 4. 전체 삭제 (주의!)
+### 4. 캐시만 정리
+```bash
+/pb-product-generator:cleanup --cache
+```
+
+**기능**:
+- .cache/figma 폴더의 모든 캐시 파일 삭제
+- Figma 메타데이터 캐시 초기화
+
+**날짜 기반 캐시 정리**:
+```bash
+/pb-product-generator:cleanup --cache --days 7
+```
+
+**시뮬레이션**:
+```bash
+/pb-product-generator:cleanup --cache --dry-run
+/pb-product-generator:cleanup --cache --days 7 --dry-run
+```
+
+### 5. 전체 삭제 (주의!)
 ```bash
 /pb-product-generator:cleanup --all
 ```
 
 **경고**:
 - output 폴더 전체 삭제
+- .cache/figma 폴더 전체 삭제
 - 사용자 확인 필요 (yes 입력)
 
 **시뮬레이션**:
@@ -94,8 +122,11 @@ tools: [Bash]
 # 1. 통계 확인
 /pb-product-generator:cleanup --stats
 
-# 2. 1주일 이전 파일 정리
+# 2. 1주일 이전 output 정리
 /pb-product-generator:cleanup --days 7
+
+# 3. 오래된 캐시 정리
+/pb-product-generator:cleanup --cache --days 7
 ```
 
 ### 디스크 공간 부족 시
@@ -103,7 +134,10 @@ tools: [Bash]
 # 1. 통계 확인
 /pb-product-generator:cleanup --stats
 
-# 2. 크기 제한 (예: 300MB)
+# 2. 캐시 전체 삭제 (즉시 효과)
+/pb-product-generator:cleanup --cache
+
+# 3. 크기 제한 (예: 300MB)
 /pb-product-generator:cleanup --max-size 300
 ```
 
@@ -111,6 +145,7 @@ tools: [Bash]
 ```bash
 # 매주 실행 (cron 등)
 /pb-product-generator:cleanup --days 14
+/pb-product-generator:cleanup --cache --days 30
 ```
 
 ## 옵션 상세
@@ -120,29 +155,49 @@ tools: [Bash]
 | `--stats` | 통계만 표시 | `--stats` |
 | `--days N` | N일 이전 파일 삭제 | `--days 7` |
 | `--max-size MB` | 최대 크기 제한 (MB) | `--max-size 500` |
-| `--all` | 전체 삭제 | `--all` |
+| `--cache` | 캐시 파일만 정리 | `--cache` |
+| `--all` | 전체 삭제 (output + cache) | `--all` |
 | `--dry-run` | 시뮬레이션 (실제 삭제 안함) | `--dry-run` |
 | `--output-dir PATH` | output 디렉토리 경로 | `--output-dir /custom/path` |
+| `--cache-dir PATH` | 캐시 디렉토리 경로 | `--cache-dir .cache/figma` |
 
 ## 정리 대상
 
-### 날짜별 폴더 (YYYYMMDD)
+### 1. Output 폴더
+
+**날짜별 폴더 (YYYYMMDD)**:
 ```
 output/
   ├── 20251016/   ← 오래된 폴더
-  │   ├── editable/
-  │   └── export/
+  │   ├── editable/  (편집 가능 HTML)
+  │   └── export/    (JPG 파일)
   ├── 20251017/
   └── 20251020/   ← 최신 폴더 (보존)
 ```
 
-### 루트 HTML 파일
+**루트 HTML 파일**:
 ```
 output/
   ├── VD25FDP013_editable_v4.html  ← 수정 시간 기준
   ├── VD25FJP003_editable_v4.html
   └── ...
 ```
+
+### 2. 캐시 폴더
+
+**Figma 메타데이터 캐시**:
+```
+.cache/
+  └── figma/
+      ├── 1-95.json   ← Figma 노드 캐시
+      ├── 1-96.json
+      └── ...
+```
+
+**캐시 특성**:
+- TTL 기반 (기본 1시간)
+- 재생성 가능 (삭제해도 다음 실행 시 재생성)
+- 네트워크 요청 감소용
 
 ## 자동화 예시
 
@@ -232,7 +287,8 @@ find ~/.claude/plugins -name "cleanup.py" -path "*/pb-product-generator*/scripts
 - `--stats` (통계만 표시)
 - `--days N` (N일 이전 파일 삭제)
 - `--max-size MB` (크기 제한)
-- `--all` (전체 삭제)
+- `--cache` (캐시만 정리)
+- `--all` (전체 삭제: output + cache)
 - `--dry-run` (시뮬레이션)
 
 ### Step 3: Python 스크립트 실행
@@ -245,14 +301,24 @@ python3 {SCRIPT_PATH} {OPTIONS}
 # 통계 표시
 python3 /path/to/cleanup.py --stats
 
-# 7일 이전 파일 삭제
+# 7일 이전 output 파일 삭제
 python3 /path/to/cleanup.py --days 7
+
+# 캐시만 정리 (전체)
+python3 /path/to/cleanup.py --cache
+
+# 캐시만 정리 (7일 이전)
+python3 /path/to/cleanup.py --cache --days 7
 
 # 크기 제한 (500MB)
 python3 /path/to/cleanup.py --max-size 500
 
+# 전체 삭제 (output + cache)
+python3 /path/to/cleanup.py --all
+
 # 시뮬레이션
 python3 /path/to/cleanup.py --days 7 --dry-run
+python3 /path/to/cleanup.py --cache --dry-run
 ```
 
 **중요**:

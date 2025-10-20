@@ -5,6 +5,43 @@ All notable changes to the pb-product-generator plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.4] - 2025-10-20
+
+### ✨ Added
+- **캐시 정리 기능 추가** - .cache/figma 폴더 자동 정리
+  - `--cache`: 캐시 파일만 정리
+  - `--cache --days N`: N일 이전 캐시 파일 삭제
+  - 통합 스토리지 통계 (output + cache)
+
+### 📋 Changed
+- **cleanup 커맨드 확장** - Output과 캐시를 통합 관리
+  - `--all`: output + cache 모두 삭제 (기존: output만)
+  - `--stats`: output과 cache 통합 통계 표시
+  - 타이틀 변경: "Output Cleanup" → "Storage Cleanup"
+
+### 📦 Files Changed
+- `scripts/cleanup.py`: 캐시 정리 함수 추가 (330 → 439 lines, +109 lines)
+  - `cleanup_cache()`: 캐시 파일 정리 함수
+  - `cleanup_all()`: output + cache 통합 삭제
+  - `show_stats()`: 통합 통계 표시
+- `commands/cleanup.md`: 캐시 정리 문서 추가 (262 → 328 lines, +66 lines)
+  - 캐시만 정리 섹션 추가
+  - 정리 대상에 캐시 폴더 추가
+  - 워크플로우 예시 확장
+
+### 🎯 Use Cases
+- **캐시 관리**: Figma 메타데이터 캐시 주기적 정리
+- **디스크 절약**: output + cache 통합 관리로 효율성 향상
+- **선택적 정리**: output만, cache만, 또는 전체 정리 선택 가능
+
+### 🔧 Technical Details
+- 캐시 디렉토리: `.cache/figma/` (기본값, 변경 가능)
+- 캐시 파일 형식: `{node-id}.json` (예: `1-95.json`)
+- TTL 기반 캐시 (기본 1시간)
+- 재생성 가능 (삭제 시 자동 재생성)
+
+---
+
 ## [1.0.3] - 2025-10-20
 
 ### ✨ Added
