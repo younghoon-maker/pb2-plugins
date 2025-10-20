@@ -5,6 +5,36 @@ All notable changes to the dana-page-builder plugin will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2025-10-20
+
+### 🐛 Fixed
+- **출력 경로 문제 수정**
+  - `config.py`: `PROJECT_ROOT`가 현재 작업 디렉토리(`Path.cwd()`)를 사용하도록 변경
+  - 출력 파일이 플러그인 폴더 대신 프로젝트 폴더의 `output/`에 저장됨
+- **슬래시 커맨드 경로 문제 수정**
+  - 하드코딩된 절대 경로 제거
+  - `PLUGIN_DIR` 환경변수를 사용한 동적 경로 설정
+  - 불필요한 파일 탐색 제거
+
+### 📝 Details
+**수정 전 동작**:
+- 출력 위치: `~/.claude/plugins/.../dana-page-builder/output/`
+- 슬래시 커맨드: 존재하지 않는 경로로 `cd` 시도
+- 파일 탐색: 불필요한 코드 탐색 발생
+
+**수정 후 동작**:
+- 출력 위치: 프로젝트 폴더의 `output/` (예: `/Users/user/project/output/`)
+- 슬래시 커맨드: 플러그인 스크립트를 절대 경로로 실행
+- 파일 탐색: 명확한 경로로 즉시 실행
+
+**수정 파일**:
+- `scripts/config.py` (line 10)
+- `commands/generate.md` (lines 82-83)
+- `commands/batch-generate.md` (lines 92-98)
+- `commands/start-server.md` (lines 131-132)
+
+---
+
 ## [1.0.1] - 2025-10-20
 
 ### 🐛 Fixed
