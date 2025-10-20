@@ -25,16 +25,25 @@ from pathlib import Path
 from datetime import datetime
 from flask import Flask, send_file, jsonify, request
 from flask_cors import CORS
+from dotenv import load_dotenv
 
 # 프로젝트 루트 (모듈 임포트용)
 project_root = Path(__file__).parent.parent.resolve()
+
+# .env 파일 로드 (프로젝트 폴더 우선, 없으면 현재 디렉토리)
+env_path = Path.cwd() / ".env"
+if env_path.exists():
+    load_dotenv(env_path)
+    print(f"✅ .env 로드: {env_path}")
+else:
+    print(f"⚠️ .env 파일 없음: {env_path}")
 
 # Flask 앱 초기화
 app = Flask(__name__)
 CORS(app)  # CORS 활성화 (브라우저 보안)
 
-# 출력 디렉토리 (CWD 기준)
-OUTPUT_DIR = Path.cwd() / "output"
+# 출력 디렉토리 (환경변수 또는 CWD 기준)
+OUTPUT_DIR = Path(os.getenv('OUTPUT_DIR') or (Path.cwd() / "output"))
 
 
 def get_latest_date_folder() -> Path:

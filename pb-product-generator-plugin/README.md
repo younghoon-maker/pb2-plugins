@@ -2,9 +2,17 @@
 
 **Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 - 완전 자동화 세팅**
 
-Version: 0.2.1
+Version: 0.2.6
 
 ---
+
+## ✨ What's New in v0.2.6
+
+🐛 **Critical Bug Fixes**
+- 음수 사이즈 값 처리 개선 (음수를 빈 셀로 자동 처리)
+- 사이즈표 누락 컬럼 추가 (상의: 밑단/소매통, 하의: 총장)
+- 날짜 기반 폴더 구조 적용 (output/{date}/editable/)
+- 서버 OUTPUT_DIR 환경변수 지원 (.env 기반 경로 설정)
 
 ## ✨ What's New in v0.2.1
 
@@ -229,6 +237,9 @@ GOOGLE_SHEET_ID=1ipkHdYdQhIAfUBkNUWHkFqcgP0aOXLVO14MYXWscEPk
 GOOGLE_SERVICE_ACCOUNT_FILE=credentials/service-account.json
 FLASK_PORT=5001
 FLASK_DEBUG=False
+
+# 서버 사용 시 출력 디렉토리 (절대 경로 권장)
+# OUTPUT_DIR=/Users/yourname/project/output
 ```
 
 **하드코딩된 값**:
@@ -309,6 +320,25 @@ taskkill /PID <PID> /F
 ---
 
 ## 📊 Version History
+
+### v0.2.6 (2025-10-20) - 🐛 Critical Bug Fixes
+
+**Bug Fixes**:
+- ✅ 음수 사이즈 값 처리: safe_float() 함수에서 음수를 None으로 변환
+  - VD25FJP003 같은 케이스에서 -86 값 자동 제외
+- ✅ 사이즈표 누락 컬럼 수정:
+  - 상의: hem(밑단), sleeve_cuff(소매통) 추가
+  - 하의: length(총장) 추가
+  - 빈 값 처리 로직 추가 (`if value else '-'`)
+- ✅ 날짜 기반 폴더 구조: output/{YYYYMMDD}/editable/ 적용
+- ✅ 서버 경로 설정: OUTPUT_DIR 환경변수 지원
+  - dotenv 로딩 추가
+  - .env 파일에서 절대 경로 설정 가능
+
+**Verification**:
+- ✅ VD25FPT007, VD25FJP003 생성 테스트 통과
+- ✅ 사이즈표 모든 컬럼 정상 출력
+- ✅ JPG 다운로드 정확한 경로 저장 확인 (4.7MB, 3.7MB)
 
 ### v0.2.1 (2025-10-19) - 🐛 Bug Fixes
 

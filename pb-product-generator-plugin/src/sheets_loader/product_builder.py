@@ -257,7 +257,11 @@ class ProductDataBuilder:
                         if not value:
                             return None
                         try:
-                            return float(value)
+                            result = float(value)
+                            # 음수는 None으로 처리 (빈 셀로 간주)
+                            if result < 0:
+                                return None
+                            return result
                         except (ValueError, TypeError):
                             return None
 
@@ -300,7 +304,11 @@ class ProductDataBuilder:
                         if not value:
                             return None
                         try:
-                            return float(value)
+                            result = float(value)
+                            # 음수는 None으로 처리 (빈 셀로 간주)
+                            if result < 0:
+                                return None
+                            return result
                         except (ValueError, TypeError):
                             return None
 

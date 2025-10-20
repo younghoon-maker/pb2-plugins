@@ -15,6 +15,7 @@ import sys
 import json
 import re
 from pathlib import Path
+from datetime import datetime
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 from googleapiclient.errors import HttpError
@@ -2104,9 +2105,10 @@ def main():
         print(f"\n📝 Editable HTML V4 생성 중...")
         html_content = generate_editable_html(product, loader)
 
-        # 파일 저장 (CWD 기준)
-        output_dir = cwd / "output"
-        output_dir.mkdir(exist_ok=True)
+        # 파일 저장 (CWD 기준, 날짜 폴더 구조)
+        today = datetime.now().strftime("%Y%m%d")
+        output_dir = cwd / "output" / today / "editable"
+        output_dir.mkdir(exist_ok=True, parents=True)
         output_file = output_dir / f"{product.product_code}_editable_v4.html"
 
         output_file.write_text(html_content, encoding="utf-8")

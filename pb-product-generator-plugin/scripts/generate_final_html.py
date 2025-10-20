@@ -485,7 +485,9 @@ def generate_html(product, sheets_loader):
                             <th style="padding: 10px; border: 1px solid #ddd; font-size: 31px; font-weight: 400; color: #000;">사이즈</th>
                             <th style="padding: 10px; border: 1px solid #ddd; font-size: 31px; font-weight: 400; color: #000;">어깨</th>
                             <th style="padding: 10px; border: 1px solid #ddd; font-size: 31px; font-weight: 400; color: #000;">가슴</th>
+                            <th style="padding: 10px; border: 1px solid #ddd; font-size: 31px; font-weight: 400; color: #000;">밑단</th>
                             <th style="padding: 10px; border: 1px solid #ddd; font-size: 31px; font-weight: 400; color: #000;">소매</th>
+                            <th style="padding: 10px; border: 1px solid #ddd; font-size: 31px; font-weight: 400; color: #000;">소매통</th>
                             <th style="padding: 10px; border: 1px solid #ddd; font-size: 31px; font-weight: 400; color: #000;">총장</th>
                         </tr>
                     </thead>
@@ -495,10 +497,12 @@ def generate_html(product, sheets_loader):
                 html += f"""
                         <tr>
                             <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 31px; font-weight: 400; color: #000;">{size.size_name}</td>
-                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 31px; font-weight: 400; color: #000;">{size.shoulder}</td>
-                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 31px; font-weight: 400; color: #000;">{size.chest}</td>
-                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 31px; font-weight: 400; color: #000;">{size.sleeve}</td>
-                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 31px; font-weight: 400; color: #000;">{size.length}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 31px; font-weight: 400; color: #000;">{size.shoulder if size.shoulder else '-'}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 31px; font-weight: 400; color: #000;">{size.chest if size.chest else '-'}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 31px; font-weight: 400; color: #000;">{size.hem if size.hem else '-'}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 31px; font-weight: 400; color: #000;">{size.sleeve if size.sleeve else '-'}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 31px; font-weight: 400; color: #000;">{size.sleeve_cuff if size.sleeve_cuff else '-'}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 31px; font-weight: 400; color: #000;">{size.length if size.length else '-'}</td>
                         </tr>
 """
             html += """
@@ -518,6 +522,7 @@ def generate_html(product, sheets_loader):
                             <th style="padding: 10px; border: 1px solid #ddd; font-size: 31px; font-weight: 400; color: #000;">허벅지</th>
                             <th style="padding: 10px; border: 1px solid #ddd; font-size: 31px; font-weight: 400; color: #000;">밑단</th>
                             <th style="padding: 10px; border: 1px solid #ddd; font-size: 31px; font-weight: 400; color: #000;">밑위</th>
+                            <th style="padding: 10px; border: 1px solid #ddd; font-size: 31px; font-weight: 400; color: #000;">총장</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -526,11 +531,12 @@ def generate_html(product, sheets_loader):
                 html += f"""
                         <tr>
                             <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 31px; font-weight: 400; color: #000;">{size.size_name}</td>
-                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 31px; font-weight: 400; color: #000;">{size.waist}</td>
-                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 31px; font-weight: 400; color: #000;">{size.hip}</td>
-                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 31px; font-weight: 400; color: #000;">{size.thigh}</td>
-                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 31px; font-weight: 400; color: #000;">{size.hem}</td>
-                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 31px; font-weight: 400; color: #000;">{size.rise}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 31px; font-weight: 400; color: #000;">{size.waist if size.waist else '-'}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 31px; font-weight: 400; color: #000;">{size.hip if size.hip else '-'}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 31px; font-weight: 400; color: #000;">{size.thigh if size.thigh else '-'}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 31px; font-weight: 400; color: #000;">{size.hem if size.hem else '-'}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 31px; font-weight: 400; color: #000;">{size.rise if size.rise else '-'}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 31px; font-weight: 400; color: #000;">{size.length if size.length else '-'}</td>
                         </tr>
 """
             html += """
