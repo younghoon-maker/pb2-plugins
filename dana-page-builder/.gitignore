@@ -119,6 +119,7 @@ tests/
 # Data Files (large CSVs, etc.)
 data/raw/
 data/downloads/
+data/products.json  # Auto-generated product data from Google Sheets
 
 # Deployment Archives
 *.zip
