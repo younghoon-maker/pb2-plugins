@@ -21,6 +21,9 @@ output/
 *.jpeg
 *.png
 
+# Exception: Logo files (required resources)
+!**/reference/logo/*.png
+
 # Python
 __pycache__/
 *.py[cod]
