@@ -5,6 +5,24 @@ All notable changes to the pb-product-generator plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2025-10-20
+
+### 🎨 Changed
+- **라이프스타일 갤러리 UX 개선**: 이미지가 없는 컬러는 컬러칩 포함 전체 숨김 처리
+  - 빈 컨테이너 "이미지 추가" 로직 제거 (17줄 삭제)
+  - 더 깔끔한 레이아웃 제공
+  - 사용자 경험 향상
+
+### 📦 Files Changed
+- `scripts/generate_final_html.py`: Lines 332-359 수정
+
+### 🔧 Technical Details
+- 이미지 확인 로직 개선: 컬러별 이미지 유무를 먼저 체크
+- continue 문으로 빈 컬러 건너뛰기
+- 불필요한 if-else 분기 제거
+
+---
+
 ## [1.0.0] - 2025-10-20
 
 ### 🏗️ Breaking Changes

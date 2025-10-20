@@ -329,6 +329,10 @@ def generate_html(product, sheets_loader):
             color_name = color.color_name
             color_hex = color.color_hex or '#cccccc'
 
+            # 이미지가 없는 컬러는 건너뛰기
+            if color_name not in gallery_images_base64 or not gallery_images_base64[color_name]['images']:
+                continue
+
             # 컬러 헤더 (컬러칩 + 컬러명 + 첫 번째만 모델 정보)
             if first_color:
                 html += f"""
@@ -346,27 +350,15 @@ def generate_html(product, sheets_loader):
                 </div>
 """
 
-            # 갤러리 이미지 확인
-            if color_name in gallery_images_base64 and gallery_images_base64[color_name]['images']:
-                # 이미지가 있는 경우: 실제 이미지 표시 (원본 레이아웃)
-                html += """
+            # 이미지가 있는 경우만 표시
+            html += """
                 <div style="display: flex; flex-direction: column; gap: 104px; margin-bottom: 56px;">
 """
-                for img_base64 in gallery_images_base64[color_name]['images']:
-                    html += f"""
+            for img_base64 in gallery_images_base64[color_name]['images']:
+                html += f"""
                     <img src="{img_base64}" alt="{color_name}" style="width: 100%; height: 1394px; object-fit: cover;">
 """
-                html += """
-                </div>
-"""
-            else:
-                # 이미지가 없는 경우: 빈 컨테이너 표시 (점선 테두리 + "이미지 추가" 텍스트)
-                html += f"""
-                <div style="display: flex; flex-direction: column; gap: 104px; margin-bottom: 56px;">
-                    <div style="width: 100%; height: 1394px; border: 3px dashed #ccc; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #f9f9f9; position: relative;">
-                        <div style="position: absolute; top: 15px; right: 15px; width: 42px; height: 42px; background: {color_hex}; border: 2px solid #ddd; border-radius: 4px;"></div>
-                        <div style="font-size: 32px; font-weight: 400; color: #999; text-align: center;">이미지 추가</div>
-                    </div>
+            html += """
                 </div>
 """
 

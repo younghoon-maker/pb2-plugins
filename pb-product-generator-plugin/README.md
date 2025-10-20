@@ -2,9 +2,23 @@
 
 **Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 - 완전 자동화 세팅**
 
-Version: 0.2.6
+Version: 1.0.1
 
 ---
+
+## ✨ What's New in v1.0.1
+
+🎨 **UX Improvements**
+- 라이프스타일 갤러리: 이미지가 없는 컬러는 컬러칩 포함 전체 숨김 처리
+- 빈 컨테이너 "이미지 추가" 로직 제거 (더 깔끔한 UI)
+
+## ✨ What's New in v1.0.0
+
+🏗️ **Official Claude Code Standard**
+- 공식 Claude Code 플러그인 표준 준수
+- plugin.json 스키마 표준화
+- 버전 Major 업데이트 (안정 버전 출시)
+- 292-columns 키워드 추가 (명확한 컬럼 수 표시)
 
 ## ✨ What's New in v0.2.6
 
