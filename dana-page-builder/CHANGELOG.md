@@ -5,6 +5,28 @@ All notable changes to the dana-page-builder plugin will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2025-10-20
+
+### 🐛 Fixed
+- **JPG 익스포트 폴백 기능 수정**
+  - 서버 미연결 시 브라우저 다운로드가 정상 작동하도록 개선
+  - `base64Image` 변수 스코프 수정 (try 블록 밖에서 선언)
+  - 서버 500 에러 시에도 폴백 다운로드 실행
+  - catch 블록에서 `base64Image` 존재 여부 확인 추가
+
+### 📝 Details
+**수정 전 동작**:
+- 서버 미실행 → ✅ 폴백 다운로드
+- 서버 실행 + 500 에러 → ❌ 에러 메시지만 표시
+
+**수정 후 동작**:
+- 서버 미실행 → ✅ 폴백 다운로드
+- 서버 실행 + 500 에러 → ✅ 폴백 다운로드
+
+**파일**: `scripts/generate_pages_dana.py` (1640, 1673, 1699 라인)
+
+---
+
 ## [1.0.0] - 2025-10-20
 
 ### 🏗️ Breaking Changes
