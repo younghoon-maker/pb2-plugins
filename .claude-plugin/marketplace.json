@@ -5,22 +5,22 @@
     "email": "pb-team@company.com"
   },
   "metadata": {
-    "description": "제품 상세 페이지 생성 도구 마켓플레이스 v0.2.6",
-    "version": "0.2.6",
+    "description": "제품 상세 페이지 생성 도구 마켓플레이스 - 공식 Claude Code 표준 v1.0.0",
+    "version": "1.0.0",
     "homepage": "https://github.com/younghoon-maker/pb2-plugins"
   },
   "plugins": [
     {
       "name": "pb-product-generator",
       "source": "./pb-product-generator-plugin",
-      "description": "Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 - 완전 자동화 세팅 v0.2.6",
-      "version": "0.2.6",
+      "description": "Google Sheets 292컬럼 기반 제품 상세 페이지 생성기",
+      "version": "1.0.0",
       "author": {
         "name": "PB Product Team",
         "email": "pb-team@company.com"
       },
       "category": "productivity",
-      "tags": ["product", "generator", "google-sheets", "html", "editable", "automation"],
+      "tags": ["product", "generator", "google-sheets", "html", "editable", "automation", "292-columns"],
       "homepage": "https://github.com/younghoon-maker/pb2-plugins",
       "repository": "https://github.com/younghoon-maker/pb2-plugins",
       "license": "MIT",
@@ -29,14 +29,14 @@
     {
       "name": "dana-page-builder",
       "source": "./dana-page-builder",
-      "description": "Dana&Peta 브랜드 제품 상세 페이지 생성기 - Google Sheets 302컬럼 데이터 기반 Editable HTML v0.1.0",
-      "version": "0.1.0",
+      "description": "Dana&Peta 브랜드 제품 상세 페이지 생성기 - Google Sheets 302컬럼 기반",
+      "version": "1.0.0",
       "author": {
         "name": "Dana Product Team",
         "email": "dana-team@company.com"
       },
       "category": "productivity",
-      "tags": ["dana-peta", "product", "generator", "google-sheets", "html", "editable", "gallery"],
+      "tags": ["dana-peta", "product", "generator", "google-sheets", "html", "editable", "gallery", "302-columns"],
       "homepage": "https://github.com/younghoon-maker/pb2-plugins",
       "repository": "https://github.com/younghoon-maker/pb2-plugins",
       "license": "MIT",

@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import List, Optional, Any
 import re
 import tempfile
+import os
 
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
@@ -22,7 +23,7 @@ class SheetsLoader:
         "https://www.googleapis.com/auth/spreadsheets.readonly",
         "https://www.googleapis.com/auth/drive.readonly",
     ]
-    TAB_NAME = "new_raw"
+    TAB_NAME = os.getenv("SHEET_TAB_NAME", "new_raw")
 
     def __init__(self, service_account_file: Path) -> None:
         """

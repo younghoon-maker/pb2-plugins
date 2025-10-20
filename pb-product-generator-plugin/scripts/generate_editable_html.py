@@ -1843,8 +1843,12 @@ def generate_editable_html(product, loader: SheetsLoader) -> str:
 
                     console.log(`\\n[Chunk ${{i + 1}}/${{numChunks}}] 캡처 시작: Y=${{startY}}~${{endY}}px (높이: ${{chunkHeight}}px)`);
 
+                    // Margin calculation (symmetric - good left margin setting)
+                    const contentWidth = 1095;  // Good left margin setting
+                    const marginX = Math.floor((totalWidth - contentWidth) / 2);  // 264px symmetric margins
+
                     // Capture chunk with html2canvas
-                    const canvas = await html2canvas(container, {{
+                    const originalCanvas = await html2canvas(container, {{
                         scale: canvasScale,
                         useCORS: true,
                         backgroundColor: '#ffffff',
@@ -1852,24 +1856,33 @@ def generate_editable_html(product, loader: SheetsLoader) -> str:
                         allowTaint: true,
                         windowWidth: totalWidth,
                         windowHeight: chunkHeight,
-                        width: totalWidth,
+                        width: contentWidth,
                         height: chunkHeight,
-                        x: 0,
+                        x: marginX,
                         y: startY,
                         scrollY: -startY,
-                        scrollX: 0
+                        scrollX: -marginX
                     }});
 
                     // Validate canvas
-                    if (!canvas || canvas.width === 0 || canvas.height === 0) {{
+                    if (!originalCanvas || originalCanvas.width === 0 || originalCanvas.height === 0) {{
                         console.error(`❌ Chunk ${{i + 1}} Canvas 생성 실패`);
                         throw new Error(`Chunk ${{i + 1}} Canvas 생성 실패`);
                     }}
 
-                    console.log(`✅ Chunk ${{i + 1}} Canvas 생성 완료: ${{canvas.width}}×${{canvas.height}}px`);
+                    console.log(`✅ Chunk ${{i + 1}} Canvas 생성 완료: ${{originalCanvas.width}}×${{originalCanvas.height}}px`);
 
-                    // Convert to base64
-                    const base64Image = canvas.toDataURL('image/jpeg', 0.95);
+                    // Post-processing: Crop right side only (asymmetric adjustment)
+                    const rightCropAmount = 39;  // Remove 39px from right (58px in final JPG at 1.5x scale)
+                    const croppedCanvas = document.createElement('canvas');
+                    croppedCanvas.width = originalCanvas.width - rightCropAmount;
+                    croppedCanvas.height = originalCanvas.height;
+                    const ctx = croppedCanvas.getContext('2d');
+                    ctx.drawImage(originalCanvas, 0, 0);  // Copy left portion, exclude right 39px
+                    console.log(`✂️ Right crop applied: ${{originalCanvas.width}}px → ${{croppedCanvas.width}}px (removed ${{rightCropAmount}}px)`);
+
+                    // Convert cropped canvas to base64
+                    const base64Image = croppedCanvas.toDataURL('image/jpeg', 0.95);
                     console.log(`📦 Chunk ${{i + 1}} Base64 변환 완료: ${{(base64Image.length / 1024 / 1024).toFixed(2)}} MB`);
 
                     // Validate base64
@@ -1879,7 +1892,7 @@ def generate_editable_html(product, loader: SheetsLoader) -> str:
                     }}
 
                     // Try server save, fallback to client download
-                    const chunkProductCode = `${{productCode}}_part${{i + 1}}`;
+                    const chunkProductCode = `${{productCode}}_${{String(i + 1).padStart(2, '0')}}`;
                     let savedViaServer = false;
 
                     try {{
@@ -1909,9 +1922,9 @@ def generate_editable_html(product, loader: SheetsLoader) -> str:
                         usedClientDownload = true;
                         console.log(`💾 Chunk ${{i + 1}} 클라이언트 다운로드 시작...`);
 
-                        // Convert canvas to blob
+                        // Convert cropped canvas to blob
                         const blob = await new Promise((resolve, reject) => {{
-                            canvas.toBlob((b) => {{
+                            croppedCanvas.toBlob((b) => {{
                                 if (b) {{
                                     resolve(b);
                                 }} else {{

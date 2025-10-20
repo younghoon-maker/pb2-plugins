@@ -1,14 +1,33 @@
 # PB2 Plugins - Claude Code Marketplace
 
-**제품 상세 페이지 생성 도구 플러그인 마켓플레이스**
+**제품 상세 페이지 생성 도구 플러그인 마켓플레이스 - 공식 Claude Code 표준 v1.0.0**
 
-Version: 0.2.5
+Version: 1.0.0
+
+---
+
+## 🎉 What's New in v1.0.0
+
+### 🏗️ 공식 Claude Code 표준 준수
+- 공식 플러그인 시스템 표준 완전 적용
+- 디렉토리 구조 표준화
+- plugin.json 스키마 표준화
+
+### ✨ dana-page-builder 통합
+- 심볼릭 링크 → 실제 디렉토리로 전환
+- 마켓플레이스에 완전 통합
+- Git으로 전체 추적 가능
+
+### 📚 문서화 강화
+- CHANGELOG.md 추가 (각 플러그인)
+- MIGRATION.md 추가 (v0.2.6 → v1.0.0 가이드)
+- 공식 표준 준수 문서화
 
 ---
 
 ## 📦 Available Plugins
 
-### pb-product-generator (v0.2.5)
+### pb-product-generator (v1.0.0)
 
 Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 - **완전 자동화 세팅**
 
@@ -39,6 +58,42 @@ Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 - **�
 
 **Agent**:
 - `@agent-product-builder` - 제품 페이지 생성 전문 에이전트
+
+---
+
+### dana-page-builder (v1.0.0) 🆕
+
+Dana&Peta 브랜드 제품 상세 페이지 생성기 - **Google Sheets 302컬럼 기반**
+
+**✨ What's New in v1.0.0**:
+- 🏗️ **공식 Claude Code 표준 준수**
+- 📁 디렉토리 구조 표준화
+- ✨ Dana Page Builder Agent 추가 (302컬럼 전문 에이전트)
+- 🎯 4개 Commands (generate, batch-generate, setup-from-private, start-server)
+
+**Features**:
+- ✨ Google Sheets 302컬럼 데이터 통합 (Dana&Peta 브랜드 특화)
+- 🎨 Editable HTML with crop/zoom editor
+- 🚀 Flask 편집 서버 (Port 5002)
+- 📊 배치 생성 지원
+- 🖼️ 라이프스타일 갤러리 확장 지원
+
+**Commands** (네임스페이스 접두사 필수):
+- `/dana-page-builder:generate {product_code}` - 단일 제품 생성
+- `/dana-page-builder:batch-generate {code1} {code2} ...` - 배치 생성
+- `/dana-page-builder:start-server` - Flask 편집 서버 실행 (Port 5002)
+- `/dana-page-builder:setup-from-private` - 자동 세팅
+
+**Agent**:
+- `@agent-dana-page-builder` - Dana 302컬럼 전문 에이전트
+
+**브랜드 특징**:
+| 항목 | Dana&Peta | PB |
+|------|-----------|-----|
+| 컬럼 수 | 302 | 292 |
+| 브랜드 코드 | DN | VD |
+| Flask 포트 | 5002 | 5001 |
+| 타겟 | 여성 고객 | 일반 |
 
 ---
 

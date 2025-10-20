@@ -1,0 +1,73 @@
+{
+  "total_columns": 302,
+  "failing_fields_analysis": {
+    "color1Hex": {
+      "expected_index": 8,
+      "actual_header": "색상1_이름"
+    },
+    "color1Gallery1": {
+      "expected_index": 23,
+      "actual_header": "디테일포인트4_설명"
+    },
+    "fabricImage": {
+      "expected_index": 127,
+      "actual_header": "컬러8_상품컷_url"
+    },
+    "fabricComposition": {
+      "expected_index": 128,
+      "actual_header": "소재이미지"
+    }
+  },
+  "first_50_headers": [
+    "상품코드",
+    "상품명",
+    "설명1",
+    "설명2",
+    "설명3",
+    "설명4",
+    "추천 코멘트",
+    "메인이미지_url",
+    "색상1_이름",
+    "색상1_HEX",
+    "색상2_이름",
+    "색상2_HEX",
+    "색상3_이름",
+    "색상3_HEX",
+    "색상4_이름",
+    "색상4_HEX",
+    "디테일포인트1_url",
+    "디테일포인트1_설명",
+    "디테일포인트2_url",
+    "디테일포인트2_설명",
+    "디테일포인트3_url",
+    "디테일포인트3_설명",
+    "디테일포인트4_url",
+    "디테일포인트4_설명",
+    "Color1_디테일이미지1",
+    "Color1_디테일이미지2",
+    "Color1_디테일이미지3",
+    "Color1_디테일이미지4",
+    "Color1_디테일이미지5",
+    "Color1_디테일이미지6",
+    "Color1_디테일이미지7",
+    "Color1_디테일이미지8",
+    "Color1_디테일이미지9",
+    "Color1_디테일이미지10",
+    "Color1_디테일이미지11",
+    "Color1_디테일이미지12",
+    "Color2_디테일이미지1",
+    "Color2_디테일이미지2",
+    "Color2_디테일이미지3",
+    "Color2_디테일이미지4",
+    "Color2_디테일이미지5",
+    "Color2_디테일이미지6",
+    "Color2_디테일이미지7",
+    "Color2_디테일이미지8",
+    "Color2_디테일이미지9",
+    "Color2_디테일이미지10",
+    "Color2_디테일이미지11",
+    "Color2_디테일이미지12",
+    "Color3_디테일이미지1",
+    "Color3_디테일이미지2"
+  ]
+}

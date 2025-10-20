@@ -1,0 +1,28 @@
+{
+  "name": "dana-page-builder",
+  "version": "1.0.0",
+  "description": "Dana&Peta 브랜드 제품 상세 페이지 생성기 - Google Sheets 302컬럼 기반",
+  "author": {
+    "name": "Dana Product Team",
+    "email": "dana-team@company.com"
+  },
+  "homepage": "https://github.com/younghoon-maker/pb2-plugins",
+  "repository": "https://github.com/younghoon-maker/pb2-plugins",
+  "license": "MIT",
+  "keywords": [
+    "dana-peta",
+    "product-page",
+    "google-sheets",
+    "html-generator",
+    "editable",
+    "gallery",
+    "302-columns"
+  ],
+  "commands": [
+    "./commands/generate.md",
+    "./commands/batch-generate.md",
+    "./commands/setup-from-private.md",
+    "./commands/start-server.md"
+  ],
+  "agents": "./agents/dana-page-builder.md"
+}

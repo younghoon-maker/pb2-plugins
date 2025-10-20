@@ -268,16 +268,30 @@ def generate_html(product, sheets_loader):
     if color_images_base64:
         color_count = len(color_images_base64)
 
-        # 레이아웃 결정: 1-2개는 가운데 정렬, 3개 이상은 2개씩 그리드
+        # 레이아웃 결정: 이미지 개수에 따라 동적 그리드 (최대 3열)
         # 이미지 높이는 모두 예전 비율(470px)로 통일
-        if color_count <= 2:
+        image_height = 470
+
+        if color_count == 1:
+            # 1개: 가운데 정렬
             layout_style = "display: flex; justify-content: center; gap: 14px;"
             item_style = "display: flex; flex-direction: column; gap: 15px; width: 351px;"
-            image_height = 470  # 예전 비율
-        else:
+        elif color_count == 2:
+            # 2개: 가운데 정렬 (현재와 동일)
+            layout_style = "display: flex; justify-content: center; gap: 14px;"
+            item_style = "display: flex; flex-direction: column; gap: 15px; width: 351px;"
+        elif color_count == 3:
+            # 3개: 3열 그리드
+            layout_style = "display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;"
+            item_style = "display: flex; flex-direction: column; gap: 15px;"
+        elif color_count == 4:
+            # 4개: 2x2 그리드
             layout_style = "display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;"
             item_style = "display: flex; flex-direction: column; gap: 15px;"
-            image_height = 470  # 예전 비율로 복원
+        else:
+            # 5개 이상: 3열 그리드 (자동 줄바꿈)
+            layout_style = "display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;"
+            item_style = "display: flex; flex-direction: column; gap: 15px;"
 
         html += f"""
             <div class="section section--color-variants" style="position: relative; width: 1082px; margin: 60px auto 0;">
