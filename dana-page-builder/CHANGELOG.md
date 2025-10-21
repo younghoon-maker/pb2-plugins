@@ -5,6 +5,40 @@ All notable changes to the dana-page-builder plugin will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.3] - 2025-10-21
+
+### ✨ Added
+- **Storage Cleanup 커맨드 추가**
+  - `/dana-page-builder:cleanup` 슬래시 커맨드 추가
+  - HTML, 이미지, 프로덕트 데이터를 타입별로 선택적 정리 가능
+  - 통계 확인, 날짜 기반 정리, 크기 기반 정리 지원
+  - Dry-run 모드로 안전한 시뮬레이션 가능
+
+### 📝 Details
+**주요 기능**:
+- `--stats`: 전체 스토리지 통계 표시 (HTML + 이미지 + 데이터)
+- `--html --days N`: HTML 파일만 정리 (N일 이전)
+- `--images`: 이미지 캐시만 정리
+- `--data`: 프로덕트 데이터만 정리
+- `--all`: 전체 삭제 (사용자 확인 필요)
+- `--max-size MB`: HTML 크기 제한 (초과 시 자동 삭제)
+- `--dry-run`: 시뮬레이션 모드
+
+**추가 파일**:
+- `scripts/cleanup.py`: 스토리지 정리 스크립트
+- `commands/cleanup.md`: 커맨드 문서
+- `.claude-plugin/plugin.json`: cleanup 커맨드 등록
+
+**사용 예시**:
+```bash
+/dana-page-builder:cleanup --stats
+/dana-page-builder:cleanup --html --days 7
+/dana-page-builder:cleanup --images
+/dana-page-builder:cleanup --all --dry-run
+```
+
+---
+
 ## [1.0.2] - 2025-10-20
 
 ### 🐛 Fixed
