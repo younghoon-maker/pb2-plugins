@@ -1122,20 +1122,26 @@ class DanaPageGenerator:
                     }});
 
                     // Size table cell keydown handler (브라우저 줌 단축키 충돌 방지)
-                    document.querySelectorAll('.size-table th, .size-table td').forEach(cell => {{
-                        cell.addEventListener('keydown', (e) => {{
-                            // -, =, + 키 처리: 브라우저 기본 동작 완전 차단 + 수동 삽입
-                            if (e.key === '-' || e.key === '=' || e.key === '+') {{
-                                e.preventDefault();  // 브라우저 기본 동작(줌) 완전 차단
+                    // 전역 document 레벨에서 캡처 단계로 처리하여 브라우저 줌 완전 차단
+                    document.addEventListener('keydown', (e) => {{
+                        // 현재 포커스된 요소가 사이즈표 셀인지 확인
+                        const activeElement = document.activeElement;
+                        const isSizeTableCell = activeElement &&
+                            (activeElement.tagName === 'TD' || activeElement.tagName === 'TH') &&
+                            activeElement.closest('.size-table');
 
-                                // Cmd/Ctrl 없이 단독으로 눌렸을 때만 문자 삽입
-                                if (!e.metaKey && !e.ctrlKey) {{
-                                    document.execCommand('insertText', false, e.key);
-                                }}
-                                // Cmd/Ctrl과 함께 눌렸을 때는 아무것도 하지 않음 (줌 차단됨)
+                        // 사이즈표 셀에서 -, =, + 키 입력 시
+                        if (isSizeTableCell && (e.key === '-' || e.key === '=' || e.key === '+')) {{
+                            e.preventDefault();  // 브라우저 기본 동작(줌) 완전 차단
+                            e.stopPropagation(); // 이벤트 전파 중지
+
+                            // Cmd/Ctrl 없이 단독으로 눌렸을 때만 문자 삽입
+                            if (!e.metaKey && !e.ctrlKey) {{
+                                document.execCommand('insertText', false, e.key);
                             }}
-                        }});
-                    }});
+                            // Cmd/Ctrl과 함께 눌렸을 때는 아무것도 하지 않음 (줌 차단됨)
+                        }}
+                    }}, true);  // ⭐ capture: true - 캡처 단계에서 먼저 처리
 
                     // Fabric properties cell click handler (음영 처리)
                     document.querySelectorAll('.fabric-prop-cell.editable').forEach(cell => {{
