@@ -1122,12 +1122,37 @@ class DanaPageGenerator:
                     }});
 
                     // Size table cell keydown handler (브라우저 줌 단축키 충돌 방지)
-                    document.querySelectorAll('.size-table th, .size-table td.editable').forEach(cell => {{
+                    document.querySelectorAll('.size-table th, .size-table td').forEach(cell => {{
                         cell.addEventListener('keydown', (e) => {{
-                            // -, =, + 키의 브라우저 기본 동작(줌) 방지
-                            if (e.key === '-' || e.key === '=' || e.key === '+') {{
-                                e.stopPropagation();
+                            // Cmd/Ctrl과 함께 -, =, + 키 입력 시에만 브라우저 줌 차단
+                            // 단독 입력은 정상적으로 허용
+                            if ((e.key === '-' || e.key === '=' || e.key === '+') && (e.metaKey || e.ctrlKey)) {{
+                                e.preventDefault();  // 브라우저 줌만 차단
+                                e.stopPropagation(); // 이벤트 전파 중지
                             }}
+                        }});
+                    }});
+
+                    // Fabric properties cell click handler (음영 처리)
+                    document.querySelectorAll('.fabric-prop-cell.editable').forEach(cell => {{
+                        cell.addEventListener('click', (e) => {{
+                            // Grid 구조: 4열(header + 3 cells) × 5행(비침, 신축성, 안감, 두께감, 계절감)
+                            // 같은 행의 셀들만 selected 클래스 제거
+                            const allCells = Array.from(document.querySelectorAll('.fabric-prop-cell.editable'));
+                            const clickedIndex = allCells.indexOf(cell);
+                            const currentRow = Math.floor(clickedIndex / 4);  // 4열 grid
+
+                            // 같은 row에 속한 셀들만 selected 제거
+                            allCells.forEach((elem, index) => {{
+                                const elemRow = Math.floor(index / 4);
+                                if (elemRow === currentRow) {{
+                                    elem.classList.remove('selected');
+                                }}
+                            }});
+
+                            // 클릭한 셀에 selected 클래스 추가
+                            cell.classList.add('selected');
+                            autoSave();  // 변경사항 저장
                         }});
                     }});
 
