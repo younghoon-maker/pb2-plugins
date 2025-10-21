@@ -9,11 +9,14 @@ Google Sheets에서 여러 제품 데이터를 한 번에 로드하여 Editable 
 ## 사용법
 
 ```bash
-# 개별 제품 코드 나열
-/dana-page-builder:batch-generate DN25FW001 DN25FW002 DN25FW003
+# 전체 제품 생성
+/dana-page-builder:batch-generate --all
 
-# 또는 all로 전체 제품 생성
-/dana-page-builder:batch-generate all
+# 특정 제품 1개
+/dana-page-builder:batch-generate --product DN25FW001
+
+# 특정 제품 여러 개
+/dana-page-builder:batch-generate --product DN25FW001 DN25FW002 DN25FW003
 ```
 
 ## 작업 프로세스
@@ -91,11 +94,14 @@ Google Sheets에서 여러 제품 데이터를 한 번에 로드하여 Editable 
 ```bash
 PLUGIN_DIR="$HOME/.claude/plugins/marketplaces/pb-marketplace/dana-page-builder"
 
-# 개별 제품
-python3 "$PLUGIN_DIR/scripts/generate_pages_dana.py" --products DN25FW001 DN25FW002
-
 # 전체 제품
-python3 "$PLUGIN_DIR/scripts/generate_pages_dana.py"
+python3 "$PLUGIN_DIR/scripts/generate_pages_dana.py" --all
+
+# 특정 제품 1개
+python3 "$PLUGIN_DIR/scripts/generate_pages_dana.py" --product DN25FW001
+
+# 특정 제품 여러 개
+python3 "$PLUGIN_DIR/scripts/generate_pages_dana.py" --product DN25FW001 DN25FW002 DN25FW003
 ```
 
 ## 출력 파일 구조

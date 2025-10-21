@@ -3190,17 +3190,21 @@ class DanaPageGenerator:
 
         return html
 
-    def generate_pages(self, product_code: Optional[str] = None) -> None:
-        """Generate HTML pages for products"""
+    def generate_pages(self, product_codes: Optional[List[str]] = None) -> None:
+        """Generate HTML pages for products
+
+        Args:
+            product_codes: List of product codes to generate. None = all products
+        """
         try:
             products_to_generate = self.products
 
-            if product_code:
+            if product_codes:
                 products_to_generate = [
-                    p for p in self.products if p['productCode'] == product_code
+                    p for p in self.products if p['productCode'] in product_codes
                 ]
                 if not products_to_generate:
-                    logger.warning(f"⚠️  Product not found: {product_code}")
+                    logger.warning(f"⚠️  No products found for codes: {product_codes}")
                     return
 
             logger.info(f"📝 Generating HTML pages for {len(products_to_generate)} products...")
@@ -3238,7 +3242,7 @@ class DanaPageGenerator:
             logger.error(f"❌ Page generation failed: {e}")
             raise
 
-    def run(self, product_code: Optional[str] = None) -> None:
+    def run(self, product_codes: Optional[List[str]] = None) -> None:
         """Run the page generation process"""
         try:
             logger.info("=" * 60)
@@ -3251,7 +3255,7 @@ class DanaPageGenerator:
 
             # Generate pages
             logger.info("\n📝 Step 2: Generating HTML pages...")
-            self.generate_pages(product_code)
+            self.generate_pages(product_codes)
 
             logger.info("\n" + "=" * 60)
             logger.info("✅ Page generation completed successfully!")
@@ -3270,12 +3274,22 @@ def main():
     import argparse
 
     parser = argparse.ArgumentParser(description='Generate DANA&PETA product pages')
-    parser.add_argument('--product', help='Generate specific product only (by product code)')
+    parser.add_argument('--all', action='store_true',
+                        help='Generate all products')
+    parser.add_argument('--product', nargs='+',
+                        help='Generate specific products (by product codes)')
 
     args = parser.parse_args()
 
+    # --all과 --product 동시 사용 방지
+    if args.all and args.product:
+        parser.error("Cannot use --all and --product together")
+
+    # product_codes 결정
+    product_codes = None if args.all else args.product
+
     generator = DanaPageGenerator()
-    generator.run(product_code=args.product)
+    generator.run(product_codes=product_codes)
 
 
 if __name__ == "__main__":

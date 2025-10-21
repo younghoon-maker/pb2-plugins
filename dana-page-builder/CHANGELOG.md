@@ -5,6 +5,42 @@ All notable changes to the dana-page-builder plugin will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.3] - 2025-10-21
+
+### ✨ Added
+- **배치 생성 --all 및 --product 복수 지원**
+  - `--all`: 전체 제품 생성
+  - `--product CODE1 CODE2 ...`: 여러 특정 품번 배치 생성
+  - 상호 배타적 검증: `--all`과 `--product` 동시 사용 방지
+
+### 🐛 Fixed
+- **batch-generate.md 문서 수정**
+  - 사용법 예시 업데이트
+  - `--products` (복수) → `--product` (단수, nargs='+')로 변경
+  - 경로 `pb2-marketplace` → `pb-marketplace` 확인
+
+### 📝 Details
+**변경 파일**:
+- `scripts/generate_pages_dana.py`
+  - `generate_pages(product_codes: List[str])`: 복수 품번 지원
+  - `main()`: argparse에 `--all`, `--product nargs='+'` 추가
+- `commands/batch-generate.md`
+  - 사용법 예시 업데이트 (Line 12-19, 97-104)
+
+**사용 예시**:
+```bash
+# 전체 제품
+/dana-page-builder:batch-generate --all
+
+# 특정 제품 1개
+/dana-page-builder:batch-generate --product DN25WSU002
+
+# 특정 제품 여러 개
+/dana-page-builder:batch-generate --product DN25WSU002 DN25WSU003
+```
+
+---
+
 ## [2.0.2] - 2025-10-21
 
 ### 🐛 Fixed
