@@ -5,6 +5,57 @@ All notable changes to the dana-page-builder plugin will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.2] - 2025-10-21
+
+### 🐛 Fixed
+- **사이즈표 특수문자 입력 완전 수정**
+  - `preventDefault()` 추가로 브라우저 줌 기본 동작 완전 차단
+  - Selector 수정: `.size-table td.editable` → `.size-table td` (실제 HTML 구조와 일치)
+  - `-`, `=`, `+` 키 입력 정상 작동
+- **원단 속성 음영 처리 기능 추가**
+  - 비침~계절감 파트에서 셀 클릭 시 음영 처리 구현
+  - 같은 속성 내 하나의 셀만 선택 가능 (라디오 버튼 동작)
+  - `selected` 클래스 토글 JavaScript 핸들러 추가
+  - 클릭 시 회색 음영(#d9d9d9) 표시 및 자동 저장
+
+### 📝 Details
+**사이즈표 문제 원인**:
+- Selector 불일치: JavaScript는 `.size-table td.editable`를 찾았지만, 실제 HTML에는 `class="editable"`가 없음
+- `stopPropagation()`만으로는 브라우저 기본 줌 동작 차단 불가
+
+**해결 방법**:
+- Selector 수정: `.size-table td` (모든 td 태그 대상)
+- `preventDefault()` 추가: 브라우저 기본 동작 차단
+- `stopPropagation()` 유지: 이벤트 전파 중지
+
+**음영 처리 문제 원인**:
+- CSS와 HTML은 정상이었으나 JavaScript 클릭 이벤트 핸들러 누락
+- 클릭해도 `selected` 클래스가 토글되지 않음
+
+**해결 방법**:
+- `.fabric-prop-cell.editable` 클릭 핸들러 추가
+- 같은 속성(같은 부모) 내 다른 셀에서 `selected` 제거
+- 클릭한 셀에 `selected` 클래스 추가
+- `autoSave()` 호출로 변경사항 LocalStorage에 저장
+
+**수정 파일**:
+- `scripts/generate_pages_dana.py` (lines 1125-1149)
+
+**테스트 방법**:
+```bash
+# HTML 재생성
+python3 scripts/generate_pages_dana.py --product DN25WSU002
+
+# 브라우저에서 강력 새로고침 (캐시 무시)
+Cmd + Shift + R (Mac) / Ctrl + Shift + R (Windows)
+
+# 테스트
+1. 사이즈표에서 -, =, + 입력 확인
+2. 비침~계절감 셀 클릭 시 음영 처리 확인
+```
+
+---
+
 ## [2.0.1] - 2025-10-21
 
 ### 🐛 Fixed
