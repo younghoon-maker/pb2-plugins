@@ -39,7 +39,7 @@ tools: [Bash]
 
 ### 1. 통계 확인 (전체)
 ```bash
-/pb-product-generator:cleanup --stats
+/pb2-page-builder:cleanup --stats
 ```
 
 **출력 예시**:
@@ -82,7 +82,7 @@ tools: [Bash]
 
 ### 2. HTML 파일만 정리
 ```bash
-/pb-product-generator:cleanup --html --days 7
+/pb2-page-builder:cleanup --html --days 7
 ```
 
 **기능**:
@@ -92,12 +92,12 @@ tools: [Bash]
 
 **시뮬레이션**:
 ```bash
-/pb-product-generator:cleanup --html --days 7 --dry-run
+/pb2-page-builder:cleanup --html --days 7 --dry-run
 ```
 
 ### 3. 이미지만 정리
 ```bash
-/pb-product-generator:cleanup --images
+/pb2-page-builder:cleanup --images
 ```
 
 **기능**:
@@ -106,18 +106,18 @@ tools: [Bash]
 
 **날짜 기반 이미지 정리**:
 ```bash
-/pb-product-generator:cleanup --images --days 7
+/pb2-page-builder:cleanup --images --days 7
 ```
 
 **시뮬레이션**:
 ```bash
-/pb-product-generator:cleanup --images --dry-run
-/pb-product-generator:cleanup --images --days 7 --dry-run
+/pb2-page-builder:cleanup --images --dry-run
+/pb2-page-builder:cleanup --images --days 7 --dry-run
 ```
 
 ### 4. 프로덕트 데이터만 정리
 ```bash
-/pb-product-generator:cleanup --data
+/pb2-page-builder:cleanup --data
 ```
 
 **기능**:
@@ -126,18 +126,18 @@ tools: [Bash]
 
 **날짜 기반 데이터 정리**:
 ```bash
-/pb-product-generator:cleanup --data --days 7
+/pb2-page-builder:cleanup --data --days 7
 ```
 
 **시뮬레이션**:
 ```bash
-/pb-product-generator:cleanup --data --dry-run
-/pb-product-generator:cleanup --data --days 7 --dry-run
+/pb2-page-builder:cleanup --data --dry-run
+/pb2-page-builder:cleanup --data --days 7 --dry-run
 ```
 
 ### 5. Figma 캐시만 정리
 ```bash
-/pb-product-generator:cleanup --cache
+/pb2-page-builder:cleanup --cache
 ```
 
 **기능**:
@@ -146,18 +146,18 @@ tools: [Bash]
 
 **날짜 기반 캐시 정리**:
 ```bash
-/pb-product-generator:cleanup --cache --days 7
+/pb2-page-builder:cleanup --cache --days 7
 ```
 
 **시뮬레이션**:
 ```bash
-/pb-product-generator:cleanup --cache --dry-run
-/pb-product-generator:cleanup --cache --days 7 --dry-run
+/pb2-page-builder:cleanup --cache --dry-run
+/pb2-page-builder:cleanup --cache --days 7 --dry-run
 ```
 
 ### 6. 크기 기반 정리 (HTML만)
 ```bash
-/pb-product-generator:cleanup --max-size 500
+/pb2-page-builder:cleanup --max-size 500
 ```
 
 **기능**:
@@ -166,12 +166,12 @@ tools: [Bash]
 
 **시뮬레이션**:
 ```bash
-/pb-product-generator:cleanup --max-size 500 --dry-run
+/pb2-page-builder:cleanup --max-size 500 --dry-run
 ```
 
 ### 7. 전체 삭제 (주의!)
 ```bash
-/pb-product-generator:cleanup --all
+/pb2-page-builder:cleanup --all
 ```
 
 **경고**:
@@ -183,7 +183,7 @@ tools: [Bash]
 
 **시뮬레이션**:
 ```bash
-/pb-product-generator:cleanup --all --dry-run
+/pb2-page-builder:cleanup --all --dry-run
 ```
 
 ## 추천 워크플로우
@@ -191,46 +191,46 @@ tools: [Bash]
 ### 일반 사용자 (타입별 정리)
 ```bash
 # 1. 통계 확인
-/pb-product-generator:cleanup --stats
+/pb2-page-builder:cleanup --stats
 
 # 2. HTML만 정리 (1주일 이전)
-/pb-product-generator:cleanup --html --days 7
+/pb2-page-builder:cleanup --html --days 7
 
 # 3. 이미지만 정리 (1주일 이전)
-/pb-product-generator:cleanup --images --days 7
+/pb2-page-builder:cleanup --images --days 7
 
 # 4. 프로덕트 데이터만 정리 (1주일 이전)
-/pb-product-generator:cleanup --data --days 7
+/pb2-page-builder:cleanup --data --days 7
 
 # 5. Figma 캐시만 정리 (1주일 이전)
-/pb-product-generator:cleanup --cache --days 7
+/pb2-page-builder:cleanup --cache --days 7
 ```
 
 ### 디스크 공간 부족 시
 ```bash
 # 1. 통계 확인
-/pb-product-generator:cleanup --stats
+/pb2-page-builder:cleanup --stats
 
 # 2. 이미지 전체 삭제 (가장 큰 용량)
-/pb-product-generator:cleanup --images
+/pb2-page-builder:cleanup --images
 
 # 3. 프로덕트 데이터 전체 삭제 (재생성 가능)
-/pb-product-generator:cleanup --data
+/pb2-page-builder:cleanup --data
 
 # 4. Figma 캐시 전체 삭제 (즉시 효과)
-/pb-product-generator:cleanup --cache
+/pb2-page-builder:cleanup --cache
 
 # 5. HTML 크기 제한 (예: 300MB)
-/pb-product-generator:cleanup --max-size 300
+/pb2-page-builder:cleanup --max-size 300
 ```
 
 ### 정기 유지보수
 ```bash
 # 매주 실행 (cron 등) - 타입별
-/pb-product-generator:cleanup --html --days 14
-/pb-product-generator:cleanup --images --days 14
-/pb-product-generator:cleanup --data --days 14
-/pb-product-generator:cleanup --cache --days 30
+/pb2-page-builder:cleanup --html --days 14
+/pb2-page-builder:cleanup --images --days 14
+/pb2-page-builder:cleanup --data --days 14
+/pb2-page-builder:cleanup --cache --days 30
 ```
 
 ## 옵션 상세
@@ -326,7 +326,7 @@ data/
 # weekly_cleanup.sh
 
 cd /path/to/project
-python3 ~/.claude/plugins/marketplaces/pb2-marketplace/pb-product-generator-plugin/scripts/cleanup.py --days 14
+python3 ~/.claude/plugins/marketplaces/pb2-marketplace/pb2-page-builder/scripts/cleanup.py --days 14
 
 echo "✅ Weekly cleanup completed"
 ```
@@ -342,7 +342,7 @@ echo "✅ Weekly cleanup completed"
     <key>ProgramArguments</key>
     <array>
         <string>python3</string>
-        <string>/Users/username/.claude/plugins/marketplaces/pb2-marketplace/pb-product-generator-plugin/scripts/cleanup.py</string>
+        <string>/Users/username/.claude/plugins/marketplaces/pb2-marketplace/pb2-page-builder/scripts/cleanup.py</string>
         <string>--days</string>
         <string>14</string>
         <string>--output-dir</string>
@@ -399,7 +399,7 @@ mkdir -p output
 
 ### Step 1: cleanup.py 스크립트 경로 찾기
 ```bash
-find ~/.claude/plugins -name "cleanup.py" -path "*/pb-product-generator*/scripts/*" 2>/dev/null | head -1
+find ~/.claude/plugins -name "cleanup.py" -path "*/pb2-page-builder*/scripts/*" 2>/dev/null | head -1
 ```
 
 ### Step 2: 사용자에게 옵션 확인

@@ -21,7 +21,7 @@ PRIVATE_SETUP.md 파일을 읽어서 자동으로 전체 환경을 설정합니�
 **프로젝트 폴더에 PRIVATE_SETUP.md 파일이 있어야 합니다**:
 
 ```bash
-/pb-product-generator:setup-from-private
+/pb2-page-builder:setup-from-private
 ```
 
 ## 출력
@@ -56,9 +56,9 @@ PRIVATE_SETUP.md 파일을 읽어서 자동으로 전체 환경을 설정합니�
 ✅ Setup completed successfully!
 
 You can now use:
-  /pb-product-generator:generate VD25FPT003
-  /pb-product-generator:batch VD25FPT003 VD25FPT005
-  /pb-product-generator:server
+  /pb2-page-builder:generate VD25FPT003
+  /pb2-page-builder:batch VD25FPT003 VD25FPT005
+  /pb2-page-builder:server
 ```
 
 ## PRIVATE_SETUP.md 형식
@@ -178,17 +178,17 @@ GOOGLE_SHEET_ID=1ipkHdYdQhIAfUBkNUWHkFqcgP0aOXLVO14MYXWscEPk
 
 1. **제품 생성 테스트**:
    ```bash
-   /pb-product-generator:generate VD25FPT003
+   /pb2-page-builder:generate VD25FPT003
    ```
 
 2. **서버 실행**:
    ```bash
-   /pb-product-generator:server
+   /pb2-page-builder:server
    ```
 
 3. **배치 생성**:
    ```bash
-   /pb-product-generator:batch VD25FPT003 VD25FPT005 VD25FCA004
+   /pb2-page-builder:batch VD25FPT003 VD25FPT005 VD25FCA004
    ```
 
 ## 구현
@@ -203,16 +203,16 @@ GOOGLE_SHEET_ID=1ipkHdYdQhIAfUBkNUWHkFqcgP0aOXLVO14MYXWscEPk
 
 예시:
 ```bash
-~/.claude/plugins/marketplaces/pb2-marketplace/pb-product-generator-plugin/scripts/auto_setup.py
+~/.claude/plugins/marketplaces/pb2-marketplace/pb2-page-builder/scripts/auto_setup.py
 ```
 
 **자동 탐지 방법**:
 ```bash
 # Step 1: find 명령으로 동적으로 경로 찾기
-find ~/.claude/plugins -name "auto_setup.py" -path "*/pb-product-generator*/scripts/*" 2>/dev/null | head -1
+find ~/.claude/plugins -name "auto_setup.py" -path "*/pb2-page-builder*/scripts/*" 2>/dev/null | head -1
 
 # Step 2: 찾은 경로로 Python 스크립트 실행
-python3 /Users/username/.claude/plugins/marketplaces/pb2-marketplace/pb-product-generator-plugin/scripts/auto_setup.py
+python3 /Users/username/.claude/plugins/marketplaces/pb2-marketplace/pb2-page-builder/scripts/auto_setup.py
 ```
 
 **참고**:
@@ -233,7 +233,7 @@ ls -la PRIVATE_SETUP.md 2>/dev/null && echo "✅ PRIVATE_SETUP.md found" || echo
 
 ### Step 2: auto_setup.py 스크립트 경로 찾기
 ```bash
-find ~/.claude/plugins -name "auto_setup.py" -path "*/pb-product-generator*/scripts/*" 2>/dev/null | head -1
+find ~/.claude/plugins -name "auto_setup.py" -path "*/pb2-page-builder*/scripts/*" 2>/dev/null | head -1
 ```
 
 ### Step 3: Python 스크립트 실행

@@ -17,26 +17,26 @@ description: 여러 제품을 한 번에 배치 생성
 
 ### 기본: 수동 입력
 ```bash
-/pb-product-generator:batch {product_code1} {product_code2} {product_code3} ...
+/pb2-page-builder:batch {product_code1} {product_code2} {product_code3} ...
 ```
 
 **예시**:
 ```bash
-/pb-product-generator:batch VD25FTS002 VD25FPT003 VD25FCA004
+/pb2-page-builder:batch VD25FTS002 VD25FPT003 VD25FCA004
 ```
 
 ### 전체 제품 생성
 Google Sheets A열의 모든 제품 코드를 자동으로 감지하여 생성:
 ```bash
-/pb-product-generator:batch --all
+/pb2-page-builder:batch --all
 ```
 
 ### 필터링 생성
 특정 패턴과 매칭되는 제품만 생성 (대소문자 무시):
 ```bash
-/pb-product-generator:batch --filter=FTS      # FTS 포함하는 제품만
-/pb-product-generator:batch --filter=VD25     # VD25 포함하는 제품만
-/pb-product-generator:batch --filter=FPT003   # FPT003 포함하는 제품만
+/pb2-page-builder:batch --filter=FTS      # FTS 포함하는 제품만
+/pb2-page-builder:batch --filter=VD25     # VD25 포함하는 제품만
+/pb2-page-builder:batch --filter=FPT003   # FPT003 포함하는 제품만
 ```
 
 ## 출력
@@ -110,6 +110,6 @@ Google Sheets A열의 모든 제품 코드를 자동으로 감지하여 생성:
 이 커맨드는 플러그인 내부의 원본 배치 생성 스크립트를 직접 실행합니다:
 
 ```python
-# pb-product-generator-plugin/scripts/generate_batch.py
+# pb2-page-builder/scripts/generate_batch.py
 python3 scripts/generate_batch.py {product_code1} {product_code2} ...
 ```

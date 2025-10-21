@@ -16,7 +16,7 @@ Editable HTML 파일 목록 제공 및 HTML/JPG 익스포트 기능을 제공하
 ## 사용법
 
 ```bash
-/pb-product-generator:server
+/pb2-page-builder:server
 ```
 
 **브라우저 자동 실행**:
@@ -69,14 +69,14 @@ FLASK_PORT=5002
   ```
 
 - **파일 없음**: `No editable files found`
-  → `/pb-product-generator:generate` 또는 `/pb-product-generator:batch`로 먼저 파일 생성
+  → `/pb2-page-builder:generate` 또는 `/pb2-page-builder:batch`로 먼저 파일 생성
 
 ## 구현
 
 이 커맨드는 플러그인 내부의 원본 Flask 서버 스크립트를 직접 실행합니다:
 
 ```python
-# pb-product-generator-plugin/scripts/server.py
+# pb2-page-builder/scripts/server.py
 python3 scripts/server.py
 ```
 

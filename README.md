@@ -1,75 +1,61 @@
-# PB2 Plugins - Claude Code Marketplace
+# pb-marketplace - Claude Code Plugin Marketplace
 
-**제품 상세 페이지 생성 도구 플러그인 마켓플레이스 - 공식 Claude Code 표준 v1.0.0**
+**PB 제품 상세 페이지 생성 도구 마켓플레이스 - 공식 Claude Code 표준 v2.0.0**
 
-Version: 1.0.0
+Version: 2.0.0
 
 ---
 
-## 🎉 What's New in v1.0.0
+## 🎉 What's New in v2.0.0 - Major Rebranding
 
-### 🏗️ 공식 Claude Code 표준 준수
-- 공식 플러그인 시스템 표준 완전 적용
-- 디렉토리 구조 표준화
-- plugin.json 스키마 표준화
+### 🚀 Breaking Changes
+- **마켓플레이스 이름 변경**: pb2-marketplace → **pb-marketplace**
+- **저장소 URL 변경**: `younghoon-maker/pb2-plugins` → `younghoon-maker/pb-plugins`
+- **플러그인 리네이밍**: pb-product-generator → **pb2-page-builder**
+- **커맨드 네임스페이스**: `/pb-product-generator:*` → `/pb2-page-builder:*`
 
-### ✨ dana-page-builder 통합
-- 심볼릭 링크 → 실제 디렉토리로 전환
-- 마켓플레이스에 완전 통합
-- Git으로 전체 추적 가능
+### ✨ Major Version Bump
+- pb-marketplace: 1.0.0 → **2.0.0**
+- pb2-page-builder: 1.0.6 → **2.0.0**
+- dana-page-builder: 1.0.3 → **2.0.0**
 
-### 📚 문서화 강화
-- CHANGELOG.md 추가 (각 플러그인)
-- MIGRATION.md 추가 (v0.2.6 → v1.0.0 가이드)
-- 공식 표준 준수 문서화
+### 📚 마켓플레이스 중심 개편
+- 양쪽 플러그인 균형있는 문서화
+- 브랜드별 차별점 명확화 (VD vs DN)
+- 통합 마이그레이션 가이드 제공
 
 ---
 
 ## 📦 Available Plugins
 
-### pb-product-generator (v1.0.0)
+이 마켓플레이스는 **2개의 제품 상세 페이지 생성 플러그인**을 제공합니다:
 
-Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 - **완전 자동화 세팅**
+### 🔵 pb2-page-builder (v2.0.0)
 
-**✨ What's New in v0.2.5**:
-- 🔍 **제품 코드 검색 로직 개선**
-  - 공백 처리 추가 (`.strip()`) - 정확한 매칭 보장
-  - 검색 범위 확장 (100행 → 1000행)
-  - 예외 처리 개선 - HttpError 분리, 디버그 메시지 추가
-- ✅ `/pb-product-generator:generate` 검색 안정성 향상
-
-**✨ v0.2.0 Features**:
-- 🎯 5분 완성 자동 세팅 (`/pb-product-generator:setup-from-private`)
-- 🏗️ 원본 코드 직접 포함 (2116 lines)
-- 📊 70MB 고품질 출력 보장
-- 🔐 PRIVATE_SETUP.md (서비스 어카운트 JSON 포함)
+**PB2 제품 상세 페이지 생성기 - 292컬럼 기반 (VD 브랜드)**
 
 **Features**:
-- ✨ Google Sheets 292컬럼 데이터 통합
+- ✨ Google Sheets 292컬럼 데이터 통합 (VD 브랜드 특화)
 - 🎨 Editable HTML V4 (이미지 crop/zoom, 텍스트 편집)
 - 🚀 Flask 편집 서버 (Port 5001)
 - 📊 배치 생성 지원
+- 🔐 완전 자동화 세팅
 
 **Commands** (네임스페이스 접두사 필수):
-- `/pb-product-generator:generate {product_code}` - 단일 제품 생성
-- `/pb-product-generator:batch {code1} {code2} ...` - 배치 생성
-- `/pb-product-generator:server` - Flask 편집 서버 실행
-- `/pb-product-generator:setup-from-private` - 자동 세팅
+- `/pb2-page-builder:generate {product_code}` - 단일 제품 생성
+- `/pb2-page-builder:batch {code1} {code2} ...` - 배치 생성
+- `/pb2-page-builder:server` - Flask 편집 서버 실행
+- `/pb2-page-builder:setup-from-private` - 자동 세팅
+- `/pb2-page-builder:cleanup` - 파일 정리
 
 **Agent**:
-- `@agent-product-builder` - 제품 페이지 생성 전문 에이전트
+- `@agent-product-builder` - PB2 제품 페이지 생성 전문 에이전트
 
 ---
 
-### dana-page-builder (v1.0.0) 🆕
+### 🟣 dana-page-builder (v2.0.0)
 
-Dana&Peta 브랜드 제품 상세 페이지 생성기 - **Google Sheets 302컬럼 기반**
-
-**✨ What's New in v1.0.0**:
-- 🏗️ **공식 Claude Code 표준 준수**
-- 📁 디렉토리 구조 표준화
-- ✨ Dana Page Builder Agent 추가 (302컬럼 전문 에이전트)
-- 🎯 4개 Commands (generate, batch-generate, setup-from-private, start-server)
+**Dana&Peta 브랜드 제품 상세 페이지 생성기 - 302컬럼 기반**
 
 **Features**:
 - ✨ Google Sheets 302컬럼 데이터 통합 (Dana&Peta 브랜드 특화)
@@ -83,17 +69,22 @@ Dana&Peta 브랜드 제품 상세 페이지 생성기 - **Google Sheets 302컬�
 - `/dana-page-builder:batch-generate {code1} {code2} ...` - 배치 생성
 - `/dana-page-builder:start-server` - Flask 편집 서버 실행 (Port 5002)
 - `/dana-page-builder:setup-from-private` - 자동 세팅
+- `/dana-page-builder:cleanup` - 파일 정리
 
 **Agent**:
 - `@agent-dana-page-builder` - Dana 302컬럼 전문 에이전트
 
-**브랜드 특징**:
-| 항목 | Dana&Peta | PB |
-|------|-----------|-----|
-| 컬럼 수 | 302 | 292 |
-| 브랜드 코드 | DN | VD |
-| Flask 포트 | 5002 | 5001 |
-| 타겟 | 여성 고객 | 일반 |
+---
+
+### 📊 플러그인 비교
+
+| 항목 | pb2-page-builder | dana-page-builder |
+|------|------------------|-------------------|
+| **브랜드** | VD (일반 PB) | DN (Dana&Peta) |
+| **컬럼 수** | 292 | 302 |
+| **Flask 포트** | 5001 | 5002 |
+| **타겟 고객** | 일반 | 여성 고객 |
+| **Agent** | @agent-product-builder | @agent-dana-page-builder |
 
 ---
 
@@ -101,25 +92,48 @@ Dana&Peta 브랜드 제품 상세 페이지 생성기 - **Google Sheets 302컬�
 
 ### Quick Start (5분)
 
+#### pb2-page-builder 설치
+
 ```bash
 # Step 1: 마켓플레이스 추가
-/plugin marketplace add younghoon-maker/pb2-plugins
+/plugin marketplace add younghoon-maker/pb-plugins
 
 # Step 2: 플러그인 설치
-/plugin install pb-product-generator@pb2-plugins
+/plugin install pb2-page-builder@pb-marketplace
 
 # Step 3: Claude 재시작
 /quit
 claude
 
 # Step 4: PRIVATE_SETUP.md를 관리자로부터 받아 프로젝트 폴더에 복사
-# (중요: Claude를 실행하는 프로젝트 폴더에 복사)
 
 # Step 5: 자동 세팅 실행
-/pb-product-generator:setup-from-private
+/pb2-page-builder:setup-from-private
 
 # Step 6: 사용
-/pb-product-generator:generate VD25FPT003
+/pb2-page-builder:generate VD25FPT003
+```
+
+#### dana-page-builder 설치
+
+```bash
+# Step 1: 마켓플레이스 추가 (이미 추가했다면 생략)
+/plugin marketplace add younghoon-maker/pb-plugins
+
+# Step 2: 플러그인 설치
+/plugin install dana-page-builder@pb-marketplace
+
+# Step 3: Claude 재시작
+/quit
+claude
+
+# Step 4: PRIVATE_SETUP.md를 관리자로부터 받아 프로젝트 폴더에 복사
+
+# Step 5: 자동 세팅 실행
+/dana-page-builder:setup-from-private
+
+# Step 6: 사용
+/dana-page-builder:generate DN25WOP002
 ```
 
 ---
@@ -143,27 +157,121 @@ claude
 
 ## 📚 Documentation
 
-### 플러그인 문서
-- **Plugin README**: [pb-product-generator-plugin/README.md](./pb-product-generator-plugin/README.md)
-- **Onboarding Guide**: [pb-product-generator-plugin/ONBOARDING.md](./pb-product-generator-plugin/ONBOARDING.md)
-- **Command Docs**: [pb-product-generator-plugin/commands/](./pb-product-generator-plugin/commands/)
+### pb2-page-builder 문서
+- **Plugin README**: [pb2-page-builder/README.md](./pb2-page-builder/README.md)
+- **Command Docs**: [pb2-page-builder/commands/](./pb2-page-builder/commands/)
+- **CHANGELOG**: [pb2-page-builder/CHANGELOG.md](./pb2-page-builder/CHANGELOG.md)
 
-### 사용 예시
+### dana-page-builder 문서
+- **Plugin README**: [dana-page-builder/README.md](./dana-page-builder/README.md)
+- **Command Docs**: [dana-page-builder/commands/](./dana-page-builder/commands/)
+- **CHANGELOG**: [dana-page-builder/CHANGELOG.md](./dana-page-builder/CHANGELOG.md)
 
-#### 1. 단일 제품 생성
+### 마켓플레이스 문서
+- **Installation Guide**: [INSTALLATION_GUIDE.md](./INSTALLATION_GUIDE.md)
+- **Migration Guide**: [MIGRATION.md](./MIGRATION.md) - v1.x → v2.0.0 가이드
+
+---
+
+## 🔧 사용 예시
+
+### pb2-page-builder 예시
+
+#### 1. 단일 제품 생성 (VD 브랜드)
 ```bash
-/pb-product-generator:generate VD25FPT003
+/pb2-page-builder:generate VD25FPT003
 ```
 
 #### 2. 배치 생성
 ```bash
-/pb-product-generator:batch VD25FPT003 VD25FPT005 VD25FCA004
+/pb2-page-builder:batch VD25FPT003 VD25FPT005 VD25FCA004
 ```
 
 #### 3. Flask 서버
 ```bash
-/pb-product-generator:server
+/pb2-page-builder:server
 # http://localhost:5001 자동 실행
+```
+
+#### 4. 파일 정리
+```bash
+/pb2-page-builder:cleanup --html --days 7
+```
+
+### dana-page-builder 예시
+
+#### 1. 단일 제품 생성 (DN 브랜드)
+```bash
+/dana-page-builder:generate DN25WOP002
+```
+
+#### 2. 배치 생성
+```bash
+/dana-page-builder:batch-generate DN25WOP002 DN25FDP001
+```
+
+#### 3. Flask 서버
+```bash
+/dana-page-builder:start-server
+# http://localhost:5002 자동 실행
+```
+
+#### 4. 파일 정리
+```bash
+/dana-page-builder:cleanup --images --days 7
+```
+
+---
+
+## 🏗️ Directory Structure
+
+```
+pb-plugins/                            # GitHub repository (v2.0.0)
+├── .claude-plugin/
+│   └── marketplace.json               # Marketplace definition (v2.0.0)
+├── pb2-page-builder/                  # PB2 Plugin (v2.0.0)
+│   ├── .claude-plugin/
+│   │   └── plugin.json                # Plugin manifest
+│   ├── commands/                      # Slash commands
+│   │   ├── generate.md
+│   │   ├── batch.md
+│   │   ├── server.md
+│   │   ├── setup-from-private.md
+│   │   └── cleanup.md
+│   ├── agents/                        # Agents
+│   │   └── product-builder.md
+│   ├── scripts/                       # Python scripts
+│   │   ├── generate_editable_html.py
+│   │   ├── generate_batch.py
+│   │   ├── server.py
+│   │   ├── cleanup.py
+│   │   └── auto_setup.py
+│   ├── src/                           # Full source code
+│   ├── templates/                     # Jinja2 templates
+│   ├── requirements.txt
+│   ├── CHANGELOG.md
+│   └── README.md
+├── dana-page-builder/                 # Dana Plugin (v2.0.0)
+│   ├── .claude-plugin/
+│   │   └── plugin.json
+│   ├── commands/                      # Slash commands
+│   │   ├── generate.md
+│   │   ├── batch-generate.md
+│   │   ├── start-server.md
+│   │   ├── setup-from-private.md
+│   │   └── cleanup.md
+│   ├── agents/
+│   │   └── dana-page-builder.md
+│   ├── scripts/
+│   ├── src/
+│   ├── templates/
+│   ├── requirements.txt
+│   ├── CHANGELOG.md
+│   └── README.md
+├── .gitignore                         # PRIVATE_SETUP.md excluded
+├── INSTALLATION_GUIDE.md              # 통합 설치 가이드
+├── MIGRATION.md                       # v1.x → v2.0.0 마이그레이션
+└── README.md                          # This file
 ```
 
 ---
@@ -176,7 +284,7 @@ claude
 
 **Solution**:
 1. Verify marketplace added: `/plugin marketplace list`
-2. Refresh: `/plugin marketplace update pb2-marketplace`
+2. Refresh: `/plugin marketplace update pb-marketplace`
 3. Restart Claude Code
 
 ### Service Account 에러
@@ -193,40 +301,23 @@ claude
 
 **Solution**:
 ```bash
-cd ~/.claude/plugins/pb-product-generator/
+# pb2-page-builder
+cd ~/.claude/plugins/marketplaces/pb-marketplace/pb2-page-builder/
+pip3 install -r requirements.txt
+
+# dana-page-builder
+cd ~/.claude/plugins/marketplaces/pb-marketplace/dana-page-builder/
 pip3 install -r requirements.txt
 ```
 
----
+### 포트 충돌
 
-## 🏗️ Directory Structure
+**Issue**: Flask 서버 실행 시 포트 충돌
 
-```
-pb2-plugins/                          # GitHub repository
-├── .claude-plugin/
-│   └── marketplace.json              # Marketplace definition (v0.2.0)
-├── pb-product-generator-plugin/      # Plugin directory
-│   ├── .claude-plugin/
-│   │   └── plugin.json               # Plugin manifest (v0.2.0)
-│   ├── commands/                     # Slash commands
-│   │   ├── generate.md
-│   │   ├── batch.md
-│   │   └── server.md
-│   ├── agents/                       # Agents
-│   │   └── product-builder.md
-│   ├── scripts/                      # Original scripts (2116 lines)
-│   │   ├── generate_editable_html.py
-│   │   ├── generate_batch.py
-│   │   └── server.py
-│   ├── src/                          # Full source code
-│   ├── templates/                    # Jinja2 templates
-│   ├── setup.sh                      # Auto setup script
-│   ├── PRIVATE_SETUP.md              # Private guide (NOT in Git)
-│   ├── requirements.txt
-│   └── README.md
-├── .gitignore                        # PRIVATE_SETUP.md excluded
-└── README.md                         # This file
-```
+**Solution**:
+- pb2-page-builder: Port 5001
+- dana-page-builder: Port 5002
+- 두 서버를 동시에 실행 가능 (다른 포트 사용)
 
 ---
 
@@ -246,108 +337,30 @@ pb2-plugins/                          # GitHub repository
 
 ## 📊 Version History
 
-### v0.2.5 (2025-10-19) - 🔍 Product Code Search Enhancement
+### v2.0.0 (2025-10-21) - 🚀 Major Rebranding
 
-**Bug Fixes**:
-- ✅ 제품 코드 검색 로직 개선
-  - 공백 처리 추가: `.strip()` 사용으로 정확한 매칭 보장
-  - 검색 범위 확장: 100행 → 1000행
-  - 예외 처리 개선: HttpError와 일반 예외 분리, 디버그 메시지 추가
-- ✅ HttpError import 추가 (googleapiclient.errors)
-- ✅ 검색 실패 시 상세 정보 출력 (검색 범위, 탭 이름)
+**BREAKING CHANGES**:
+- ❌ 마켓플레이스: pb2-marketplace → pb-marketplace
+- ❌ 저장소: pb2-plugins → pb-plugins
+- ❌ 플러그인: pb-product-generator → pb2-page-builder
+- ❌ 커맨드: `/pb-product-generator:*` → `/pb2-page-builder:*`
+- ❌ 폴더명: pb-product-generator-plugin → pb2-page-builder
 
-**Technical Changes**:
-```python
-# Before: 정확한 문자열 매칭만
-if row[0] == target_product_code:
+**마이그레이션 필요**:
+- 기존 사용자는 마켓플레이스/플러그인 재설치 필요
+- 상세 가이드: [MIGRATION.md](./MIGRATION.md)
 
-# After: 공백 제거 후 비교
-code = str(row[0]).strip()
-if code == target_product_code.strip():
-```
+**Major Version Bump**:
+- pb-marketplace: 1.0.0 → 2.0.0
+- pb2-page-builder: 1.0.6 → 2.0.0
+- dana-page-builder: 1.0.3 → 2.0.0
 
-**영향받는 커맨드**:
-- `/pb-product-generator:generate` - 단일 제품 생성 ✅ 검색 안정성 향상
+### v1.0.0 (2025-10-20) - 🏗️ Claude Code Standard
 
-**Root Cause**:
-- 시트 데이터에 공백이 포함된 경우 정확 매칭 실패
-- 예외 발생 시 디버깅 불가 (`except Exception: break`)
-
-### v0.2.4 (2025-10-19) - 🐛 Single Product Script Path Fix
-
-**Bug Fixes**:
-- ✅ generate_editable_html.py 경로 버그 수정
-  - Service account: `project_root` → `cwd / "credentials"`
-  - Output directory: `project_root / "output"` → `cwd / "output"`
-  - .env 파일 자동 로드 추가 (dotenv)
-- ✅ `/pb-product-generator:generate {code}` 커맨드 정상 작동
-
-**영향받는 커맨드**:
-- `/pb-product-generator:generate` - 단일 제품 생성 ✅ 수정됨
-
-**이미 수정된 스크립트** (v0.2.2):
-- `/pb-product-generator:batch` - 배치 생성 (generate_batch.py)
-- `/pb-product-generator:server` - Flask 서버 (server.py)
-
-### v0.2.3 (2025-10-19) - 🐛 Size Table Fix
-
-**Bug Fixes**:
-- ✅ Pydantic 모델에 누락된 사이즈 필드 추가
-  - TopSize: `hem`, `sleeve_cuff` 필드 추가
-  - BottomSize: `length` 필드 추가
-- ✅ 모든 측정값을 Optional로 변경 (size_name만 필수)
-  - 시트 데이터 부분 누락 시에도 정상 처리
-  - Pydantic 검증 에러 방지
-- ✅ product_builder.py 파서와 완벽 정렬
-
-**Technical Changes**:
-- `TopSize` 모델: 4개 필드 → 7개 필드 (hem, sleeve_cuff 추가)
-- `BottomSize` 모델: 6개 필드 → 7개 필드 (length 추가)
-- 모든 측정값: `Field(..., gt=0)` → `Field(None, gt=0)`
-
-### v0.2.2 (2025-10-19) - 🐛 Path Fix
-
-**Bug Fixes**:
-- ✅ 스크립트 경로를 CWD 기반으로 수정
-  - generate_batch.py: service_account, output 경로를 CWD 사용
-  - server.py: OUTPUT_DIR을 CWD 기반으로 변경
-  - .env 파일 자동 로드 추가 (python-dotenv)
-- ✅ 서비스 어카운트 파일이 프로젝트 폴더에서 정상 로드
-- ✅ 결과물이 프로젝트 폴더의 output/에 저장
-
-**Technical Changes**:
-- `Path(__file__).parent.parent` (플러그인 디렉토리) → `Path.cwd()` (현재 작업 디렉토리)
-- 기존: `~/.claude/plugins/.../service-account.json`
-- 수정: `{프로젝트 폴더}/credentials/service-account.json`
-
-### v0.2.1 (2025-10-19) - 🐛 Bug Fixes
-
-**Bug Fixes**:
-- ✅ 사이즈표 파싱 로직 버그 수정
-  - _parse_top_sizes(): hem, sleeve_cuff 필드 추가
-  - _parse_bottom_sizes(): length 필드 추가
-  - safe_float() 헬퍼 함수 도입
-  - 검증 로직 개선 (size_name만 필수)
-- ✅ product_description 필드 볼드 서식 지원
-- ✅ column_mapping.py 인덱스 보정 (+1 shift)
-
-**Documentation**:
-- ✅ 네임스페이스 접두사 추가 (`/pb-product-generator:*`)
-- ✅ GitHub 마켓플레이스 URL 업데이트
-- ✅ 사용자 프로젝트 폴더 기반 워크플로우 문서화
-
-### v0.2.0 (2025-10-18) - 🎯 Complete Automation
-
-**Major Changes**:
-- ✅ 완전 자동화 세팅 (setup.sh)
-- ✅ 원본 코드 직접 포함 (코드 재생성 제거)
-- ✅ 프라이빗 세팅 가이드 (PRIVATE_SETUP.md)
-- ✅ 70MB 고품질 출력 보장
-
-**Breaking Changes**:
-- ❌ `.env.example` 제거 (자동 생성으로 대체)
-- ❌ 수동 설정 과정 제거 (setup.sh로 자동화)
-- ❌ 코드 생성 래퍼 제거 (원본 스크립트 사용)
+**Features**:
+- ✨ 공식 Claude Code 플러그인 표준 완전 준수
+- ✨ dana-page-builder 마켓플레이스 통합
+- 📚 통합 문서화 (CHANGELOG, MIGRATION)
 
 ---
 
@@ -355,7 +368,7 @@ if code == target_product_code.strip():
 
 **팀 지원**:
 - **이메일**: pb-team@company.com
-- **슬랙**: #pb-product-generator
+- **슬랙**: #pb-plugins
 
 **문제 보고**:
 1. Plugin README 및 PRIVATE_SETUP.md 참고
@@ -367,8 +380,9 @@ if code == target_product_code.strip():
 
 ## 🔗 Links
 
-- **Homepage**: https://github.com/younghoon-maker/pb2-plugins
-- **Issues**: https://github.com/younghoon-maker/pb2-plugins/issues
+- **Homepage**: https://github.com/younghoon-maker/pb-plugins
+- **Issues**: https://github.com/younghoon-maker/pb-plugins/issues
+- **Marketplace**: pb-marketplace v2.0.0
 
 ---
 

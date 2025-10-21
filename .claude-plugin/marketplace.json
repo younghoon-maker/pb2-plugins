@@ -1,28 +1,28 @@
 {
-  "name": "pb2-marketplace",
+  "name": "pb-marketplace",
   "owner": {
     "name": "PB Product Team",
     "email": "pb-team@company.com"
   },
   "metadata": {
-    "description": "제품 상세 페이지 생성 도구 마켓플레이스 - 공식 Claude Code 표준 v1.0.0",
-    "version": "1.0.0",
-    "homepage": "https://github.com/younghoon-maker/pb2-plugins"
+    "description": "PB 제품 상세 페이지 생성 도구 마켓플레이스 - 공식 Claude Code 표준 v2.0.0",
+    "version": "2.0.0",
+    "homepage": "https://github.com/younghoon-maker/pb-plugins"
   },
   "plugins": [
     {
-      "name": "pb-product-generator",
-      "source": "./pb-product-generator-plugin",
-      "description": "Google Sheets 292컬럼 기반 제품 상세 페이지 생성기",
-      "version": "1.0.0",
+      "name": "pb2-page-builder",
+      "source": "./pb2-page-builder",
+      "description": "PB2 제품 상세 페이지 생성기 - 292컬럼 기반 (VD 브랜드)",
+      "version": "2.0.0",
       "author": {
         "name": "PB Product Team",
         "email": "pb-team@company.com"
       },
       "category": "productivity",
-      "tags": ["product", "generator", "google-sheets", "html", "editable", "automation", "292-columns"],
-      "homepage": "https://github.com/younghoon-maker/pb2-plugins",
-      "repository": "https://github.com/younghoon-maker/pb2-plugins",
+      "tags": ["pb2", "product", "generator", "google-sheets", "html", "editable", "automation", "292-columns", "vd-brand"],
+      "homepage": "https://github.com/younghoon-maker/pb-plugins",
+      "repository": "https://github.com/younghoon-maker/pb-plugins",
       "license": "MIT",
       "strict": true
     },
@@ -30,15 +30,15 @@
       "name": "dana-page-builder",
       "source": "./dana-page-builder",
       "description": "Dana&Peta 브랜드 제품 상세 페이지 생성기 - Google Sheets 302컬럼 기반",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": {
         "name": "Dana Product Team",
         "email": "dana-team@company.com"
       },
       "category": "productivity",
-      "tags": ["dana-peta", "product", "generator", "google-sheets", "html", "editable", "gallery", "302-columns"],
-      "homepage": "https://github.com/younghoon-maker/pb2-plugins",
-      "repository": "https://github.com/younghoon-maker/pb2-plugins",
+      "tags": ["dana-peta", "product", "generator", "google-sheets", "html", "editable", "gallery", "302-columns", "dn-brand"],
+      "homepage": "https://github.com/younghoon-maker/pb-plugins",
+      "repository": "https://github.com/younghoon-maker/pb-plugins",
       "license": "MIT",
       "strict": true
     }

@@ -1,15 +1,17 @@
 {
-  "name": "pb-product-generator",
-  "version": "1.0.6",
-  "description": "Google Sheets 292컬럼 기반 제품 상세 페이지 생성기 - Editable HTML V4",
+  "name": "pb2-page-builder",
+  "version": "2.0.0",
+  "description": "PB2 제품 상세 페이지 생성기 - 292컬럼 기반 (VD 브랜드) - Editable HTML V4",
   "author": {
     "name": "PB Product Team",
     "email": "pb-team@company.com"
   },
-  "homepage": "https://github.com/younghoon-maker/pb2-plugins",
-  "repository": "https://github.com/younghoon-maker/pb2-plugins",
+  "homepage": "https://github.com/younghoon-maker/pb-plugins",
+  "repository": "https://github.com/younghoon-maker/pb-plugins",
   "license": "MIT",
   "keywords": [
+    "pb2",
+    "vd-brand",
     "product-page",
     "google-sheets",
     "html-generator",

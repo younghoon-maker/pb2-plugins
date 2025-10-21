@@ -16,12 +16,12 @@ description: Google Sheets 데이터로 단일 제품 Editable HTML 생성
 ## 사용법
 
 ```bash
-/pb-product-generator:generate {product_code}
+/pb2-page-builder:generate {product_code}
 ```
 
 **예시**:
 ```bash
-/pb-product-generator:generate VD25FTS002
+/pb2-page-builder:generate VD25FTS002
 ```
 
 ## 출력
@@ -59,6 +59,6 @@ description: Google Sheets 데이터로 단일 제품 Editable HTML 생성
 이 커맨드는 플러그인 내부의 원본 Python 스크립트를 직접 실행합니다:
 
 ```python
-# pb-product-generator-plugin/scripts/generate_editable_html.py
+# pb2-page-builder/scripts/generate_editable_html.py
 python3 scripts/generate_editable_html.py {product_code}
 ```
