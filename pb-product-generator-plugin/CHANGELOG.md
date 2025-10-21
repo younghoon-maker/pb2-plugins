@@ -5,6 +5,47 @@ All notable changes to the pb-product-generator plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.6] - 2025-10-21
+
+### ✨ Added
+- **프로덕트 데이터 정리 기능 추가** - products.json 파일 자동 정리
+  - `--data`: 프로덕트 데이터만 정리 (data/products.json)
+  - `--data --days N`: N일 이전 products.json 파일 삭제
+  - 서브 디렉토리의 products.json도 자동 감지 및 정리
+  - `--data-dir PATH`: 데이터 디렉토리 경로 지정 (기본: data/)
+
+### 📋 Changed
+- **cleanup 커맨드 4가지 타입으로 확장** - HTML, 이미지, 데이터, 캐시 분리
+  - `--all`: HTML + 이미지 + 데이터 + Figma 캐시 모두 삭제 (기존: HTML + 이미지 + 캐시)
+  - `--stats`: 4가지 타입 통합 통계 표시
+  - 타이틀: "Storage Cleanup (세분화)" 유지
+
+### 📦 Files Changed
+- `scripts/cleanup.py`: 프로덕트 데이터 정리 함수 추가 (596 → 713 lines, +117 lines)
+  - `cleanup_products()`: products.json 파일 정리 함수
+  - `show_stats()`: 프로덕트 데이터 통계 추가 (4번째 타입)
+  - `cleanup_all()`: 4가지 타입 통합 삭제 (HTML + 이미지 + 데이터 + 캐시)
+  - `main()`: --data, --data-dir 옵션 추가
+- `commands/cleanup.md`: 프로덕트 데이터 정리 문서 추가 (399 → 455 lines, +56 lines)
+  - 스토리지 구조에 data/ 디렉토리 추가
+  - "4. 프로덕트 데이터만 정리" 섹션 신규 작성
+  - 워크플로우 예시에 --data 옵션 추가
+  - 옵션 테이블 업데이트 (--data, --data-dir 추가)
+
+### 🎯 Use Cases
+- **products.json 관리**: Google Sheets 로드 후 생성된 데이터 정리
+- **개발/테스트 정리**: 반복 테스트로 누적된 임시 데이터 삭제
+- **타입별 선택 정리**: HTML, 이미지, 데이터, 캐시 각각 독립적 관리
+- **재생성 가능 데이터**: load_from_sheets.py 재실행으로 복구 가능
+
+### 🔧 Technical Details
+- 데이터 디렉토리: `data/` (기본값, 변경 가능)
+- 서브 디렉토리 자동 감지: `data/*/products.json` 패턴 지원
+- 날짜 기반 정리: products.json 수정 시간 기준
+- 재생성 가능: Google Sheets API로 언제든 재생성
+
+---
+
 ## [1.0.5] - 2025-10-20
 
 ### ✨ Added

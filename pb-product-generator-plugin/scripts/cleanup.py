@@ -145,13 +145,14 @@ def cleanup_by_size(output_dir: Path, max_size_mb: int, dry_run: bool = False) -
     return deleted_count, freed_bytes
 
 
-def show_stats(output_dir: Path, images_dir: Path, cache_dir: Path):
-    """output 폴더, 이미지, 캐시 통계 표시"""
+def show_stats(output_dir: Path, images_dir: Path, data_dir: Path, cache_dir: Path):
+    """output 폴더, 이미지, 프로덕트 데이터, 캐시 통계 표시"""
     output_exists = output_dir.exists()
     images_exists = images_dir.exists()
+    data_exists = data_dir.exists()
     cache_exists = cache_dir.exists()
 
-    if not output_exists and not images_exists and not cache_exists:
+    if not output_exists and not images_exists and not data_exists and not cache_exists:
         print(f"❌ 스토리지 폴더가 존재하지 않습니다.")
         return
 
@@ -210,6 +211,28 @@ def show_stats(output_dir: Path, images_dir: Path, cache_dir: Path):
                 print(f"   {file_path.name} - {format_size(size):>10} ({age_days}일 전)")
         elif image_files:
             print(f"\n   (총 {len(image_files)}개 파일 - 목록 생략)")
+
+    # 프로덕트 데이터 통계
+    if data_exists:
+        data_size = get_dir_size(data_dir)
+        total_size += data_size
+
+        # products.json 파일 찾기
+        products_files = list(data_dir.glob('products.json'))
+        products_files.extend(data_dir.glob('*/products.json'))
+
+        print(f"\n📦 프로덕트 데이터: {data_dir}")
+        print(f"💾 크기: {format_size(data_size)}")
+        print(f"📄 products.json 파일: {len(products_files)}개")
+
+        if products_files:
+            print("\n📄 products.json 파일:")
+            for file_path in products_files:
+                size = file_path.stat().st_size
+                mtime = datetime.fromtimestamp(file_path.stat().st_mtime)
+                age_days = (datetime.now() - mtime).days
+                relative_path = file_path.relative_to(data_dir)
+                print(f"   {relative_path} - {format_size(size):>10} ({age_days}일 전)")
 
     # Figma 캐시 폴더 통계
     if cache_exists:
@@ -284,6 +307,56 @@ def cleanup_images(images_dir: Path, days: int = 0, dry_run: bool = False) -> Tu
     return deleted_count, freed_bytes
 
 
+def cleanup_products(data_dir: Path, days: int = 0, dry_run: bool = False) -> Tuple[int, int]:
+    """프로덕트 데이터 정리 (data/products.json)
+
+    Args:
+        data_dir: 데이터 디렉토리 경로
+        days: N일 이상 오래된 파일 삭제 (0이면 전체)
+        dry_run: 시뮬레이션 모드
+
+    Returns:
+        Tuple[int, int]: (삭제된 파일 수, 확보된 바이트)
+    """
+    if not data_dir.exists():
+        print(f"ℹ️  데이터 디렉토리가 존재하지 않습니다: {data_dir}")
+        return 0, 0
+
+    deleted_count = 0
+    freed_bytes = 0
+
+    print(f"\n🗑️  프로덕트 데이터 정리 ({data_dir})\n")
+
+    if days > 0:
+        cutoff = datetime.now() - timedelta(days=days)
+        print(f"   기준 날짜: {cutoff.strftime('%Y-%m-%d %H:%M:%S')}\n")
+
+    # products.json 파일 찾기
+    products_files = list(data_dir.glob('products.json'))
+
+    # 서브 디렉토리의 products.json도 찾기
+    products_files.extend(data_dir.glob('*/products.json'))
+
+    for file_path in products_files:
+        # 날짜 기준이 있으면 체크
+        if days > 0:
+            mtime = datetime.fromtimestamp(file_path.stat().st_mtime)
+            if mtime >= cutoff:
+                continue
+
+        size = file_path.stat().st_size
+        relative_path = file_path.relative_to(data_dir)
+        if dry_run:
+            print(f"   [DRY RUN] 삭제 예정: {relative_path} ({format_size(size)})")
+        else:
+            print(f"   삭제 중: {relative_path} ({format_size(size)})")
+            file_path.unlink()
+        deleted_count += 1
+        freed_bytes += size
+
+    return deleted_count, freed_bytes
+
+
 def cleanup_html(output_dir: Path, days: int, dry_run: bool = False) -> Tuple[int, int]:
     """HTML 파일만 정리 (날짜별 폴더 + 루트 HTML)
 
@@ -345,8 +418,8 @@ def cleanup_cache(cache_dir: Path, days: int = 0, dry_run: bool = False) -> Tupl
     return deleted_count, freed_bytes
 
 
-def cleanup_all(output_dir: Path, images_dir: Path, cache_dir: Path, dry_run: bool = False) -> Tuple[int, int]:
-    """전체 삭제 (HTML + 이미지 + 캐시 전체)"""
+def cleanup_all(output_dir: Path, images_dir: Path, data_dir: Path, cache_dir: Path, dry_run: bool = False) -> Tuple[int, int]:
+    """전체 삭제 (HTML + 이미지 + 프로덕트 데이터 + 캐시 전체)"""
     total_count = 0
     total_size = 0
 
@@ -368,6 +441,15 @@ def cleanup_all(output_dir: Path, images_dir: Path, cache_dir: Path, dry_run: bo
         total_count += images_count
         total_size += images_size
 
+    # 프로덕트 데이터 폴더
+    data_count = 0
+    data_size = 0
+    if data_dir.exists():
+        data_size = get_dir_size(data_dir)
+        data_count = sum(1 for _ in data_dir.rglob('*') if _.is_file())
+        total_count += data_count
+        total_size += data_size
+
     # Cache 폴더
     cache_count = 0
     cache_size = 0
@@ -387,6 +469,8 @@ def cleanup_all(output_dir: Path, images_dir: Path, cache_dir: Path, dry_run: bo
             print(f"   HTML: {output_count}개 파일, {format_size(output_size)}")
         if images_count > 0:
             print(f"   이미지: {images_count}개 파일, {format_size(images_size)}")
+        if data_count > 0:
+            print(f"   프로덕트 데이터: {data_count}개 파일, {format_size(data_size)}")
         if cache_count > 0:
             print(f"   Figma 캐시: {cache_count}개 파일, {format_size(cache_size)}")
         print()
@@ -399,6 +483,8 @@ def cleanup_all(output_dir: Path, images_dir: Path, cache_dir: Path, dry_run: bo
         print(f"   HTML: {output_count}개 파일, {format_size(output_size)}")
     if images_count > 0:
         print(f"   이미지: {images_count}개 파일, {format_size(images_size)}")
+    if data_count > 0:
+        print(f"   프로덕트 데이터: {data_count}개 파일, {format_size(data_size)}")
     if cache_count > 0:
         print(f"   Figma 캐시: {cache_count}개 파일, {format_size(cache_size)}")
     print()
@@ -427,6 +513,14 @@ def cleanup_all(output_dir: Path, images_dir: Path, cache_dir: Path, dry_run: bo
         deleted_size += images_size
         print(f"✅ 이미지 삭제 완료: {images_count}개 파일")
 
+    # 프로덕트 데이터 삭제
+    if data_dir.exists() and data_count > 0:
+        shutil.rmtree(data_dir)
+        data_dir.mkdir(exist_ok=True)
+        deleted_count += data_count
+        deleted_size += data_size
+        print(f"✅ 프로덕트 데이터 삭제 완료: {data_count}개 파일")
+
     # Cache 삭제
     if cache_dir.exists() and cache_count > 0:
         shutil.rmtree(cache_dir)
@@ -449,8 +543,9 @@ def main():
   %(prog)s --stats                    # 통계만 표시
   %(prog)s --html --days 7            # HTML 파일만 정리 (7일 이상)
   %(prog)s --images --days 7          # 이미지만 정리 (7일 이상)
+  %(prog)s --data --days 7            # 프로덕트 데이터만 정리 (7일 이상)
   %(prog)s --cache --days 7           # Figma 캐시만 정리 (7일 이상)
-  %(prog)s --all                      # 전체 삭제 (HTML + 이미지 + 캐시)
+  %(prog)s --all                      # 전체 삭제 (HTML + 이미지 + 데이터 + 캐시)
   %(prog)s --all --dry-run            # 전체 삭제 시뮬레이션
   %(prog)s --max-size 500             # HTML 파일 크기 제한 (500MB)
         """
@@ -467,6 +562,12 @@ def main():
         type=str,
         default='output/assets/images',
         help='이미지 디렉토리 경로 (기본: output/assets/images/)'
+    )
+    parser.add_argument(
+        '--data-dir',
+        type=str,
+        default='data',
+        help='데이터 디렉토리 경로 (기본: data/)'
     )
     parser.add_argument(
         '--cache-dir',
@@ -500,6 +601,11 @@ def main():
         help='이미지 캐시만 정리 (output/assets/images/)'
     )
     parser.add_argument(
+        '--data',
+        action='store_true',
+        help='프로덕트 데이터만 정리 (data/products.json)'
+    )
+    parser.add_argument(
         '--cache',
         action='store_true',
         help='Figma 캐시만 정리 (.cache/figma/)'
@@ -507,7 +613,7 @@ def main():
     parser.add_argument(
         '--all',
         action='store_true',
-        help='전체 삭제 (HTML + 이미지 + 캐시, 확인 필요)'
+        help='전체 삭제 (HTML + 이미지 + 데이터 + 캐시, 확인 필요)'
     )
     parser.add_argument(
         '--dry-run',
@@ -518,6 +624,7 @@ def main():
     args = parser.parse_args()
     output_dir = Path(args.output_dir)
     images_dir = Path(args.images_dir)
+    data_dir = Path(args.data_dir)
     cache_dir = Path(args.cache_dir)
 
     print("\n" + "🚀 PB Product Generator - Storage Cleanup")
@@ -525,12 +632,12 @@ def main():
 
     # 통계 표시
     if args.stats:
-        show_stats(output_dir, images_dir, cache_dir)
+        show_stats(output_dir, images_dir, data_dir, cache_dir)
         return
 
     # 전체 삭제
     if args.all:
-        count, size = cleanup_all(output_dir, images_dir, cache_dir, dry_run=args.dry_run)
+        count, size = cleanup_all(output_dir, images_dir, data_dir, cache_dir, dry_run=args.dry_run)
         return
 
     # HTML 파일만 정리
@@ -553,6 +660,15 @@ def main():
             print(f"\n✅ 이미지 정리 완료: {count}개 파일, {format_size(size)} 확보\n")
         else:
             print(f"\n✅ 정리할 이미지 파일이 없습니다.\n")
+        return
+
+    # 프로덕트 데이터만 정리
+    if args.data:
+        count, size = cleanup_products(data_dir, days=args.days or 0, dry_run=args.dry_run)
+        if count > 0:
+            print(f"\n✅ 프로덕트 데이터 정리 완료: {count}개 파일, {format_size(size)} 확보\n")
+        else:
+            print(f"\n✅ 정리할 프로덕트 데이터 파일이 없습니다.\n")
         return
 
     # Figma 캐시만 정리
@@ -588,6 +704,7 @@ def main():
     print("   통계: python3 cleanup.py --stats")
     print("   HTML: python3 cleanup.py --html --days 7")
     print("   이미지: python3 cleanup.py --images --days 7")
+    print("   데이터: python3 cleanup.py --data --days 7")
     print("   캐시: python3 cleanup.py --cache --days 7")
     print("   전체: python3 cleanup.py --all\n")
 

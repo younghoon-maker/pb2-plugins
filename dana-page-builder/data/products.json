@@ -1,0 +1,2017 @@
+{
+  "products": [
+    {
+      "productCode": "DN25WTS001",
+      "title": "캘리포니아 레터링 맨투맨",
+      "mdComment": "평소 77사이즈까지 착용하시는 고객분들께 추천드립니다.",
+      "sellingPoints": [
+        "미니멀한 디자인으로 일상에서 입기 좋은 맨투맨",
+        "포인트가 되는 프린팅으로 스타일리시한 무드 선사",
+        "자연스러운 체형 커버 효과를 선사하는 여유로운 핏감",
+        "내구성이 뛰어난 CP쭈리 원단으로 핏 변형 최소화"
+      ],
+      "images": {
+        "main_single": "../assets/images/DN25WTS001_main.jpg"
+      },
+      "colors": [
+        {
+          "name": "그레이",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "네이비",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "크림",
+          "hex": "#cccccc"
+        }
+      ],
+      "detailPoints": [
+        {
+          "image": "../assets/images/DN25WTS001_detail_point_1.jpg",
+          "text": "얼굴 라인을 부드럽게 보여주는 심플한 라운드 넥 라인"
+        },
+        {
+          "image": "../assets/images/DN25WTS001_detail_point_2.jpg",
+          "text": "심플한 디자인에 포인트를 더해주는 감각적인 레터링"
+        },
+        {
+          "image": "../assets/images/DN25WTS001_detail_point_3.jpg",
+          "text": "손목 라인을 편안하게 마무리하는 부드러운 립 소매 디테일"
+        },
+        {
+          "image": "../assets/images/DN25WTS001_detail_point_4.jpg",
+          "text": "탄탄하게 잡아주는 시보리 밑단으로 깔끔한 실루엣 연출"
+        }
+      ],
+      "gallery": [],
+      "galleryByColor": {
+        "color1": [
+          "../assets/images/DN25WTS001_gallery_color1_1.jpg",
+          "../assets/images/DN25WTS001_gallery_color1_2.jpg",
+          "../assets/images/DN25WTS001_gallery_color1_3.jpg"
+        ],
+        "color2": [
+          "../assets/images/DN25WTS001_gallery_color2_1.jpg",
+          "../assets/images/DN25WTS001_gallery_color2_2.jpg",
+          "../assets/images/DN25WTS001_gallery_color2_3.jpg"
+        ],
+        "color3": [
+          "../assets/images/DN25WTS001_gallery_color3_1.jpg",
+          "../assets/images/DN25WTS001_gallery_color3_2.jpg",
+          "../assets/images/DN25WTS001_gallery_color3_3.jpg",
+          "../assets/images/DN25WTS001_gallery_color3_4.jpg",
+          "../assets/images/DN25WTS001_gallery_color3_5.jpg"
+        ]
+      },
+      "productShots": [],
+      "fabricInfo": {
+        "image": null,
+        "composition": "면50% 폴리에스터50%",
+        "description": "면과 폴리에스터 소재가 혼합된 원단입니다.\n면 함유량을 높여 가볍고 부드러우며 통기성이 좋고, 폴리에스터 함유로 내구성이 우수한 소재입니다.",
+        "properties": {
+          "transparency": "없음",
+          "stretch": "약간 있음",
+          "lining": "없음",
+          "thickness": "적당함",
+          "season": "봄 / 가을"
+        }
+      },
+      "productInfo": {
+        "productName": "캘리포니아 레터링 맨투맨",
+        "colorName": "그레이 / 네이비 / 크림",
+        "sizeName": "FREE",
+        "fabric": "면50% 폴리에스터50%",
+        "washingInfo": "드라이클리닝",
+        "origin": "대한민국"
+      },
+      "sizeInfo": {
+        "topSizes": [
+          {
+            "name": "FREE",
+            "shoulder": "54.5",
+            "chest": "112.5",
+            "hem": "90",
+            "sleeveLength": "55",
+            "sleeveOpening": "48",
+            "totalLength": "57",
+            "optional": ""
+          }
+        ],
+        "bottomSizes": []
+      },
+      "sizeImage": "상의"
+    },
+    {
+      "productCode": "DN25WTS002",
+      "title": "버니 데님 카라 맨투맨",
+      "mdComment": "평소 77사이즈까지 착용하시는 고객분들께 추천드립니다.",
+      "sellingPoints": [
+        "귀여운 일러스트 프린팅이 포인트가 되어주는 맨투맨",
+        "자연스러운 체형 커버 효과를 선사하는 여유로운 실루엣",
+        "다양하게 연출할 수 있는 탈부착이 가능한 데님 카라",
+        ""
+      ],
+      "images": {
+        "main_single": "../assets/images/DN25WTS002_main.jpg"
+      },
+      "colors": [
+        {
+          "name": "네이비",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "그레이",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "크림",
+          "hex": "#cccccc"
+        }
+      ],
+      "detailPoints": [
+        {
+          "image": "../assets/images/DN25WTS002_detail_point_1.jpg",
+          "text": "취향에 맞게 다양한 룩을 연출할 수 있는 데님 카라 라인"
+        },
+        {
+          "image": "../assets/images/DN25WTS002_detail_point_2.jpg",
+          "text": "포인트를 더하는 레터링과 버니 일러스트 프린팅"
+        },
+        {
+          "image": "../assets/images/DN25WTS002_detail_point_3.jpg",
+          "text": "손목을 살짝 덮는 안정적인 소매 기장감"
+        },
+        {
+          "image": "",
+          "text": "핏 변형을 최소화 해주는 탄탄한 밑단 시보리 마감 디테일"
+        }
+      ],
+      "gallery": [],
+      "galleryByColor": {
+        "color1": [
+          "../assets/images/DN25WTS002_gallery_color1_1.jpg",
+          "../assets/images/DN25WTS002_gallery_color1_2.jpg",
+          "../assets/images/DN25WTS002_gallery_color1_3.jpg",
+          "../assets/images/DN25WTS002_gallery_color1_4.jpg",
+          "../assets/images/DN25WTS002_gallery_color1_5.jpg"
+        ],
+        "color2": [
+          "../assets/images/DN25WTS002_gallery_color2_1.jpg",
+          "../assets/images/DN25WTS002_gallery_color2_2.jpg",
+          "../assets/images/DN25WTS002_gallery_color2_3.jpg",
+          "../assets/images/DN25WTS002_gallery_color2_4.jpg"
+        ],
+        "color3": [
+          "../assets/images/DN25WTS002_gallery_color3_1.jpg",
+          "../assets/images/DN25WTS002_gallery_color3_2.jpg",
+          "../assets/images/DN25WTS002_gallery_color3_3.jpg",
+          "../assets/images/DN25WTS002_gallery_color3_4.jpg",
+          "../assets/images/DN25WTS002_gallery_color3_5.jpg"
+        ]
+      },
+      "productShots": [],
+      "fabricInfo": {
+        "image": "../assets/images/DN25WTS002_fabric.jpg",
+        "composition": "면60% 폴리에스터40%/배색(카라):면100%",
+        "description": "면과 폴리에스터 소재가 혼합된 원단입니다.\n면 함유량을 높여 가볍고 부드러우며 통기성이 좋고, 폴리에스터 함유로 내구성이 우수한 소재입니다.\n\n배색(카라): 가볍고 내구성이 좋은 면 원단입니다.\n흡수력과 통기성이 좋은 소재입니다.",
+        "properties": {
+          "transparency": "없음",
+          "stretch": "약간 있음",
+          "lining": "없음",
+          "thickness": "적당함",
+          "season": "봄 / 가을"
+        }
+      },
+      "productInfo": {
+        "productName": "버니 데님 카라 맨투맨",
+        "colorName": "네이비 / 그레이 / 크림",
+        "sizeName": "FREE",
+        "fabric": "면60% 폴리에스터40%/배색(카라):면100%",
+        "washingInfo": "드라이클리닝",
+        "origin": "중국"
+      },
+      "sizeInfo": {
+        "topSizes": [
+          {
+            "name": "FREE",
+            "shoulder": "55.5",
+            "chest": "112",
+            "hem": "90",
+            "sleeveLength": "50",
+            "sleeveOpening": "46",
+            "totalLength": "62",
+            "optional": ""
+          }
+        ],
+        "bottomSizes": []
+      },
+      "sizeImage": "상의"
+    },
+    {
+      "productCode": "DN25WBL001",
+      "title": "소프트 벨벳 플레어 블라우스",
+      "mdComment": "평소 66반까지 착용하시는 고객분들께 추천드립니다.",
+      "sellingPoints": [
+        "우아한 리본 타이로 여성스러운 무드를 완성하는 블라우스",
+        "플레어 라인으로 로맨틱하면서도 편안한 실루엣 완성",
+        "마치 벨벳같은 부드러운 원단으로 고급스러운 무드 선사",
+        "손목을 편안하게 감싸 주는 밴딩 마감 디테일"
+      ],
+      "images": {
+        "main_single": "../assets/images/DN25WBL001_main.jpg"
+      },
+      "colors": [
+        {
+          "name": "차콜그레이",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "블랙",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "크림",
+          "hex": "#cccccc"
+        }
+      ],
+      "detailPoints": [
+        {
+          "image": "../assets/images/DN25WBL001_detail_point_1.jpg",
+          "text": "다양하게 연출이 가능한 넥 라인 스트랩 디테일"
+        },
+        {
+          "image": "../assets/images/DN25WBL001_detail_point_2.jpg",
+          "text": "자연스럽게 체형을 커버해 주는 플레어 라인"
+        },
+        {
+          "image": "../assets/images/DN25WBL001_detail_point_3.jpg",
+          "text": "손목을 깔끔하게 정리해주는 밴딩 마감 처리"
+        },
+        {
+          "image": "../assets/images/DN25WBL001_detail_point_4.jpg",
+          "text": "부드럽고 포근한 벨벳 터치감의 원단으로 기분 좋은 착용감 선사"
+        }
+      ],
+      "gallery": [],
+      "galleryByColor": {
+        "color1": [
+          "../assets/images/DN25WBL001_gallery_color1_1.jpg",
+          "../assets/images/DN25WBL001_gallery_color1_2.jpg",
+          "../assets/images/DN25WBL001_gallery_color1_3.jpg",
+          "../assets/images/DN25WBL001_gallery_color1_4.jpg",
+          "../assets/images/DN25WBL001_gallery_color1_5.jpg",
+          "../assets/images/DN25WBL001_gallery_color1_6.jpg",
+          "../assets/images/DN25WBL001_gallery_color1_7.jpg"
+        ],
+        "color2": [
+          "../assets/images/DN25WBL001_gallery_color2_1.jpg",
+          "../assets/images/DN25WBL001_gallery_color2_2.jpg",
+          "../assets/images/DN25WBL001_gallery_color2_3.jpg",
+          "../assets/images/DN25WBL001_gallery_color2_4.jpg"
+        ],
+        "color3": [
+          "../assets/images/DN25WBL001_gallery_color3_1.jpg",
+          "../assets/images/DN25WBL001_gallery_color3_2.jpg",
+          "../assets/images/DN25WBL001_gallery_color3_3.jpg"
+        ]
+      },
+      "productShots": [],
+      "fabricInfo": {
+        "image": "../assets/images/DN25WBL001_fabric.jpg",
+        "composition": "폴리에스터100%",
+        "description": "인조섬유 중 가장 많이 사용되는 폴리에스터 원단입니다.\n가볍고 부드러우며 구김이 잘 가지 않는 소재입니다.",
+        "properties": {
+          "transparency": "없음",
+          "stretch": "없음",
+          "lining": "없음",
+          "thickness": "적당함",
+          "season": "가을 / 겨울"
+        }
+      },
+      "productInfo": {
+        "productName": "소프트 벨벳 플레어 블라우스",
+        "colorName": "차콜그레이 / 블랙 / 크림",
+        "sizeName": "FREE",
+        "fabric": "폴리에스터100%",
+        "washingInfo": "드라이클리닝",
+        "origin": "대한민국"
+      },
+      "sizeInfo": {
+        "topSizes": [
+          {
+            "name": "FREE",
+            "shoulder": "38",
+            "chest": "119",
+            "hem": "-",
+            "sleeveLength": "58.5",
+            "sleeveOpening": "40",
+            "totalLength": "65.5",
+            "optional": ""
+          }
+        ],
+        "bottomSizes": []
+      },
+      "sizeImage": "상의"
+    },
+    {
+      "productCode": "DN25WSW001",
+      "title": "퍼피 노르딕 버튼 니트",
+      "mdComment": "평소 66반까지 착용하시는 고객분들께 추천드립니다.",
+      "sellingPoints": [
+        "사랑스러운 강아지 자수로 시선을 사로잡는 니트",
+        "따뜻한 감성의 컬러감으로 부드러운 분위기 연출",
+        "은은한 포인트가 되어 주는 넥 라인 노르딕 포인트",
+        "도톰한 니트 소재로 겨울 시즌에 포근한 착용감 선사"
+      ],
+      "images": {
+        "main_single": "../assets/images/DN25WSW001_main.jpg"
+      },
+      "colors": [
+        {
+          "name": "퍼플",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "네이비",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "스카이블루",
+          "hex": "#cccccc"
+        }
+      ],
+      "detailPoints": [
+        {
+          "image": "../assets/images/DN25WSW001_detail_point_1.jpg",
+          "text": "귀여운 포인트가 되어 주는 전면 강아지 자수 디테일"
+        },
+        {
+          "image": "../assets/images/DN25WSW001_detail_point_2.jpg",
+          "text": "트렌디한 무드를 한 층 더해 줄 넥 라인 노르딕 패턴"
+        },
+        {
+          "image": "../assets/images/DN25WSW001_detail_point_3.jpg",
+          "text": "밑단과 소매단을 깔끔하게 마무리한 립 니트 디테일"
+        },
+        {
+          "image": "../assets/images/DN25WSW001_detail_point_4.jpg",
+          "text": "자연스러운 체형 커버 효과를 선사하는 드롭 숄더 라인"
+        }
+      ],
+      "gallery": [],
+      "galleryByColor": {
+        "color1": [
+          "../assets/images/DN25WSW001_gallery_color1_1.jpg",
+          "../assets/images/DN25WSW001_gallery_color1_2.jpg",
+          "../assets/images/DN25WSW001_gallery_color1_3.jpg"
+        ],
+        "color2": [
+          "../assets/images/DN25WSW001_gallery_color2_1.jpg",
+          "../assets/images/DN25WSW001_gallery_color2_2.jpg",
+          "../assets/images/DN25WSW001_gallery_color2_3.jpg",
+          "../assets/images/DN25WSW001_gallery_color2_4.jpg"
+        ],
+        "color3": [
+          "../assets/images/DN25WSW001_gallery_color3_1.jpg",
+          "../assets/images/DN25WSW001_gallery_color3_2.jpg",
+          "../assets/images/DN25WSW001_gallery_color3_3.jpg",
+          "../assets/images/DN25WSW001_gallery_color3_4.jpg"
+        ]
+      },
+      "productShots": [],
+      "fabricInfo": {
+        "image": "../assets/images/DN25WSW001_fabric.jpg",
+        "composition": "폴리에스터65% 아크릴35%",
+        "description": "폴리에스터와 아크릴 소재가 혼합된 원단입니다.\n보온성이 뛰어나고, 가볍고 부드러운 내구성이 뛰어난 니트 소재입니다.",
+        "properties": {
+          "transparency": "없음",
+          "stretch": "좋음",
+          "lining": "없음",
+          "thickness": "두꺼움",
+          "season": "겨울"
+        }
+      },
+      "productInfo": {
+        "productName": "퍼피 노르딕 버튼 니트",
+        "colorName": "퍼플 / 네이비 / 스카이블루",
+        "sizeName": "FREE",
+        "fabric": "폴리에스터65% 아크릴35%",
+        "washingInfo": "드라이클리닝",
+        "origin": "중국"
+      },
+      "sizeInfo": {
+        "topSizes": [
+          {
+            "name": "FREE",
+            "shoulder": "47",
+            "chest": "106",
+            "hem": "80",
+            "sleeveLength": "51.5",
+            "sleeveOpening": "38",
+            "totalLength": "57",
+            "optional": ""
+          }
+        ],
+        "bottomSizes": []
+      },
+      "sizeImage": "상의"
+    },
+    {
+      "productCode": "DN25WSW002",
+      "title": "라인 배색 빅카라 니트",
+      "mdComment": "평소 66반까지 착용하시는 고객분들께 추천드립니다.",
+      "sellingPoints": [
+        "캐주얼한 디자인으로 데일리부터 포멀룩까지 입기 좋은 니트",
+        "밑단에 더해진 컬러 배색으로 트렌디한 무드 완성",
+        "고급스러운 무드를 더해 주는 골드 버튼 디테일",
+        "부드러운 니트 원사로 기분 좋은 착용감 선사"
+      ],
+      "images": {
+        "main_single": "../assets/images/DN25WSW002_main.jpg"
+      },
+      "colors": [
+        {
+          "name": "네이비",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "베이지",
+          "hex": "#cccccc"
+        }
+      ],
+      "detailPoints": [
+        {
+          "image": "../assets/images/DN25WSW002_detail_point_1.jpg",
+          "text": "얼굴선을 돋보이게 하는 와이드한 빅 카라 라인"
+        },
+        {
+          "image": "../assets/images/DN25WSW002_detail_point_2.jpg",
+          "text": "캐주얼한 무드를 더해 주는 밑단 컬러 배색 디테일"
+        },
+        {
+          "image": "../assets/images/DN25WSW002_detail_point_3.jpg",
+          "text": "세련되고 고급스러운 실루엣을 선사하는 골드 버튼 포인트"
+        }
+      ],
+      "gallery": [],
+      "galleryByColor": {
+        "color1": [
+          "../assets/images/DN25WSW002_gallery_color1_1.jpg",
+          "../assets/images/DN25WSW002_gallery_color1_2.jpg",
+          "../assets/images/DN25WSW002_gallery_color1_3.jpg",
+          "../assets/images/DN25WSW002_gallery_color1_4.jpg",
+          "../assets/images/DN25WSW002_gallery_color1_5.jpg",
+          "../assets/images/DN25WSW002_gallery_color1_6.jpg"
+        ],
+        "color2": [
+          "../assets/images/DN25WSW002_gallery_color2_1.jpg",
+          "../assets/images/DN25WSW002_gallery_color2_2.jpg",
+          "../assets/images/DN25WSW002_gallery_color2_3.jpg",
+          "../assets/images/DN25WSW002_gallery_color2_4.jpg",
+          "../assets/images/DN25WSW002_gallery_color2_5.jpg"
+        ]
+      },
+      "productShots": [],
+      "fabricInfo": {
+        "image": "../assets/images/DN25WSW002_fabric.jpg",
+        "composition": "폴리에스터31% 레이온24% 아크릴24% 나일론21%",
+        "description": "폴리에스터, 레이온, 아크릴, 나일론 소재가 혼합된 원단입니다.\n부드럽고 보온성이 좋으며, 혼방으로 내구성이 강한 니트 소재입니다.",
+        "properties": {
+          "transparency": "없음",
+          "stretch": "좋음",
+          "lining": "없음",
+          "thickness": "두꺼움",
+          "season": "겨울"
+        }
+      },
+      "productInfo": {
+        "productName": "라인 배색 빅카라 니트",
+        "colorName": "네이비 / 베이지",
+        "sizeName": "FREE",
+        "fabric": "폴리에스터31% 레이온24% 아크릴24% 나일론21%",
+        "washingInfo": "드라이클리닝",
+        "origin": "중국"
+      },
+      "sizeInfo": {
+        "topSizes": [
+          {
+            "name": "FREE",
+            "shoulder": "44.5",
+            "chest": "100",
+            "hem": "72",
+            "sleeveLength": "56",
+            "sleeveOpening": "34",
+            "totalLength": "57",
+            "optional": ""
+          }
+        ],
+        "bottomSizes": []
+      },
+      "sizeImage": "상의"
+    },
+    {
+      "productCode": "DN25WSW003",
+      "title": "아가일 패턴 카라 니트",
+      "mdComment": "평소 77사이즈까지 착용하시는 고객분들께 추천드립니다.",
+      "sellingPoints": [
+        "베이직한 디자인으로 일상에서 입기 좋은 니트",
+        "아가일 패턴이 더해져 클래식한 무드 선사",
+        "여유로운 실루엣으로 자연스러운 체형 커버 효과",
+        "포근한 니트 원사로 보온성과 편안한 착용감 제공"
+      ],
+      "images": {
+        "main_single": "../assets/images/DN25WSW003_main.jpg"
+      },
+      "colors": [
+        {
+          "name": "그레이",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "브라운",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "베이지",
+          "hex": "#cccccc"
+        }
+      ],
+      "detailPoints": [
+        {
+          "image": "../assets/images/DN25WSW003_detail_point_1.jpg",
+          "text": "얼굴 라인이 더욱 깔끔해 보이는 단정한 카라 넥 라인"
+        },
+        {
+          "image": "../assets/images/DN25WSW003_detail_point_2.jpg",
+          "text": "클래식한 무드를 한 층 더해주는 아가일 패턴"
+        },
+        {
+          "image": "../assets/images/DN25WSW003_detail_point_3.jpg",
+          "text": "어깨선이 삭제된 래글런 라인으로 여리한 실루엣 완성"
+        },
+        {
+          "image": "",
+          "text": "니트 늘어짐을 방지해 주는 탄탄한 밑단 시보리 마감 디테일"
+        }
+      ],
+      "gallery": [],
+      "galleryByColor": {
+        "color1": [
+          "../assets/images/DN25WSW003_gallery_color1_1.jpg",
+          "../assets/images/DN25WSW003_gallery_color1_2.jpg",
+          "../assets/images/DN25WSW003_gallery_color1_3.jpg",
+          "../assets/images/DN25WSW003_gallery_color1_4.jpg",
+          "../assets/images/DN25WSW003_gallery_color1_5.jpg",
+          "../assets/images/DN25WSW003_gallery_color1_6.jpg",
+          "../assets/images/DN25WSW003_gallery_color1_7.jpg"
+        ],
+        "color2": [
+          "../assets/images/DN25WSW003_gallery_color2_1.jpg",
+          "../assets/images/DN25WSW003_gallery_color2_2.jpg",
+          "../assets/images/DN25WSW003_gallery_color2_3.jpg",
+          "../assets/images/DN25WSW003_gallery_color2_4.jpg",
+          "../assets/images/DN25WSW003_gallery_color2_5.jpg",
+          "../assets/images/DN25WSW003_gallery_color2_6.jpg"
+        ],
+        "color3": [
+          "../assets/images/DN25WSW003_gallery_color3_1.jpg",
+          "../assets/images/DN25WSW003_gallery_color3_2.jpg",
+          "../assets/images/DN25WSW003_gallery_color3_3.jpg",
+          "../assets/images/DN25WSW003_gallery_color3_4.jpg",
+          "../assets/images/DN25WSW003_gallery_color3_5.jpg"
+        ]
+      },
+      "productShots": [],
+      "fabricInfo": {
+        "image": "../assets/images/DN25WSW003_fabric.jpg",
+        "composition": "아크릴60% 폴리에스터35% 스판5%",
+        "description": "폴리에스터, 아크릴, 스판 소재가 혼합된 원단입니다.\n보온성이 뛰어나고, 가볍고 부드러운 내구성이 뛰어난 니트 소재입니다.",
+        "properties": {
+          "transparency": "없음",
+          "stretch": "좋음",
+          "lining": "없음",
+          "thickness": "적당함",
+          "season": "가을 / 겨울"
+        }
+      },
+      "productInfo": {
+        "productName": "아가일 패턴 카라 니트",
+        "colorName": "그레이 / 브라운 / 베이지",
+        "sizeName": "FREE",
+        "fabric": "아크릴60% 폴리에스터35% 스판5%",
+        "washingInfo": "드라이클리닝",
+        "origin": "중국"
+      },
+      "sizeInfo": {
+        "topSizes": [
+          {
+            "name": "FREE",
+            "shoulder": "75",
+            "chest": "111",
+            "hem": "88",
+            "sleeveLength": "-",
+            "sleeveOpening": "44",
+            "totalLength": "60.5",
+            "optional": ""
+          }
+        ],
+        "bottomSizes": []
+      },
+      "sizeImage": "상의"
+    },
+    {
+      "productCode": "DN25WVT001",
+      "title": "소프트 퍼 후드 집업 조끼",
+      "mdComment": "평소 66사이즈까지 착용하시는 고객분들께 추천드립니다.",
+      "sellingPoints": [
+        "데일리로 활용하기 좋은 소프트 퍼 후드 베스트",
+        "캐주얼한 집업 디자인으로 간편하게 레이어드 가능한 아이템",
+        "여유있는 품으로 가볍게 걸치기 좋은 실루엣",
+        "세련된 무드를 주는 은은한 광택감이 감도는 퍼 원단"
+      ],
+      "images": {
+        "main_single": "../assets/images/DN25WVT001_main.jpg"
+      },
+      "colors": [
+        {
+          "name": "브라운",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "베이지",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "아이보리",
+          "hex": "#cccccc"
+        }
+      ],
+      "detailPoints": [
+        {
+          "image": "../assets/images/DN25WVT001_detail_point_1.jpg",
+          "text": "고급스러우면서도 캐주얼한 무드를 챙겨 준 집업 디자인"
+        },
+        {
+          "image": "../assets/images/DN25WVT001_detail_point_2.jpg",
+          "text": "데일리한 무드를 더하는 넉넉한 후드 사이즈"
+        },
+        {
+          "image": "../assets/images/DN25WVT001_detail_point_3.jpg",
+          "text": "수납이 가능하여 실용적인 양사이드 포켓"
+        },
+        {
+          "image": "",
+          "text": "가벼우면서도 포근한 착용감을 자아내는 퍼 원단감"
+        }
+      ],
+      "gallery": [],
+      "galleryByColor": {
+        "color1": [
+          "../assets/images/DN25WVT001_gallery_color1_1.jpg",
+          "../assets/images/DN25WVT001_gallery_color1_2.jpg",
+          "../assets/images/DN25WVT001_gallery_color1_3.jpg",
+          "../assets/images/DN25WVT001_gallery_color1_4.jpg",
+          "../assets/images/DN25WVT001_gallery_color1_5.jpg"
+        ],
+        "color2": [
+          "../assets/images/DN25WVT001_gallery_color2_1.jpg",
+          "../assets/images/DN25WVT001_gallery_color2_2.jpg",
+          "../assets/images/DN25WVT001_gallery_color2_3.jpg"
+        ]
+      },
+      "productShots": [],
+      "fabricInfo": {
+        "image": "../assets/images/DN25WVT001_fabric.jpg",
+        "composition": "폴리에스터100%/안감:폴리에스터100%",
+        "description": "인조섬유 중 가장 많이 사용되는 폴리에스터 원단입니다.\n가볍고 부드러우며 구김이 잘 가지 않는 소재입니다.",
+        "properties": {
+          "transparency": "없음",
+          "stretch": "없음",
+          "lining": "안감 있음",
+          "thickness": "두꺼움",
+          "season": "겨울"
+        }
+      },
+      "productInfo": {
+        "productName": "소프트 퍼 후드 집업 조끼",
+        "colorName": "브라운 / 베이지 / 아이보리",
+        "sizeName": "FREE",
+        "fabric": "폴리에스터100%/안감:폴리에스터100%",
+        "washingInfo": "드라이클리닝",
+        "origin": "중국"
+      },
+      "sizeInfo": {
+        "topSizes": [
+          {
+            "name": "FREE",
+            "shoulder": "37",
+            "chest": "108",
+            "hem": "106",
+            "sleeveLength": "-",
+            "sleeveOpening": "52",
+            "totalLength": "58.5",
+            "optional": ""
+          }
+        ],
+        "bottomSizes": []
+      },
+      "sizeImage": "상의"
+    },
+    {
+      "productCode": "DN25WJK002",
+      "title": "스티치 포인트 퍼 자켓",
+      "mdComment": "평소 77사이즈까지 착용하시는 고객분들께 추천드립니다.",
+      "sellingPoints": [
+        "오묘한 컬러감과 전면 레더 스티치 디테일이 돋보이는 퍼 자켓",
+        "노카라 디자인으로 어디에나 걸치기 좋은 아우터",
+        "여유있는 사이즈와 부드러운 터치감으로 데일리하게 입기 좋은 아이템",
+        ""
+      ],
+      "images": {
+        "main_single": "../assets/images/DN25WJK002_main.jpg"
+      },
+      "colors": [
+        {
+          "name": "퍼플",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "아이보리",
+          "hex": "#cccccc"
+        }
+      ],
+      "detailPoints": [
+        {
+          "image": "../assets/images/DN25WJK002_detail_point_1.jpg",
+          "text": "다양한 룩에 활용 가능한 노카라 디자인"
+        },
+        {
+          "image": "../assets/images/DN25WJK002_detail_point_2.jpg",
+          "text": "유니크한 레더 스티치 디테일 포인트"
+        },
+        {
+          "image": "../assets/images/DN25WJK002_detail_point_3.jpg",
+          "text": "수납이 가능하여 실용적인 양사이드 포켓"
+        },
+        {
+          "image": "../assets/images/DN25WJK002_detail_point_4.jpg",
+          "text": "편안한 착용감을 선사하는 벌룬핏 소매 핏"
+        }
+      ],
+      "gallery": [],
+      "galleryByColor": {
+        "color1": [
+          "../assets/images/DN25WJK002_gallery_color1_1.jpg",
+          "../assets/images/DN25WJK002_gallery_color1_2.jpg",
+          "../assets/images/DN25WJK002_gallery_color1_3.jpg"
+        ],
+        "color2": [
+          "../assets/images/DN25WJK002_gallery_color2_1.jpg",
+          "../assets/images/DN25WJK002_gallery_color2_2.jpg"
+        ]
+      },
+      "productShots": [],
+      "fabricInfo": {
+        "image": "../assets/images/DN25WJK002_fabric.jpg",
+        "composition": "폴리에스터100%",
+        "description": "인조섬유 중 가장 많이 사용되는 폴리에스터 원단입니다.\n가볍고 부드러우며 구김이 잘 가지 않는 소재입니다.",
+        "properties": {
+          "transparency": "없음",
+          "stretch": "없음",
+          "lining": "없음",
+          "thickness": "두꺼움",
+          "season": "겨울"
+        }
+      },
+      "productInfo": {
+        "productName": "스티치 포인트 퍼 자켓",
+        "colorName": "퍼플 / 아이보리",
+        "sizeName": "FREE",
+        "fabric": "폴리에스터100%",
+        "washingInfo": "드라이클리닝",
+        "origin": "중국"
+      },
+      "sizeInfo": {
+        "topSizes": [
+          {
+            "name": "FREE",
+            "shoulder": "64.5",
+            "chest": "120",
+            "hem": "106",
+            "sleeveLength": "-",
+            "sleeveOpening": "50",
+            "totalLength": "61",
+            "optional": ""
+          }
+        ],
+        "bottomSizes": []
+      },
+      "sizeImage": "아우터"
+    },
+    {
+      "productCode": "DN25WPT001",
+      "title": "와이드 벨트 패딩 치마바지",
+      "mdComment": "평소 66반까지 착용하시는 고객분들께 추천드립니다.",
+      "sellingPoints": [
+        "스커트처럼 퍼지는 실루엣의 와이드핏 치마바지",
+        "사이즈 조절 가능한 실용적인 허리 벨트 디테일",
+        "가볍고 포근한 패딩 소재로 보온성과 편안함을 동시에 갖춘 아이템",
+        ""
+      ],
+      "images": {},
+      "colors": [
+        {
+          "name": "브라운",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "블랙",
+          "hex": "#cccccc"
+        }
+      ],
+      "detailPoints": [
+        {
+          "image": "",
+          "text": "포인트되면서도 실용적인 허리 벨트 포인트"
+        },
+        {
+          "image": "",
+          "text": "네추럴한 핀턱 디테일과 유니크한 와이드 핏"
+        },
+        {
+          "image": "",
+          "text": "여유있는 A라인 실루엣으로 체형 커버에 용이한 팬츠"
+        },
+        {
+          "image": "",
+          "text": "가벼우면서도 포근한 패딩 소재로 편안한 착용감"
+        }
+      ],
+      "gallery": [],
+      "galleryByColor": {},
+      "productShots": [],
+      "fabricInfo": {
+        "image": null,
+        "composition": "폴리에스터100%/충전재:폴리에스터100%",
+        "description": "인조섬유 중 가장 많이 사용되는 폴리에스터 원단입니다.\n가볍고 부드러우며 구김이 잘 가지 않는 소재입니다.",
+        "properties": {
+          "transparency": "없음",
+          "stretch": "없음",
+          "lining": "안감 있음",
+          "thickness": "적당함",
+          "season": "가을 / 겨울"
+        }
+      },
+      "productInfo": {
+        "productName": "와이드 벨트 패딩 치마바지",
+        "colorName": "브라운 / 블랙",
+        "sizeName": "FREE",
+        "fabric": "폴리에스터100%/충전재:폴리에스터100%",
+        "washingInfo": "드라이클리닝",
+        "origin": "중국"
+      },
+      "sizeInfo": {
+        "topSizes": [],
+        "bottomSizes": [
+          {
+            "name": "FREE",
+            "waist": "65(~84)",
+            "hip": "112",
+            "thigh": "-",
+            "hem": "-",
+            "rise": "40",
+            "totalLength": "81.5",
+            "optional": ""
+          }
+        ]
+      },
+      "sizeImage": "팬츠"
+    },
+    {
+      "productCode": "DN25WDP001",
+      "title": "투핀턱 뒷밴딩 데님 팬츠",
+      "mdComment": "",
+      "sellingPoints": [
+        "스타일리시한 무드를 자아내는 투핀턱 데님 팬츠",
+        "빈티지한 중청 워싱 디자인으로 세련된 룩킹으로 연출 가능",
+        "허리 뒷밴딩과 여유있는 핏으로 편안하게 착용 가능한 아이템",
+        ""
+      ],
+      "images": {
+        "main_single": "../assets/images/DN25WDP001_main.jpg"
+      },
+      "colors": [
+        {
+          "name": "블루",
+          "hex": "#cccccc"
+        }
+      ],
+      "detailPoints": [
+        {
+          "image": "../assets/images/DN25WDP001_detail_point_1.jpg",
+          "text": "유니크한 투핀턱 디테일과 라인 스티치 포인트"
+        },
+        {
+          "image": "../assets/images/DN25WDP001_detail_point_2.jpg",
+          "text": "데일리하게 활용하기 좋은 과하지 않은 워싱 디테일"
+        },
+        {
+          "image": "../assets/images/DN25WDP001_detail_point_3.jpg",
+          "text": "탄탄한 핏을 유지하면서도 불편함 없는 면, 스판 혼방 데님 팬츠"
+        }
+      ],
+      "gallery": [],
+      "galleryByColor": {
+        "color1": [
+          "../assets/images/DN25WDP001_gallery_color1_1.jpg",
+          "../assets/images/DN25WDP001_gallery_color1_2.jpg",
+          "../assets/images/DN25WDP001_gallery_color1_3.jpg",
+          "../assets/images/DN25WDP001_gallery_color1_4.jpg",
+          "../assets/images/DN25WDP001_gallery_color1_5.jpg",
+          "../assets/images/DN25WDP001_gallery_color1_6.jpg"
+        ]
+      },
+      "productShots": [],
+      "fabricInfo": {
+        "image": "../assets/images/DN25WDP001_fabric.jpg",
+        "composition": "면85% 폴리에스터12% 스판3%",
+        "description": "면, 폴리에스터, 스판 소재가 혼합된 원단입니다.\n면 함유량을 높여 가볍고 부드러우며 통기성이 좋고, 스판 함유로 신축성을 더했습니다.",
+        "properties": {
+          "transparency": "없음",
+          "stretch": "약간 있음",
+          "lining": "없음",
+          "thickness": "적당함",
+          "season": "봄 / 가을"
+        }
+      },
+      "productInfo": {
+        "productName": "투핀턱 뒷밴딩 데님 팬츠",
+        "colorName": "블루",
+        "sizeName": "55 / 66 / 77",
+        "fabric": "면85% 폴리에스터12% 스판3%",
+        "washingInfo": "드라이클리닝",
+        "origin": "중국"
+      },
+      "sizeInfo": {
+        "topSizes": [],
+        "bottomSizes": [
+          {
+            "name": "55",
+            "waist": "66",
+            "hip": "98",
+            "thigh": "61",
+            "hem": "54.5",
+            "rise": "28",
+            "totalLength": "100.5",
+            "optional": ""
+          },
+          {
+            "name": "66",
+            "waist": "69",
+            "hip": "102",
+            "thigh": "62.5",
+            "hem": "58",
+            "rise": "29",
+            "totalLength": "101",
+            "optional": ""
+          },
+          {
+            "name": "77",
+            "waist": "74",
+            "hip": "104",
+            "thigh": "64",
+            "hem": "",
+            "rise": "30",
+            "totalLength": "102",
+            "optional": ""
+          }
+        ]
+      },
+      "sizeImage": "팬츠"
+    },
+    {
+      "productCode": "DN25WDP002",
+      "title": "절개 포인트 배기핏 데님 팬츠",
+      "mdComment": "",
+      "sellingPoints": [
+        "입체 절개 라인 실루엣으로 포인트를 준 배기핏 데님 팬츠",
+        "여유있는 힙, 허벅지 라인으로 체형 커버에 용이한 아이템",
+        "높은 활용도를 지닌 네추럴한 느낌의 중청 워싱 데님 원단감",
+        ""
+      ],
+      "images": {
+        "main_single": "../assets/images/DN25WDP002_main.jpg"
+      },
+      "colors": [
+        {
+          "name": "블루",
+          "hex": "#cccccc"
+        }
+      ],
+      "detailPoints": [
+        {
+          "image": "../assets/images/DN25WDP002_detail_point_1.jpg",
+          "text": "유니크한 실루엣의 배기핏 데님 팬츠"
+        },
+        {
+          "image": "../assets/images/DN25WDP002_detail_point_2.jpg",
+          "text": "데일리하게 활용하기 좋은 과하지 않은 워싱 디테일"
+        },
+        {
+          "image": "../assets/images/DN25WDP002_detail_point_3.jpg",
+          "text": "탄탄한 핏을 유지하면서도 불편함 없는 면, 스판 혼방 데님 팬츠"
+        },
+        {
+          "image": "../assets/images/DN25WDP002_detail_point_4.jpg",
+          "text": ""
+        }
+      ],
+      "gallery": [],
+      "galleryByColor": {
+        "color1": [
+          "../assets/images/DN25WDP002_gallery_color1_1.jpg",
+          "../assets/images/DN25WDP002_gallery_color1_2.jpg",
+          "../assets/images/DN25WDP002_gallery_color1_3.jpg",
+          "../assets/images/DN25WDP002_gallery_color1_4.jpg"
+        ]
+      },
+      "productShots": [],
+      "fabricInfo": {
+        "image": null,
+        "composition": "면85% 폴리에스터12% 스판3%",
+        "description": "면, 폴리에스터, 스판 소재가 혼합된 원단입니다.\n면 함유량을 높여 가볍고 부드러우며 통기성이 좋고, 스판 함유로 신축성을 더했습니다.",
+        "properties": {
+          "transparency": "없음",
+          "stretch": "약간 있음",
+          "lining": "없음",
+          "thickness": "적당함",
+          "season": "봄 / 가을"
+        }
+      },
+      "productInfo": {
+        "productName": "절개 포인트 배기핏 데님 팬츠",
+        "colorName": "블루",
+        "sizeName": "55 / 66 / 77",
+        "fabric": "면85% 폴리에스터12% 스판3%",
+        "washingInfo": "드라이클리닝",
+        "origin": "중국"
+      },
+      "sizeInfo": {
+        "topSizes": [],
+        "bottomSizes": [
+          {
+            "name": "55",
+            "waist": "65",
+            "hip": "96",
+            "thigh": "63",
+            "hem": "42",
+            "rise": "32",
+            "totalLength": "94",
+            "optional": ""
+          },
+          {
+            "name": "66",
+            "waist": "72",
+            "hip": "104",
+            "thigh": "66",
+            "hem": "44",
+            "rise": "33.5",
+            "totalLength": "96",
+            "optional": ""
+          },
+          {
+            "name": "77",
+            "waist": "75",
+            "hip": "106",
+            "thigh": "68",
+            "hem": "46",
+            "rise": "34",
+            "totalLength": "97",
+            "optional": ""
+          }
+        ]
+      },
+      "sizeImage": "팬츠"
+    },
+    {
+      "productCode": "DN25WPT002",
+      "title": "코듀로이 세미 부츠컷 팬츠",
+      "mdComment": "",
+      "sellingPoints": [
+        "데일리하게 코디하기 용이한 코듀로이 팬츠",
+        "트렌디한 무드를 한 층 더해주는 세미 부츠컷 라인",
+        "신축성이 더해진 코듀로이 원단으로 편안한 착용감 선사",
+        ""
+      ],
+      "images": {
+        "main_single": "../assets/images/DN25WPT002_main.jpg"
+      },
+      "colors": [
+        {
+          "name": "브라운",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "아이보리",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "네이비",
+          "hex": "#cccccc"
+        }
+      ],
+      "detailPoints": [
+        {
+          "image": "../assets/images/DN25WPT002_detail_point_1.jpg",
+          "text": "데일리로 입기 좋은 적당한 두께감의 코듀로이 원단감"
+        },
+        {
+          "image": "../assets/images/DN25WPT002_detail_point_2.jpg",
+          "text": "슬림한 실루엣을 연출해주는 세미 부츠컷 라인"
+        },
+        {
+          "image": "../assets/images/DN25WPT002_detail_point_3.jpg",
+          "text": "탄탄한 면 소재에 약간의 스판기를 더해 편안한 착용감 제공"
+        },
+        {
+          "image": "../assets/images/DN25WPT002_detail_point_4.jpg",
+          "text": ""
+        }
+      ],
+      "gallery": [],
+      "galleryByColor": {
+        "color1": [
+          "../assets/images/DN25WPT002_gallery_color1_1.jpg",
+          "../assets/images/DN25WPT002_gallery_color1_2.jpg",
+          "../assets/images/DN25WPT002_gallery_color1_3.jpg",
+          "../assets/images/DN25WPT002_gallery_color1_4.jpg",
+          "../assets/images/DN25WPT002_gallery_color1_5.jpg"
+        ],
+        "color2": [
+          "../assets/images/DN25WPT002_gallery_color2_1.jpg",
+          "../assets/images/DN25WPT002_gallery_color2_2.jpg",
+          "../assets/images/DN25WPT002_gallery_color2_3.jpg"
+        ],
+        "color3": [
+          "../assets/images/DN25WPT002_gallery_color3_1.jpg",
+          "../assets/images/DN25WPT002_gallery_color3_2.jpg",
+          "../assets/images/DN25WPT002_gallery_color3_3.jpg",
+          "../assets/images/DN25WPT002_gallery_color3_4.jpg",
+          "../assets/images/DN25WPT002_gallery_color3_5.jpg"
+        ]
+      },
+      "productShots": [],
+      "fabricInfo": {
+        "image": "../assets/images/DN25WPT002_fabric.jpg",
+        "composition": "면97% 스판3%",
+        "description": "면과 스판 소재가 혼합된 원단입니다.\n면 함유량을 높여 가볍고 부드러운 착용감이 돋보이며, 스판 함유로 신축성이 우수한 소재입니다.",
+        "properties": {
+          "transparency": "없음",
+          "stretch": "약간 있음",
+          "lining": "없음",
+          "thickness": "적당함",
+          "season": "봄 / 가을"
+        }
+      },
+      "productInfo": {
+        "productName": "코듀로이 세미 부츠컷 팬츠",
+        "colorName": "브라운 / 아이보리 / 네이비",
+        "sizeName": "55 / 66 / 77",
+        "fabric": "면97% 스판3%",
+        "washingInfo": "드라이클리닝",
+        "origin": "대한민국"
+      },
+      "sizeInfo": {
+        "topSizes": [],
+        "bottomSizes": [
+          {
+            "name": "55",
+            "waist": "62",
+            "hip": "90",
+            "thigh": "54",
+            "hem": "48",
+            "rise": "28",
+            "totalLength": "95",
+            "optional": ""
+          },
+          {
+            "name": "66",
+            "waist": "68",
+            "hip": "96",
+            "thigh": "58",
+            "hem": "50",
+            "rise": "29",
+            "totalLength": "96",
+            "optional": ""
+          },
+          {
+            "name": "77",
+            "waist": "70",
+            "hip": "100",
+            "thigh": "60",
+            "hem": "52",
+            "rise": "30",
+            "totalLength": "97",
+            "optional": ""
+          }
+        ]
+      },
+      "sizeImage": "팬츠"
+    },
+    {
+      "productCode": "DN25WOP001",
+      "title": "눈꽃 셔링 코듀로이 원피스",
+      "mdComment": "평소 66반까지 착용하시는 고객분들께 추천드립니다.",
+      "sellingPoints": [
+        "유니크한 픽셀 눈꽃 패턴이 돋보이는 코듀로이 원피스",
+        "넥, 허리 라인 셔링 디테일로 슬림해보이는 실루엣 연출 가능",
+        "롱한 기장감으로 편안하게 착용가능한 아이템",
+        ""
+      ],
+      "images": {
+        "main_single": "../assets/images/DN25WOP001_main.jpg"
+      },
+      "colors": [
+        {
+          "name": "브라운",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "블랙",
+          "hex": "#cccccc"
+        }
+      ],
+      "detailPoints": [
+        {
+          "image": "../assets/images/DN25WOP001_detail_point_1.jpg",
+          "text": "목선이 살짝 드러나는 U넥 라인으로 답답하지 않은 착용감"
+        },
+        {
+          "image": "../assets/images/DN25WOP001_detail_point_2.jpg",
+          "text": "슬림해보이게 해주는 넥, 허리 라인 셔링 디테일"
+        },
+        {
+          "image": "../assets/images/DN25WOP001_detail_point_3.jpg",
+          "text": "체형을 커버하는 여유있는 사이즈와 롱한 기장감"
+        }
+      ],
+      "gallery": [],
+      "galleryByColor": {
+        "color1": [
+          "../assets/images/DN25WOP001_gallery_color1_1.jpg",
+          "../assets/images/DN25WOP001_gallery_color1_2.jpg",
+          "../assets/images/DN25WOP001_gallery_color1_3.jpg",
+          "../assets/images/DN25WOP001_gallery_color1_4.jpg",
+          "../assets/images/DN25WOP001_gallery_color1_5.jpg"
+        ],
+        "color2": [
+          "../assets/images/DN25WOP001_gallery_color2_1.jpg",
+          "../assets/images/DN25WOP001_gallery_color2_2.jpg",
+          "../assets/images/DN25WOP001_gallery_color2_3.jpg",
+          "../assets/images/DN25WOP001_gallery_color2_4.jpg"
+        ]
+      },
+      "productShots": [],
+      "fabricInfo": {
+        "image": "../assets/images/DN25WOP001_fabric.jpg",
+        "composition": "폴리에스터100%",
+        "description": "인조섬유 중 가장 많이 사용되는 폴리에스터 원단입니다.\n가볍고 부드러우며 구김이 잘 가지 않는 소재입니다.",
+        "properties": {
+          "transparency": "",
+          "stretch": "",
+          "lining": "",
+          "thickness": "",
+          "season": ""
+        }
+      },
+      "productInfo": {
+        "productName": "눈꽃 셔링 코듀로이 원피스",
+        "colorName": "브라운 / 블랙",
+        "sizeName": "FREE",
+        "fabric": "폴리에스터100%",
+        "washingInfo": "드라이클리닝",
+        "origin": "중국"
+      },
+      "sizeInfo": {
+        "topSizes": [
+          {
+            "name": "FREE",
+            "shoulder": "38",
+            "chest": "85",
+            "hem": "-",
+            "sleeveLength": "59",
+            "sleeveOpening": "38",
+            "totalLength": "116",
+            "optional": ""
+          }
+        ],
+        "bottomSizes": []
+      },
+      "sizeImage": "원피스"
+    },
+    {
+      "productCode": "DN25WOP002",
+      "title": "플레어 반폴라 원피스 벨트 세트",
+      "mdComment": "평소 66반까지 착용하시는 고객분들께 추천드립니다.",
+      "sellingPoints": [
+        "페미닌한 무드가 돋보이는 벨트 포인트 원피스",
+        "부드러운 터치감의 반폴라 상의로 따뜻한 착용감 선사",
+        "세트 구성인 벨트로 슬림한 허리 라인 연출 가능",
+        "하체 라인을 커버하는 플레어리한 A라인 핏의 스커트"
+      ],
+      "images": {
+        "main_single": "../assets/images/DN25WOP002_main.jpg"
+      },
+      "colors": [
+        {
+          "name": "차콜그레이",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "브라운",
+          "hex": "#cccccc"
+        }
+      ],
+      "detailPoints": [
+        {
+          "image": "../assets/images/DN25WOP002_detail_point_1.jpg",
+          "text": "목을 적당히 감싸는 반폴라 넥라인으로 따뜻하게 착용 가능"
+        },
+        {
+          "image": "",
+          "text": "슬림한 실루엣을 연출하는 벨트와 허리 라인"
+        },
+        {
+          "image": "",
+          "text": "편안한 착용감을 선사하는 가벼운 소재의 플레어 스커트"
+        }
+      ],
+      "gallery": [],
+      "galleryByColor": {
+        "color1": [
+          "../assets/images/DN25WOP002_gallery_color1_1.jpg",
+          "../assets/images/DN25WOP002_gallery_color1_2.jpg"
+        ],
+        "color2": [
+          "../assets/images/DN25WOP002_gallery_color2_1.jpg",
+          "../assets/images/DN25WOP002_gallery_color2_2.jpg",
+          "../assets/images/DN25WOP002_gallery_color2_3.jpg"
+        ]
+      },
+      "productShots": [],
+      "fabricInfo": {
+        "image": null,
+        "composition": "상의:폴리에스터70% 레이온30%/하의:면100%",
+        "description": "상의: 폴리에스터와 레이온이 혼합된 소재입니다.\n내구성 좋은 폴리에스터 원단에 레이온을 더해 부드러우면서도 내구성이 좋은 원단입니다.\n\n하의: 가볍고 내구성이 좋은 면 원단입니다.\n흡수력과 통기성이 좋은 소재입니다.",
+        "properties": {
+          "transparency": "",
+          "stretch": "",
+          "lining": "",
+          "thickness": "",
+          "season": ""
+        }
+      },
+      "productInfo": {
+        "productName": "플레어 반폴라 원피스 벨트 세트",
+        "colorName": "차콜그레이 / 브라운",
+        "sizeName": "FREE",
+        "fabric": "상의:폴리에스터70% 레이온30%/하의:면100%",
+        "washingInfo": "드라이클리닝",
+        "origin": "중국"
+      },
+      "sizeInfo": {
+        "topSizes": [
+          {
+            "name": "FREE",
+            "shoulder": "34",
+            "chest": "76",
+            "hem": "-",
+            "sleeveLength": "59",
+            "sleeveOpening": "30",
+            "totalLength": "119.5",
+            "optional": ""
+          }
+        ],
+        "bottomSizes": []
+      },
+      "sizeImage": "원피스"
+    },
+    {
+      "productCode": "DN25WJK001",
+      "title": "둥근 퍼 카라 니트 집업 자켓",
+      "mdComment": "평소 66반까지 착용하시는 고객분들께 추천드립니다.",
+      "sellingPoints": [
+        "라운드 퍼 카라가 돋보이는 포근한 무드의 니트 집업 자켓",
+        "기하학적인 자카드 패턴으로 감각적인 무드로 연출 가능",
+        "데일리로 입기 좋은 여유있는 사이즈감",
+        ""
+      ],
+      "images": {
+        "main_single": "../assets/images/DN25WJK001_main.jpg"
+      },
+      "colors": [
+        {
+          "name": "아이보리",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "블랙",
+          "hex": "#cccccc"
+        }
+      ],
+      "detailPoints": [
+        {
+          "image": "../assets/images/DN25WJK001_detail_point_1.jpg",
+          "text": "포인트를 더하면서도 따뜻하게 착용 가능한 둥근 쉐입의 퍼 카라"
+        },
+        {
+          "image": "../assets/images/DN25WJK001_detail_point_2.jpg",
+          "text": "간단한 수납이 가능한 실용적인 양 사이드 포켓"
+        },
+        {
+          "image": "../assets/images/DN25WJK001_detail_point_3.jpg",
+          "text": "소프티한 텍스처가 돋보이는 보슬한 퍼 원단감"
+        },
+        {
+          "image": "../assets/images/DN25WJK001_detail_point_4.jpg",
+          "text": ""
+        }
+      ],
+      "gallery": [],
+      "galleryByColor": {
+        "color1": [
+          "../assets/images/DN25WJK001_gallery_color1_1.jpg",
+          "../assets/images/DN25WJK001_gallery_color1_2.jpg",
+          "../assets/images/DN25WJK001_gallery_color1_3.jpg",
+          "../assets/images/DN25WJK001_gallery_color1_4.jpg",
+          "../assets/images/DN25WJK001_gallery_color1_5.jpg",
+          "../assets/images/DN25WJK001_gallery_color1_6.jpg",
+          "../assets/images/DN25WJK001_gallery_color1_7.jpg"
+        ],
+        "color2": [
+          "../assets/images/DN25WJK001_gallery_color2_1.jpg",
+          "../assets/images/DN25WJK001_gallery_color2_2.jpg",
+          "../assets/images/DN25WJK001_gallery_color2_3.jpg",
+          "../assets/images/DN25WJK001_gallery_color2_4.jpg",
+          "../assets/images/DN25WJK001_gallery_color2_5.jpg",
+          "../assets/images/DN25WJK001_gallery_color2_6.jpg",
+          "../assets/images/DN25WJK001_gallery_color2_7.jpg",
+          "../assets/images/DN25WJK001_gallery_color2_8.jpg"
+        ]
+      },
+      "productShots": [],
+      "fabricInfo": {
+        "image": "../assets/images/DN25WJK001_fabric.jpg",
+        "composition": "폴리에스터70% 나일론15% 레이온15%",
+        "description": "폴리에스터, 나일론, 레이온 소재가 혼합된 원단입니다.\n터치감이 부드러우며, 내구성이 강한 혼합 소재입니다.",
+        "properties": {
+          "transparency": "없음",
+          "stretch": "좋음",
+          "lining": "없음",
+          "thickness": "두꺼움",
+          "season": "겨울"
+        }
+      },
+      "productInfo": {
+        "productName": "둥근 퍼 카라 니트 집업 자켓",
+        "colorName": "아이보리 / 블랙",
+        "sizeName": "FREE",
+        "fabric": "폴리에스터70% 나일론15% 레이온15%",
+        "washingInfo": "드라이클리닝",
+        "origin": "중국"
+      },
+      "sizeInfo": {
+        "topSizes": [
+          {
+            "name": "FREE",
+            "shoulder": "42",
+            "chest": "98",
+            "hem": "82",
+            "sleeveLength": "50",
+            "sleeveOpening": "34",
+            "totalLength": "59",
+            "optional": ""
+          }
+        ],
+        "bottomSizes": []
+      },
+      "sizeImage": "아우터"
+    },
+    {
+      "productCode": "DN25WSU002",
+      "title": "리본 니트 가디건 롱 스커트 세트",
+      "mdComment": "평소 77사이즈까지 착용하시는 고객분들께 추천드립니다.",
+      "sellingPoints": [
+        "세련된 무드를 완성해 주는 니트 가디건&스커트 세트",
+        "부드러운 니트 소재로 보온성까지 챙겨준 아이템",
+        "우아한 플레어 실루엣으로 페미닌한 룩 완성",
+        ""
+      ],
+      "images": {
+        "main_single": "../assets/images/DN25WSU002_main.jpg"
+      },
+      "colors": [
+        {
+          "name": "차콜그레이",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "베이지",
+          "hex": "#cccccc"
+        }
+      ],
+      "detailPoints": [
+        {
+          "image": "../assets/images/DN25WSU002_detail_point_1.jpg",
+          "text": "취향에 맞게 연출이 가능한 가디건 스트랩"
+        },
+        {
+          "image": "../assets/images/DN25WSU002_detail_point_2.jpg",
+          "text": "여유로운 실루엣으로 자연스러운 체형 커버 효과 선사"
+        },
+        {
+          "image": "../assets/images/DN25WSU002_detail_point_3.jpg",
+          "text": "장시간 착용에도 편하게 입어지는 허리 전체 밴딩"
+        },
+        {
+          "image": "../assets/images/DN25WSU002_detail_point_4.jpg",
+          "text": "은은하게 드러나는 뒷트임 라인으로 페미닌한 포인트 완성"
+        }
+      ],
+      "gallery": [],
+      "galleryByColor": {
+        "color1": [
+          "../assets/images/DN25WSU002_gallery_color1_1.jpg",
+          "../assets/images/DN25WSU002_gallery_color1_2.jpg",
+          "../assets/images/DN25WSU002_gallery_color1_3.jpg",
+          "../assets/images/DN25WSU002_gallery_color1_4.jpg",
+          "../assets/images/DN25WSU002_gallery_color1_5.jpg",
+          "../assets/images/DN25WSU002_gallery_color1_6.jpg"
+        ]
+      },
+      "productShots": [],
+      "fabricInfo": {
+        "image": "../assets/images/DN25WSU002_fabric.jpg",
+        "composition": "아크릴55% 레이온30% 폴리에스터15%",
+        "description": "아크릴, 레이온, 폴리에스터가 혼합된 원단입니다.\n부드럽고, 보온성과 내구성이 좋아 착용하기 좋은 혼합 소재입니다.",
+        "properties": {
+          "transparency": "없음",
+          "stretch": "좋음",
+          "lining": "없음",
+          "thickness": "적당함",
+          "season": "가을 / 겨울"
+        }
+      },
+      "productInfo": {
+        "productName": "리본 니트 가디건 롱 스커트 세트",
+        "colorName": "차콜그레이 / 베이지",
+        "sizeName": "FREE",
+        "fabric": "아크릴55% 레이온30% 폴리에스터15%",
+        "washingInfo": "드라이클리닝",
+        "origin": "중국"
+      },
+      "sizeInfo": {
+        "topSizes": [
+          {
+            "name": "FREE",
+            "shoulder": "58",
+            "chest": "108",
+            "hem": "-",
+            "sleeveLength": "56.5",
+            "sleeveOpening": "42",
+            "totalLength": "54",
+            "optional": ""
+          }
+        ],
+        "bottomSizes": []
+      },
+      "sizeImage": "상의"
+    },
+    {
+      "productCode": "DN25WCO001",
+      "title": "스퀘어 배색 체크 누빔 롱 코트",
+      "mdComment": "평소 77사이즈까지 착용하시는 고객분들께 추천드립니다.",
+      "sellingPoints": [
+        "고급스러운 무드가 느껴지는 체크 롱 코트",
+        "벨트 포함 구성으로 다양한 코디 연출이 가능한 아이템",
+        "클래식한 테일러드 카라로 세련된 룩 완성",
+        "겨울 시즌에도 입기 좋은 따스한 누빔 안감"
+      ],
+      "images": {
+        "main_single": "../assets/images/DN25WCO001_main.jpg"
+      },
+      "colors": [
+        {
+          "name": "네이비",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "브라운",
+          "hex": "#cccccc"
+        }
+      ],
+      "detailPoints": [
+        {
+          "image": "../assets/images/DN25WCO001_detail_point_1.jpg",
+          "text": "깔끔한 테일러드 카라로 데일리부터 격식룩까지 다양한 룩 완성"
+        },
+        {
+          "image": "../assets/images/DN25WCO001_detail_point_2.jpg",
+          "text": "룩에 세련된 포인트가 되어 주는 컬러 배색 체크 패턴"
+        },
+        {
+          "image": "../assets/images/DN25WCO001_detail_point_3.jpg",
+          "text": "롱한 기장감과 여유로운 핏으로 자연스러운 체형 커버 효과"
+        },
+        {
+          "image": "",
+          "text": "추운 날씨에도 따스하게 입어질 포근한 누빔 안감"
+        }
+      ],
+      "gallery": [],
+      "galleryByColor": {
+        "color1": [
+          "../assets/images/DN25WCO001_gallery_color1_1.jpg",
+          "../assets/images/DN25WCO001_gallery_color1_2.jpg",
+          "../assets/images/DN25WCO001_gallery_color1_3.jpg",
+          "../assets/images/DN25WCO001_gallery_color1_4.jpg",
+          "../assets/images/DN25WCO001_gallery_color1_5.jpg",
+          "../assets/images/DN25WCO001_gallery_color1_6.jpg",
+          "../assets/images/DN25WCO001_gallery_color1_7.jpg",
+          "../assets/images/DN25WCO001_gallery_color1_8.jpg",
+          "../assets/images/DN25WCO001_gallery_color1_9.jpg"
+        ],
+        "color2": [
+          "../assets/images/DN25WCO001_gallery_color2_1.jpg",
+          "../assets/images/DN25WCO001_gallery_color2_2.jpg",
+          "../assets/images/DN25WCO001_gallery_color2_3.jpg",
+          "../assets/images/DN25WCO001_gallery_color2_4.jpg",
+          "../assets/images/DN25WCO001_gallery_color2_5.jpg",
+          "../assets/images/DN25WCO001_gallery_color2_6.jpg",
+          "../assets/images/DN25WCO001_gallery_color2_7.jpg",
+          "../assets/images/DN25WCO001_gallery_color2_8.jpg"
+        ]
+      },
+      "productShots": [],
+      "fabricInfo": {
+        "image": "../assets/images/DN25WCO001_fabric.jpg",
+        "composition": "아크릴50% 폴리에스터50%/안감:폴리에스터100%",
+        "description": "폴리에스터와 아크릴 소재가 혼합된 원단입니다.\n보온성이 뛰어나고, 가볍고 부드러운 내구성이 뛰어난 니트 소재입니다.",
+        "properties": {
+          "transparency": "없음",
+          "stretch": "없음",
+          "lining": "안감 있음",
+          "thickness": "두꺼움",
+          "season": "겨울"
+        }
+      },
+      "productInfo": {
+        "productName": "스퀘어 배색 체크 누빔 롱 코트",
+        "colorName": "네이비 / 브라운",
+        "sizeName": "FREE",
+        "fabric": "아크릴50% 폴리에스터50%/안감:폴리에스터100%",
+        "washingInfo": "드라이클리닝",
+        "origin": "중국"
+      },
+      "sizeInfo": {
+        "topSizes": [
+          {
+            "name": "FREE",
+            "shoulder": "53.5",
+            "chest": "116",
+            "hem": "116",
+            "sleeveLength": "49",
+            "sleeveOpening": "40",
+            "totalLength": "102.5",
+            "optional": ""
+          }
+        ],
+        "bottomSizes": []
+      },
+      "sizeImage": "아우터"
+    },
+    {
+      "productCode": "DN25DJP001",
+      "title": "체크 배색 웰론 패딩",
+      "mdComment": "평소 77사이즈까지 착용하시는 고객분들께 추천드립니다.",
+      "sellingPoints": [
+        "데일리한 디자인으로 일상에서 입기 좋은 숏 패딩",
+        "세련된 포인트가 되어 줄 체크 배색 안감 디테일",
+        "여유로운 오버핏으로 두터운 이너와도 편안한 착용감",
+        "가볍고 보온성 높은 웰론 100% 충전재 사용"
+      ],
+      "images": {
+        "main_single": "../assets/images/DN25DJP001_main.jpg"
+      },
+      "colors": [
+        {
+          "name": "베이지",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "네이비",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "블랙",
+          "hex": "#cccccc"
+        }
+      ],
+      "detailPoints": [
+        {
+          "image": "../assets/images/DN25DJP001_detail_point_1.jpg",
+          "text": "목과 얼굴을 따스하게 감싸주는 하이넥 카라 디자인"
+        },
+        {
+          "image": "../assets/images/DN25DJP001_detail_point_2.jpg",
+          "text": "은은하게 드러나는 체크 배색 안감으로 세련된 포인트 완성"
+        },
+        {
+          "image": "../assets/images/DN25DJP001_detail_point_3.jpg",
+          "text": "간단한 소지품 수납이 가능해 실용성 높은 사이드 포켓"
+        },
+        {
+          "image": "../assets/images/DN25DJP001_detail_point_4.jpg",
+          "text": "체형에 맞게 조절이 가능한 밑단 스토퍼 디테일"
+        }
+      ],
+      "gallery": [],
+      "galleryByColor": {
+        "color1": [
+          "../assets/images/DN25DJP001_gallery_color1_1.jpg",
+          "../assets/images/DN25DJP001_gallery_color1_2.jpg",
+          "../assets/images/DN25DJP001_gallery_color1_3.jpg",
+          "../assets/images/DN25DJP001_gallery_color1_4.jpg",
+          "../assets/images/DN25DJP001_gallery_color1_5.jpg"
+        ],
+        "color2": [
+          "../assets/images/DN25DJP001_gallery_color2_1.jpg",
+          "../assets/images/DN25DJP001_gallery_color2_2.jpg",
+          "../assets/images/DN25DJP001_gallery_color2_3.jpg",
+          "../assets/images/DN25DJP001_gallery_color2_4.jpg",
+          "../assets/images/DN25DJP001_gallery_color2_5.jpg",
+          "../assets/images/DN25DJP001_gallery_color2_6.jpg"
+        ]
+      },
+      "productShots": [],
+      "fabricInfo": {
+        "image": "../assets/images/DN25DJP001_fabric.jpg",
+        "composition": "폴리에스터100%/안감:웰론100%",
+        "description": "인조섬유 중 가장 많이 사용되는 폴리에스터 원단입니다.\n가볍고 부드러우며 구김이 잘 가지 않는 소재입니다.",
+        "properties": {
+          "transparency": "없음",
+          "stretch": "없음",
+          "lining": "안감 있음",
+          "thickness": "두꺼움",
+          "season": "겨울"
+        }
+      },
+      "productInfo": {
+        "productName": "체크 배색 웰론 패딩",
+        "colorName": "베이지 / 네이비 / 블랙",
+        "sizeName": "FREE",
+        "fabric": "폴리에스터100%/안감:웰론100%",
+        "washingInfo": "드라이클리닝",
+        "origin": "중국"
+      },
+      "sizeInfo": {
+        "topSizes": [
+          {
+            "name": "FREE",
+            "shoulder": "58",
+            "chest": "129",
+            "hem": "125",
+            "sleeveLength": "58",
+            "sleeveOpening": "42",
+            "totalLength": "61",
+            "optional": ""
+          }
+        ],
+        "bottomSizes": []
+      },
+      "sizeImage": "아우터"
+    },
+    {
+      "productCode": "DN25DJP002",
+      "title": "배색 라운드 경량 패딩",
+      "mdComment": "평소 66반까지 착용하시는 고객분들께 추천드립니다.",
+      "sellingPoints": [
+        "일상에서 가볍게 코디하기 좋은 데일리한 경량 패딩",
+        "트렌디한 포인트가 되어 주는 컬러 배색 디테일",
+        "오리털 50%가 함유된 충전재로 높은 보온 효과",
+        ""
+      ],
+      "images": {
+        "main_single": "../assets/images/DN25DJP002_main.jpg"
+      },
+      "colors": [
+        {
+          "name": "브라운",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "블랙",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "베이지",
+          "hex": "#cccccc"
+        }
+      ],
+      "detailPoints": [
+        {
+          "image": "../assets/images/DN25DJP002_detail_point_1.jpg",
+          "text": "깔끔한 라운드 넥 라인으로 목 부분 편안한 착용감"
+        },
+        {
+          "image": "../assets/images/DN25DJP002_detail_point_2.jpg",
+          "text": "탈착용이 손쉬운 실버 스냅 버튼 디테일"
+        },
+        {
+          "image": "../assets/images/DN25DJP002_detail_point_3.jpg",
+          "text": "실용적인 포켓 디테일로 수납&보온 효과 선사"
+        },
+        {
+          "image": "../assets/images/DN25DJP002_detail_point_4.jpg",
+          "text": ""
+        }
+      ],
+      "gallery": [],
+      "galleryByColor": {
+        "color1": [
+          "../assets/images/DN25DJP002_gallery_color1_1.jpg",
+          "../assets/images/DN25DJP002_gallery_color1_2.jpg",
+          "../assets/images/DN25DJP002_gallery_color1_3.jpg",
+          "../assets/images/DN25DJP002_gallery_color1_4.jpg",
+          "../assets/images/DN25DJP002_gallery_color1_5.jpg",
+          "../assets/images/DN25DJP002_gallery_color1_6.jpg"
+        ],
+        "color2": [
+          "../assets/images/DN25DJP002_gallery_color2_1.jpg",
+          "../assets/images/DN25DJP002_gallery_color2_2.jpg",
+          "../assets/images/DN25DJP002_gallery_color2_3.jpg",
+          "../assets/images/DN25DJP002_gallery_color2_4.jpg",
+          "../assets/images/DN25DJP002_gallery_color2_5.jpg",
+          "../assets/images/DN25DJP002_gallery_color2_6.jpg",
+          "../assets/images/DN25DJP002_gallery_color2_7.jpg"
+        ],
+        "color3": [
+          "../assets/images/DN25DJP002_gallery_color3_1.jpg",
+          "../assets/images/DN25DJP002_gallery_color3_2.jpg"
+        ]
+      },
+      "productShots": [],
+      "fabricInfo": {
+        "image": "../assets/images/DN25DJP002_fabric.jpg",
+        "composition": "폴리에스터100%/충전재:오리털50% 웰론50%",
+        "description": "인조섬유 중 가장 많이 사용되는 폴리에스터 원단입니다.\n가볍고 부드러우며 구김이 잘 가지 않는 소재입니다.",
+        "properties": {
+          "transparency": "없음",
+          "stretch": "없음",
+          "lining": "안감 있음",
+          "thickness": "두꺼움",
+          "season": "겨울"
+        }
+      },
+      "productInfo": {
+        "productName": "배색 라운드 경량 패딩",
+        "colorName": "브라운 / 블랙 / 베이지",
+        "sizeName": "FREE",
+        "fabric": "폴리에스터100%/충전재:오리털50% 웰론50%",
+        "washingInfo": "드라이클리닝",
+        "origin": "중국"
+      },
+      "sizeInfo": {
+        "topSizes": [
+          {
+            "name": "FREE",
+            "shoulder": "38",
+            "chest": "122.5",
+            "hem": "118",
+            "sleeveLength": "58",
+            "sleeveOpening": "36",
+            "totalLength": "56",
+            "optional": ""
+          }
+        ],
+        "bottomSizes": []
+      },
+      "sizeImage": "아우터"
+    },
+    {
+      "productCode": "DN25DVT001",
+      "title": "다이아 하이넥 패딩 조끼",
+      "mdComment": "평소 77사이즈까지 착용하시는 고객분들께 추천드립니다.",
+      "sellingPoints": [
+        "다양한 이너와 함께 스타일링하기 좋은 패딩 조끼",
+        "다이아몬드 퀼팅으로 세련된 무드 완성",
+        "두터운 이너와도 편하게 입기 좋은 여유로운 핏",
+        "가볍고 따스한 오리솜털 50%가 함유된 충전재"
+      ],
+      "images": {
+        "main_single": "../assets/images/DN25DVT001_main.jpg"
+      },
+      "colors": [
+        {
+          "name": "아이보리",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "베이지",
+          "hex": "#cccccc"
+        },
+        {
+          "name": "블랙",
+          "hex": "#cccccc"
+        }
+      ],
+      "detailPoints": [
+        {
+          "image": "../assets/images/DN25DVT001_detail_point_1.jpg",
+          "text": "목과 얼굴을 따스하게 감싸주는 하이넥 카라 디자인"
+        },
+        {
+          "image": "../assets/images/DN25DVT001_detail_point_2.jpg",
+          "text": "손쉽게 착용할 수 있는 지퍼 여밈 디테일"
+        },
+        {
+          "image": "../assets/images/DN25DVT001_detail_point_3.jpg",
+          "text": "실용적인 포켓 디테일로 수납&보온 효과 선사"
+        },
+        {
+          "image": "../assets/images/DN25DVT001_detail_point_4.jpg",
+          "text": "트렌디한 포인트가 되어 주는 다이아몬드 퀼팅 포인트"
+        }
+      ],
+      "gallery": [],
+      "galleryByColor": {
+        "color1": [
+          "../assets/images/DN25DVT001_gallery_color1_1.jpg",
+          "../assets/images/DN25DVT001_gallery_color1_2.jpg",
+          "../assets/images/DN25DVT001_gallery_color1_3.jpg"
+        ],
+        "color2": [
+          "../assets/images/DN25DVT001_gallery_color2_1.jpg",
+          "../assets/images/DN25DVT001_gallery_color2_2.jpg",
+          "../assets/images/DN25DVT001_gallery_color2_3.jpg",
+          "../assets/images/DN25DVT001_gallery_color2_4.jpg",
+          "../assets/images/DN25DVT001_gallery_color2_5.jpg",
+          "../assets/images/DN25DVT001_gallery_color2_6.jpg"
+        ],
+        "color3": [
+          "../assets/images/DN25DVT001_gallery_color3_1.jpg",
+          "../assets/images/DN25DVT001_gallery_color3_2.jpg",
+          "../assets/images/DN25DVT001_gallery_color3_3.jpg",
+          "../assets/images/DN25DVT001_gallery_color3_4.jpg",
+          "../assets/images/DN25DVT001_gallery_color3_5.jpg",
+          "../assets/images/DN25DVT001_gallery_color3_6.jpg"
+        ]
+      },
+      "productShots": [],
+      "fabricInfo": {
+        "image": null,
+        "composition": "나일론100%/충전재:오리솜털50% 깃털50%",
+        "description": "매끄러운 질감에 내구성이 좋은 나일론 원단입니다.\n가볍고 탄탄하여 활동성이 우수한 소재입니다.",
+        "properties": {
+          "transparency": "없음",
+          "stretch": "없음",
+          "lining": "안감 있음",
+          "thickness": "두꺼움",
+          "season": "겨울"
+        }
+      },
+      "productInfo": {
+        "productName": "다이아 하이넥 패딩 조끼",
+        "colorName": "아이보리 / 베이지 / 블랙",
+        "sizeName": "FREE",
+        "fabric": "나일론100%/충전재:오리솜털50% 깃털50%",
+        "washingInfo": "드라이클리닝",
+        "origin": "중국"
+      },
+      "sizeInfo": {
+        "topSizes": [
+          {
+            "name": "FREE",
+            "shoulder": "39",
+            "chest": "104",
+            "hem": "98",
+            "sleeveLength": "-",
+            "sleeveOpening": "50",
+            "totalLength": "60",
+            "optional": ""
+          }
+        ],
+        "bottomSizes": []
+      },
+      "sizeImage": "상의"
+    }
+  ],
+  "metadata": {
+    "totalCount": 20,
+    "lastUpdated": "2025-10-20T22:55:36.413788",
+    "version": "1.0.0",
+    "brand": "DANA&PETA"
+  }
+}
