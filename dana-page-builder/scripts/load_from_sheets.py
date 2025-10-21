@@ -360,16 +360,20 @@ class DanaDataLoader:
                 detail_image_url = row[TEMPLATE_COLUMNS[f"detailPoint{i}Image"]].strip()
                 detail_text = row[TEMPLATE_COLUMNS[f"detailPoint{i}Text"]].strip()
 
+                # Add detail point if either image URL or text exists
+                image_path = None
                 if detail_image_url and not self.is_empty_value(detail_image_url):
                     image_path = self.download_image(
                         detail_image_url,
                         f"{product_code}_detail_point_{i}.jpg"
                     )
-                    if image_path:
-                        detail_points.append({
-                            "image": image_path,
-                            "text": detail_text if not self.is_empty_value(detail_text) else ""
-                        })
+
+                # Add detail point if we have image or text
+                if image_path or (detail_text and not self.is_empty_value(detail_text)):
+                    detail_points.append({
+                        "image": image_path if image_path else "",
+                        "text": detail_text if not self.is_empty_value(detail_text) else ""
+                    })
 
             product["detailPoints"] = detail_points
 

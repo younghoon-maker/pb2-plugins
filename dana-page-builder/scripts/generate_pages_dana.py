@@ -106,6 +106,16 @@ class DanaPageGenerator:
             logger.error(f"❌ Failed to convert image to base64: {e}")
             return None
 
+    def create_placeholder_image(self) -> str:
+        """Create a placeholder SVG image as base64 data URL"""
+        svg_content = '''<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+            <rect width="800" height="600" fill="#E0E0E0"/>
+            <text x="400" y="280" font-family="Arial, sans-serif" font-size="24" fill="#757575" text-anchor="middle">이미지 없음</text>
+            <text x="400" y="320" font-family="Arial, sans-serif" font-size="16" fill="#999999" text-anchor="middle">클릭하여 이미지 업로드</text>
+        </svg>'''
+        svg_base64 = base64.b64encode(svg_content.encode('utf-8')).decode('utf-8')
+        return f"data:image/svg+xml;base64,{svg_base64}"
+
     def generate_html(self, product: Dict, editable: bool = False) -> str:
         """Generate HTML for a product"""
 
@@ -184,7 +194,18 @@ class DanaPageGenerator:
         # Build detail points HTML (left-right layout)
         detail_points_html = ""
         for idx, point in enumerate(product.get("detailPoints", [])):
+            # Render if text exists OR image exists
+            has_text = point.get('text', '').strip()
+            has_image = point.get('image')
+
+            if not has_text and not has_image:
+                continue
+
+            # Use placeholder if no image
             point_image_base64 = self.image_to_base64(point.get("image"))
+            if not point_image_base64:
+                point_image_base64 = self.create_placeholder_image()
+
             frame_class = ' image-frame' if editable else ''
             data_id_attr = f' data-id="detailPoint{idx + 1}"' if editable else ''
             img_class = ' editable-image' if editable else ''
@@ -196,7 +217,7 @@ class DanaPageGenerator:
                 </div>
                 <div class="detail-point-text-box">
                     <div class="detail-point-number">0{idx + 1}</div>
-                    <div class="detail-point-text">{point.get('text', '')}</div>
+                    <div class="detail-point-text{editable_class}"{contenteditable_attr}>{point.get('text', '')}</div>
                 </div>
             </div>
             '''
@@ -609,52 +630,52 @@ class DanaPageGenerator:
             has_total_length = any(s.get("totalLength") for s in sizes)
 
             # Build header row
-            header_row = "<th>호칭</th>"
+            header_row = f"<th{contenteditable_attr}>호칭</th>"
             if has_shoulder:
-                header_row += "<th>어깨</th>"
+                header_row += f"<th{contenteditable_attr}>어깨</th>"
             if has_chest:
-                header_row += "<th>가슴</th>"
+                header_row += f"<th{contenteditable_attr}>가슴</th>"
             if has_waist:
-                header_row += "<th>허리</th>"
+                header_row += f"<th{contenteditable_attr}>허리</th>"
             if has_hip:
-                header_row += "<th>엉덩이</th>"
+                header_row += f"<th{contenteditable_attr}>엉덩이</th>"
             if has_thigh:
-                header_row += "<th>허벅지</th>"
+                header_row += f"<th{contenteditable_attr}>허벅지</th>"
             if has_hem:
-                header_row += "<th>밑단</th>"
+                header_row += f"<th{contenteditable_attr}>밑단</th>"
             if has_rise:
-                header_row += "<th>밑위</th>"
+                header_row += f"<th{contenteditable_attr}>밑위</th>"
             if has_sleeve_opening:
-                header_row += "<th>소매통</th>"
+                header_row += f"<th{contenteditable_attr}>소매통</th>"
             if has_sleeve_length:
-                header_row += "<th>소매기장</th>"
+                header_row += f"<th{contenteditable_attr}>소매기장</th>"
             if has_total_length:
-                header_row += "<th>총장</th>"
+                header_row += f"<th{contenteditable_attr}>총장</th>"
 
             # Build data rows
             data_rows = ""
             for size in sizes:
-                row = f"<td><strong>{size.get('name', '')}</strong></td>"
+                row = f"<td{contenteditable_attr}><strong>{size.get('name', '')}</strong></td>"
                 if has_shoulder:
-                    row += f"<td>{size.get('shoulder', '')}</td>"
+                    row += f"<td{contenteditable_attr}>{size.get('shoulder', '')}</td>"
                 if has_chest:
-                    row += f"<td>{size.get('chest', '')}</td>"
+                    row += f"<td{contenteditable_attr}>{size.get('chest', '')}</td>"
                 if has_waist:
-                    row += f"<td>{size.get('waist', '')}</td>"
+                    row += f"<td{contenteditable_attr}>{size.get('waist', '')}</td>"
                 if has_hip:
-                    row += f"<td>{size.get('hip', '')}</td>"
+                    row += f"<td{contenteditable_attr}>{size.get('hip', '')}</td>"
                 if has_thigh:
-                    row += f"<td>{size.get('thigh', '')}</td>"
+                    row += f"<td{contenteditable_attr}>{size.get('thigh', '')}</td>"
                 if has_hem:
-                    row += f"<td>{size.get('hem', '')}</td>"
+                    row += f"<td{contenteditable_attr}>{size.get('hem', '')}</td>"
                 if has_rise:
-                    row += f"<td>{size.get('rise', '')}</td>"
+                    row += f"<td{contenteditable_attr}>{size.get('rise', '')}</td>"
                 if has_sleeve_opening:
-                    row += f"<td>{size.get('sleeveOpening', '')}</td>"
+                    row += f"<td{contenteditable_attr}>{size.get('sleeveOpening', '')}</td>"
                 if has_sleeve_length:
-                    row += f"<td>{size.get('sleeveLength', '')}</td>"
+                    row += f"<td{contenteditable_attr}>{size.get('sleeveLength', '')}</td>"
                 if has_total_length:
-                    row += f"<td>{size.get('totalLength', '')}</td>"
+                    row += f"<td{contenteditable_attr}>{size.get('totalLength', '')}</td>"
                 data_rows += f"<tr>{row}</tr>"
 
             size_table_html = f'''
@@ -694,26 +715,26 @@ class DanaPageGenerator:
                 <table class="size-table">
                     <thead>
                         <tr>
-                            <th>호칭</th>
-                            <th>어깨</th>
-                            <th>가슴</th>
-                            <th>밑단</th>
-                            <th>소매기장</th>
-                            <th>소매단</th>
-                            <th>총장</th>
-                            <th>암홀</th>
+                            <th{contenteditable_attr}>호칭</th>
+                            <th{contenteditable_attr}>어깨</th>
+                            <th{contenteditable_attr}>가슴</th>
+                            <th{contenteditable_attr}>밑단</th>
+                            <th{contenteditable_attr}>소매기장</th>
+                            <th{contenteditable_attr}>소매단</th>
+                            <th{contenteditable_attr}>총장</th>
+                            <th{contenteditable_attr}>암홀</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{top.get('size', '')}</td>
-                            <td>{top.get('shoulder', '')}</td>
-                            <td>{top.get('chest', '')}</td>
-                            <td>{top.get('hem', '')}</td>
-                            <td>{top.get('sleeveLength', '')}</td>
-                            <td>{top.get('sleeveOpening', '')}</td>
-                            <td>{top.get('totalLength', '')}</td>
-                            <td>{top.get('armhole', '')}</td>
+                            <td{contenteditable_attr}>{top.get('size', '')}</td>
+                            <td{contenteditable_attr}>{top.get('shoulder', '')}</td>
+                            <td{contenteditable_attr}>{top.get('chest', '')}</td>
+                            <td{contenteditable_attr}>{top.get('hem', '')}</td>
+                            <td{contenteditable_attr}>{top.get('sleeveLength', '')}</td>
+                            <td{contenteditable_attr}>{top.get('sleeveOpening', '')}</td>
+                            <td{contenteditable_attr}>{top.get('totalLength', '')}</td>
+                            <td{contenteditable_attr}>{top.get('armhole', '')}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -725,30 +746,32 @@ class DanaPageGenerator:
                 <table class="size-table">
                     <thead>
                         <tr>
-                            <th>호칭</th>
-                            <th>허리</th>
-                            <th>엉덩이</th>
-                            <th>밑위</th>
-                            <th>허벅지</th>
-                            <th>밑단</th>
-                            <th>안기장</th>
-                            <th>총장</th>
+                            <th{contenteditable_attr}>호칭</th>
+                            <th{contenteditable_attr}>허리</th>
+                            <th{contenteditable_attr}>엉덩이</th>
+                            <th{contenteditable_attr}>밑위</th>
+                            <th{contenteditable_attr}>허벅지</th>
+                            <th{contenteditable_attr}>밑단</th>
+                            <th{contenteditable_attr}>안기장</th>
+                            <th{contenteditable_attr}>총장</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{bottom.get('size', '')}</td>
-                            <td>{bottom.get('waist', '')}</td>
-                            <td>{bottom.get('hip', '')}</td>
-                            <td>{bottom.get('rise', '')}</td>
-                            <td>{bottom.get('thigh', '')}</td>
-                            <td>{bottom.get('hem', '')}</td>
-                            <td>{bottom.get('inseam', '')}</td>
-                            <td>{bottom.get('outseam', '')}</td>
+                            <td{contenteditable_attr}>{bottom.get('size', '')}</td>
+                            <td{contenteditable_attr}>{bottom.get('waist', '')}</td>
+                            <td{contenteditable_attr}>{bottom.get('hip', '')}</td>
+                            <td{contenteditable_attr}>{bottom.get('rise', '')}</td>
+                            <td{contenteditable_attr}>{bottom.get('thigh', '')}</td>
+                            <td{contenteditable_attr}>{bottom.get('hem', '')}</td>
+                            <td{contenteditable_attr}>{bottom.get('inseam', '')}</td>
+                            <td{contenteditable_attr}>{bottom.get('outseam', '')}</td>
                         </tr>
                     </tbody>
                 </table>
                 '''
+
+        # Note: Size table add button and form moved to control panel
 
         # Build notices HTML
         notices = product.get("notices", {})
@@ -758,6 +781,14 @@ class DanaPageGenerator:
         # Editable mode scripts
         editable_scripts = ""
         if editable:
+            # Generate detail points entries dynamically
+            detail_points = product.get("detailPoints", [])
+            detail_points_entries = ""
+            for idx in range(len(detail_points)):
+                point_num = idx + 1
+                detail_points_entries += f'''
+                    {{id: "detailPoint{point_num}", label: "디테일 포인트 {point_num}", type: "detail"}},'''
+
             # Generate product shot entries dynamically based on actual product shots
             product_shots = product.get("productShots", [])
             product_shot_entries = ""
@@ -811,9 +842,7 @@ class DanaPageGenerator:
 <script>
                 // Image list for editing
                 const imageList = [
-                    {{id: "hero", label: "히어로 이미지 (메인 배경)", type: "hero"}},
-                    {{id: "detailPoint1", label: "디테일 포인트 1", type: "detail"}},
-                    {{id: "detailPoint2", label: "디테일 포인트 2", type: "detail"}},{gallery_entries}{product_shot_entries}
+                    {{id: "hero", label: "히어로 이미지 (메인 배경)", type: "hero"}},{detail_points_entries}{gallery_entries}{product_shot_entries}
                     {{id: "fabric", label: "패브릭 배경 이미지", type: "fabric"}}
                 ];
 
@@ -880,6 +909,9 @@ class DanaPageGenerator:
 
                     // Setup event listeners
                     setupEventListeners();
+
+                    // Populate size illustration options
+                    populateSizeIllustrationOptions();
 
                     // Select first image
                     if (currentImageId) {{
@@ -1143,6 +1175,8 @@ class DanaPageGenerator:
                         picker.addEventListener('change', updateColor);
                         picker.addEventListener('input', updateColor);
                     }});
+
+                    // Note: Size table form event handlers moved to inline onclick
                 }}
 
                 // Select image
@@ -1431,6 +1465,121 @@ class DanaPageGenerator:
                         currentSizeImage = imageName;
                         autoSave();
                     }}
+                }}
+
+                // Populate size illustration dropdown
+                function populateSizeIllustrationOptions() {{
+                    const sizeIllustrationSelect = document.getElementById('size-illustration');
+                    if (!sizeIllustrationSelect) return;
+
+                    // Add size images to dropdown
+                    if (sizeImagesData && Object.keys(sizeImagesData).length > 0) {{
+                        Object.keys(sizeImagesData).sort().forEach(imageName => {{
+                            const option = document.createElement('option');
+                            option.value = imageName;
+                            option.textContent = imageName;
+                            sizeIllustrationSelect.appendChild(option);
+                        }});
+                    }}
+                }}
+
+                // Toggle size table form
+                function toggleSizeTableForm() {{
+                    const form = document.getElementById('size-table-form');
+                    if (form) {{
+                        form.style.display = form.style.display === 'none' ? 'block' : 'none';
+                    }}
+                }}
+
+                // Create new size table
+                function createNewSizeTable() {{
+                    const tableType = document.getElementById('table-type').value;
+                    const rowCount = parseInt(document.getElementById('row-count').value);
+                    const illustration = document.getElementById('size-illustration').value;
+
+                    // Validate inputs
+                    if (rowCount < 1 || rowCount > 10) {{
+                        alert('⚠️ 행 수는 1-10 사이여야 합니다.');
+                        return;
+                    }}
+
+                    // Create illustration HTML if selected
+                    let illustrationHTML = '';
+                    if (illustration && sizeImagesData[illustration]) {{
+                        illustrationHTML = `
+                        <div style="max-width: 300px; margin: 40px auto; text-align: left;">
+                            <img src="${{sizeImagesData[illustration]}}" alt="Size illustration" style="width: 100%; height: auto;">
+                        </div>
+                        `;
+                    }}
+
+                    // Define table headers based on type
+                    let headerHTML = '';
+                    if (tableType === 'top') {{
+                        headerHTML = `
+                        <tr>
+                            <th contenteditable="true">호칭</th>
+                            <th contenteditable="true">어깨</th>
+                            <th contenteditable="true">가슴</th>
+                            <th contenteditable="true">밑단</th>
+                            <th contenteditable="true">소매기장</th>
+                            <th contenteditable="true">소매단</th>
+                            <th contenteditable="true">총장</th>
+                            <th contenteditable="true">암홀</th>
+                        </tr>
+                        `;
+                    }} else {{ // bottom
+                        headerHTML = `
+                        <tr>
+                            <th contenteditable="true">호칭</th>
+                            <th contenteditable="true">허리</th>
+                            <th contenteditable="true">엉덩이</th>
+                            <th contenteditable="true">밑위</th>
+                            <th contenteditable="true">허벅지</th>
+                            <th contenteditable="true">밑단</th>
+                            <th contenteditable="true">안기장</th>
+                            <th contenteditable="true">총장</th>
+                        </tr>
+                        `;
+                    }}
+
+                    // Create table rows (all empty cells)
+                    let rowsHTML = '';
+                    const colCount = tableType === 'top' ? 8 : 8; // Both have 8 columns
+                    for (let i = 0; i < rowCount; i++) {{
+                        rowsHTML += '<tr>';
+                        for (let j = 0; j < colCount; j++) {{
+                            rowsHTML += '<td contenteditable="true" class="editable"></td>';
+                        }}
+                        rowsHTML += '</tr>';
+                    }}
+
+                    // Create full table HTML
+                    const tableHTML = illustrationHTML + `
+                    <table class="size-table">
+                        <thead>
+                            ${{headerHTML}}
+                        </thead>
+                        <tbody>
+                            ${{rowsHTML}}
+                        </tbody>
+                    </table>
+                    `;
+
+                    // Find the size tables container and append new table
+                    const container = document.getElementById('size-tables-container');
+                    const newTableDiv = document.createElement('div');
+                    newTableDiv.innerHTML = tableHTML;
+                    container.appendChild(newTableDiv);
+
+                    // Close form
+                    toggleSizeTableForm();
+
+                    // Reset form
+                    document.getElementById('row-count').value = 1;
+                    document.getElementById('size-illustration').value = '';
+
+                    alert('✅ 사이즈표가 추가되었습니다.');
                 }}
 
                 // Auto-save to localStorage
@@ -1857,6 +2006,45 @@ class DanaPageGenerator:
                     <div>• 드래그: 이미지 이동</div>
                 </div>
 
+                <!-- Size Table Add Section -->
+                <div style="margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 6px; border: 1px solid #ffc107;">
+                    <button id="add-size-table-btn" onclick="toggleSizeTableForm()" style="width: 100%; padding: 12px; background: #ffc107; color: #000; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: bold; margin-bottom: 0;">
+                        📊 사이즈표 추가
+                    </button>
+
+                    <!-- Size Table Form (Initially Hidden) -->
+                    <div id="size-table-form" style="display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid #ffc107;">
+                        <div style="margin-bottom: 12px;">
+                            <label for="table-type" style="display: block; margin-bottom: 5px; font-size: 12px; font-weight: 600;">타입 선택:</label>
+                            <select id="table-type" style="width: 100%; padding: 8px; font-size: 13px; border: 1px solid #ccc; border-radius: 4px; cursor: pointer;">
+                                <option value="top">상의</option>
+                                <option value="bottom">하의</option>
+                            </select>
+                        </div>
+
+                        <div style="margin-bottom: 12px;">
+                            <label for="row-count" style="display: block; margin-bottom: 5px; font-size: 12px; font-weight: 600;">행 수 (1-10):</label>
+                            <input type="number" id="row-count" min="1" max="10" value="1" style="width: 100%; padding: 8px; font-size: 13px; border: 1px solid #ccc; border-radius: 4px;">
+                        </div>
+
+                        <div style="margin-bottom: 12px;">
+                            <label for="size-illustration" style="display: block; margin-bottom: 5px; font-size: 12px; font-weight: 600;">도식화 이미지:</label>
+                            <select id="size-illustration" style="width: 100%; padding: 8px; font-size: 13px; border: 1px solid #ccc; border-radius: 4px; cursor: pointer;">
+                                <option value="">이미지 없음</option>
+                            </select>
+                        </div>
+
+                        <div style="display: flex; gap: 8px;">
+                            <button id="create-table-btn" onclick="createNewSizeTable()" style="flex: 1; padding: 10px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600;">
+                                생성
+                            </button>
+                            <button id="cancel-table-btn" onclick="toggleSizeTableForm()" style="flex: 1; padding: 10px; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600;">
+                                취소
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Export Buttons -->
                 <div style="margin-top: 20px; display: flex; gap: 10px; flex-direction: column;">
                     <button onclick="exportHTML()" style="width: 100%; padding: 12px; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
@@ -2193,6 +2381,18 @@ class DanaPageGenerator:
             text-align: center;
             line-height: 1.6;
             letter-spacing: 2px;
+        }}
+
+        .detail-point-text.editable {{
+            min-height: 80px;
+            cursor: text;
+            outline: none;
+        }}
+
+        .detail-point-text.editable:empty:before {{
+            content: '텍스트를 입력하세요';
+            color: #999;
+            font-size: 32px;
         }}
 
         /* Section 5: Gallery */
@@ -2719,6 +2919,141 @@ class DanaPageGenerator:
                 font-size: 20px;
             }}
         }}
+
+        /* Add Size Table Button */
+        .add-size-table-btn {{
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }}
+
+        .add-size-table-btn:hover {{
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }}
+
+        .add-size-table-btn:active {{
+            transform: translateY(0);
+        }}
+
+        /* Modal */
+        .modal {{
+            display: none;
+            position: absolute;
+            z-index: 10000;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 100%;
+            margin-top: 20px;
+            width: auto;
+            background-color: rgba(0,0,0,0.5);
+            padding: 20px;
+            border-radius: 12px;
+        }}
+
+        .modal-content {{
+            background-color: #fefefe;
+            margin: 0;
+            padding: 30px;
+            border: 1px solid #888;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }}
+
+        .modal-content h2 {{
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 24px;
+            color: #333;
+        }}
+
+        .close {{
+            color: #aaa;
+            float: right;
+            font-size: 32px;
+            font-weight: bold;
+            line-height: 20px;
+            cursor: pointer;
+        }}
+
+        .close:hover,
+        .close:focus {{
+            color: #000;
+        }}
+
+        .modal-form {{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }}
+
+        .form-group {{
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }}
+
+        .form-group label {{
+            font-family: 'Pretendard', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }}
+
+        .form-control {{
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }}
+
+        .form-control:focus {{
+            outline: none;
+            border-color: #4CAF50;
+        }}
+
+        .btn-primary {{
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }}
+
+        .btn-primary:hover {{
+            background-color: #45a049;
+        }}
+
+        .btn-secondary {{
+            background-color: #757575;
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }}
+
+        .btn-secondary:hover {{
+            background-color: #616161;
+        }}
     </style>
 </head>
 <body>
@@ -2799,7 +3134,9 @@ class DanaPageGenerator:
 
             <h2 class="section-title{editable_class}"{contenteditable_attr} style="margin-top: 100px;">PRODUCT INFO</h2>
             {product_info_html}
-            {size_table_html}
+            <div id="size-tables-container">
+                {size_table_html}
+            </div>
         </section>
     </div>
 {editable_scripts}
