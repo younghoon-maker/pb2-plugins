@@ -2,6 +2,21 @@
 description: 여러 Dana&Peta 제품 HTML 배치 생성
 ---
 
+```bash
+# Execute batch generation with explicit path
+cd "$HOME/.claude/plugins/marketplaces/pb-marketplace/dana-page-builder"
+
+# Parse arguments
+if [ "$1" = "--all" ]; then
+    python3 scripts/generate_pages_dana.py --all
+elif [ "$1" = "--product" ]; then
+    shift
+    python3 scripts/generate_pages_dana.py --product "$@"
+else
+    python3 scripts/generate_pages_dana.py --product "$@"
+fi
+```
+
 # Batch Generate Products
 
 Google Sheets에서 여러 제품 데이터를 한 번에 로드하여 Editable HTML을 배치 생성합니다.

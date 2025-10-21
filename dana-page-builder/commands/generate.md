@@ -2,6 +2,14 @@
 description: 단일 Dana&Peta 제품 HTML 생성
 ---
 
+```bash
+# Execute single product generation with explicit path
+cd "$HOME/.claude/plugins/marketplaces/pb-marketplace/dana-page-builder"
+
+# First argument is the product code
+python3 scripts/generate_pages_dana.py --product "$1"
+```
+
 # Generate Single Product
 
 Google Sheets에서 단일 제품 데이터를 로드하여 Editable HTML을 생성합니다.

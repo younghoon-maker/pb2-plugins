@@ -2,6 +2,13 @@
 description: Flask 편집 서버 실행 (Port 5002)
 ---
 
+```bash
+# Execute Flask server with explicit path
+cd "$HOME/.claude/plugins/marketplaces/pb-marketplace/dana-page-builder"
+
+python3 scripts/server.py
+```
+
 # Start Flask Server
 
 Dana&Peta Editable HTML 파일을 제공하고 HTML/JPG 익스포트를 처리하는 Flask 로컬 서버를 실행합니다.
