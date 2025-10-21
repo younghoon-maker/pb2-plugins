@@ -5,6 +5,48 @@ All notable changes to the dana-page-builder plugin will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 2025-10-21
+
+### 🐛 Fixed
+- **사이즈표 특수문자 입력 문제 해결**
+  - 사이즈표에서 `-`, `=`, `+` 문자 입력 불가 문제 해결
+  - 브라우저 줌 단축키(Cmd/Ctrl + `-`, `=`, `+`)와 충돌 방지
+  - 사이즈표 헤더(`<th>`)와 셀(`<td class="editable">`) 모두 keydown 이벤트 처리 추가
+  - `stopPropagation()`으로 브라우저 기본 동작 차단
+- **플러그인 경로 수정**
+  - 커맨드 파일 경로 수정: `pb2-marketplace` → `pb-marketplace`
+  - `/dana-page-builder:generate`, `/dana-page-builder:batch-generate`, `/dana-page-builder:start-server` 커맨드 정상화
+
+### 📝 Details
+**사이즈표 문제 원인**:
+- 브라우저는 Cmd/Ctrl + `-`/`=`/`+` 키를 줌 단축키로 사용
+- contenteditable 요소에서도 이 단축키가 우선 처리되어 문자 입력 불가
+- 사용자가 `-`, `=`, `+` 입력 시 브라우저가 줌 동작 실행
+
+**해결 방법**:
+- `.size-table th, .size-table td.editable` 요소에 keydown 이벤트 리스너 추가
+- `-`, `=`, `+` 키 감지 시 `e.stopPropagation()` 호출
+- 브라우저 기본 동작을 차단하여 정상적인 문자 입력 가능
+
+**수정 파일**:
+- `scripts/generate_pages_dana.py` (line 1124-1132)
+- `commands/batch-generate.md` (line 92)
+- `commands/generate.md` (line 82)
+- `commands/start-server.md` (line 131)
+
+**테스트 방법**:
+```bash
+# HTML 재생성
+/dana-page-builder:generate DN25WBL001
+
+# 브라우저에서 강력 새로고침 (캐시 무시)
+Cmd + Shift + R (Mac) / Ctrl + Shift + R (Windows)
+
+# 사이즈표 셀 클릭 후 -, =, + 입력 테스트
+```
+
+---
+
 ## [1.0.3] - 2025-10-21
 
 ### ✨ Added
