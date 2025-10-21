@@ -1121,6 +1121,16 @@ class DanaPageGenerator:
                         }}
                     }});
 
+                    // Size table cell keydown handler (브라우저 줌 단축키 충돌 방지)
+                    document.querySelectorAll('.size-table th, .size-table td.editable').forEach(cell => {{
+                        cell.addEventListener('keydown', (e) => {{
+                            // -, =, + 키의 브라우저 기본 동작(줌) 방지
+                            if (e.key === '-' || e.key === '=' || e.key === '+') {{
+                                e.stopPropagation();
+                            }}
+                        }});
+                    }});
+
                     // Upload button handler
                     uploadBtn = document.getElementById('upload-trigger-btn');
                     fileInput = document.getElementById('file-input-global');
