@@ -24,6 +24,9 @@ output/
 # Exception: Logo files (required resources)
 !**/reference/logo/*.png
 
+# Exception: Size chart template images (required resources)
+!**/size_images/*.png
+
 # Python
 __pycache__/
 *.py[cod]
