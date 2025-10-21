@@ -1124,11 +1124,15 @@ class DanaPageGenerator:
                     // Size table cell keydown handler (브라우저 줌 단축키 충돌 방지)
                     document.querySelectorAll('.size-table th, .size-table td').forEach(cell => {{
                         cell.addEventListener('keydown', (e) => {{
-                            // Cmd/Ctrl과 함께 -, =, + 키 입력 시에만 브라우저 줌 차단
-                            // 단독 입력은 정상적으로 허용
-                            if ((e.key === '-' || e.key === '=' || e.key === '+') && (e.metaKey || e.ctrlKey)) {{
-                                e.preventDefault();  // 브라우저 줌만 차단
-                                e.stopPropagation(); // 이벤트 전파 중지
+                            // -, =, + 키 처리: 브라우저 기본 동작 완전 차단 + 수동 삽입
+                            if (e.key === '-' || e.key === '=' || e.key === '+') {{
+                                e.preventDefault();  // 브라우저 기본 동작(줌) 완전 차단
+
+                                // Cmd/Ctrl 없이 단독으로 눌렸을 때만 문자 삽입
+                                if (!e.metaKey && !e.ctrlKey) {{
+                                    document.execCommand('insertText', false, e.key);
+                                }}
+                                // Cmd/Ctrl과 함께 눌렸을 때는 아무것도 하지 않음 (줌 차단됨)
                             }}
                         }});
                     }});
