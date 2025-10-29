@@ -157,6 +157,32 @@ def add_color_selector_styles(soup):
     return soup
 
 
+def add_gallery_section_indexes(soup, product):
+    """
+    V4.2: 모든 Lifestyle Gallery 섹션에 data-gallery-index와 data-gallery-color 속성 추가
+    """
+    gallery_sections = soup.find_all('div', class_='section--lifestyle-gallery')
+
+    if not gallery_sections:
+        print("   ⚠️ Lifestyle Gallery 섹션을 찾을 수 없습니다")
+        return soup
+
+    # product.colors에서 색상 이름 추출
+    color_names = [color.color_name for color in product.colors] if product.colors else []
+
+    for idx, section in enumerate(gallery_sections):
+        section['data-gallery-index'] = str(idx)
+
+        # 색상 이름 추가 (범위 내에 있으면)
+        if idx < len(color_names):
+            section['data-gallery-color'] = color_names[idx]
+        else:
+            section['data-gallery-color'] = f"색상{idx + 1}"
+
+    print(f"   ✅ {len(gallery_sections)}개 갤러리 섹션에 인덱스 부여 완료")
+    return soup
+
+
 def wrap_images_with_frames_sequential(soup, image_list):
     """
     BeautifulSoup으로 이미지를 image-frame으로 감싸기
@@ -230,6 +256,10 @@ def generate_editable_html(product, loader: SheetsLoader) -> str:
     # V4 수정 3: Color Selector 컬러 칩에 클릭 표시 (V3에서 유지)
     print("   🎨 컬러 칩 클릭 표시 추가 중...")
     soup = add_color_selector_styles(soup)
+
+    # V4.2: 갤러리 섹션에 인덱스 부여
+    print("   📋 갤러리 섹션 인덱스 부여 중...")
+    soup = add_gallery_section_indexes(soup, product)
 
     # imageList 동적 생성
     print("   🎯 이미지 리스트 생성 중...")
@@ -365,6 +395,62 @@ def generate_editable_html(product, loader: SheetsLoader) -> str:
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+        }
+
+        /* V4.3: Text element selection and resize handles */
+        .text-selected {
+            outline: 2px dashed #ff9800 !important;
+            outline-offset: 2px;
+            overflow: visible !important;
+        }
+
+        .resize-handle {
+            position: absolute;
+            background: #ff9800;
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            z-index: 10000;
+            pointer-events: auto;
+        }
+
+        .resize-handle-top {
+            width: 40px;
+            height: 8px;
+            top: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: ns-resize;
+        }
+
+        .resize-handle-right {
+            width: 8px;
+            height: 40px;
+            right: -4px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: ew-resize;
+        }
+
+        .resize-handle-bottom {
+            width: 40px;
+            height: 8px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: ns-resize;
+        }
+
+        .resize-handle-left {
+            width: 8px;
+            height: 40px;
+            left: -4px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: ew-resize;
+        }
+
+        .resize-handle:hover {
+            background: #f57c00;
         }
         '''
         style_tag.string = style_tag.string + additional_css
@@ -537,6 +623,83 @@ def generate_editable_html(product, loader: SheetsLoader) -> str:
             </button>
         </div>
 
+        <!-- Gap Control (V4.3: Unified Gallery/Detail/Hero) -->
+        <div style="margin-bottom: 20px; padding: 15px; background: #e8f5e9; border-radius: 6px;">
+            <h4 style="margin: 0 0 12px 0; font-size: 14px; font-weight: 600;">📐 이미지 간격 조정</h4>
+
+            <!-- V4.3: Gap Type Selector -->
+            <div style="margin-bottom: 10px;">
+                <label style="display: block; margin-bottom: 5px; font-size: 12px;">
+                    조정 대상:
+                </label>
+                <select id="gap-type-selector" style="width: 100%; padding: 6px; border: 1px solid #2e7d32; border-radius: 4px; font-size: 12px; background: white; cursor: pointer;">
+                    <option value="gallery">갤러리 이미지 간격</option>
+                    <option value="detail">디테일 섹션 간격</option>
+                    <option value="hero">히어로-상품명 간격</option>
+                </select>
+            </div>
+
+            <!-- V4.3: Gallery Section Selector (conditionally visible) -->
+            <div id="gallery-section-selector-wrapper" style="margin-bottom: 10px;">
+                <label style="display: block; margin-bottom: 5px; font-size: 12px;">
+                    섹션 선택:
+                </label>
+                <select id="gallery-section-selector" style="width: 100%; padding: 6px; border: 1px solid #2e7d32; border-radius: 4px; font-size: 12px; background: white; cursor: pointer;">
+                    <option value="all">전체 갤러리 (일괄 적용)</option>
+                    <!-- 섹션 옵션은 JavaScript에서 동적 생성 -->
+                </select>
+            </div>
+
+            <div>
+                <label style="display: block; margin-bottom: 5px; font-size: 12px;">
+                    간격: <span id="gap-value" style="font-weight: bold; color: #2e7d32;">21px</span>
+                </label>
+                <input type="range" id="gap-slider" min="0" max="300" value="21" step="1" style="width: 100%;">
+            </div>
+
+            <div id="gap-help-text" style="font-size: 10px; color: #2e7d32; margin-top: 8px; line-height: 1.5;">
+                💡 갤러리 섹션의 이미지 간격을 조절합니다.
+            </div>
+        </div>
+
+        <!-- Text Box Size Control (V4.2: Click to Select) -->
+        <div id="text-box-control" style="display: none; margin-bottom: 20px; padding: 15px; background: #fff8e1; border-radius: 6px;">
+            <h4 style="margin: 0 0 12px 0; font-size: 14px; font-weight: 600;">📏 텍스트 박스 크기 조절</h4>
+
+            <div style="margin-bottom: 10px; padding: 8px; background: #fff; border-radius: 4px; border: 1px solid #f57c00;">
+                <div style="font-size: 11px; font-weight: 600; color: #666; margin-bottom: 5px;">선택된 요소:</div>
+                <div id="selected-text-info" style="font-size: 12px; color: #333;">없음</div>
+                <button id="deselect-text" onclick="deselectTextElement()" style="margin-top: 8px; width: 100%; padding: 6px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: 600;">
+                    선택 해제
+                </button>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <label style="display: block; margin-bottom: 5px; font-size: 12px;">
+                    너비 (Width): <span id="text-width-value" style="font-weight: bold; color: #f57c00;">auto</span>
+                </label>
+                <input type="range" id="text-width" min="50" max="2000" value="200" step="10" style="width: 100%;">
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <label style="display: block; margin-bottom: 5px; font-size: 12px;">
+                    높이 (Height): <span id="text-height-value" style="font-weight: bold; color: #f57c00;">auto</span>
+                </label>
+                <input type="range" id="text-height" min="20" max="500" value="50" step="5" style="width: 100%;">
+            </div>
+
+            <div style="margin-bottom: 0;">
+                <label style="display: block; margin-bottom: 5px; font-size: 12px;">
+                    글자 크기 (Font Size): <span id="text-fontsize-value" style="font-weight: bold; color: #f57c00;">14px</span>
+                </label>
+                <input type="range" id="text-fontsize" min="8" max="100" value="14" step="1" style="width: 100%;">
+            </div>
+
+            <div style="font-size: 10px; color: #f57c00; margin-top: 8px; line-height: 1.5;">
+                💡 텍스트 요소를 클릭하여 선택한 후 크기를 조절하세요.
+            </div>
+        </div>
+
         <!-- Text Edit Mode Toggle + Format Tools -->
         <div style="margin-bottom: 20px; padding: 15px; background: #fff3cd; border-radius: 6px; border-left: 4px solid #ffc107;">
             <h4 style="margin: 0 0 12px 0; font-size: 14px; font-weight: 600; color: #856404;">✏️ 텍스트 편집</h4>
@@ -589,14 +752,17 @@ def generate_editable_html(product, loader: SheetsLoader) -> str:
     </div>
     '''
 
+    # Prepare JSON data for JavaScript (to avoid f-string format issues)
+    image_list_json = json.dumps(image_list, ensure_ascii=False)
+
     # JavaScript 생성 (V4: 진짜 스포이드 도구 구현)
-    javascript_code = f'''
+    javascript_code_template = '''
     <script>
         // Product code for localStorage
-        const productCode = '{product.product_code}';
+        const productCode = '__PRODUCT_CODE__';
 
         // Image list (generated from ProductData)
-        const imageList = {json.dumps(image_list, ensure_ascii=False)};
+        const imageList = __IMAGE_LIST__;
 
         // Crop settings storage (V4: version field added)
         const cropSettings = {{
@@ -629,6 +795,22 @@ def generate_editable_html(product, loader: SheetsLoader) -> str:
 
         // V4: Text edit mode
         let textEditMode = false;
+
+        // V4.1: Gallery gap and text padding
+        // V4.2: Changed to per-section gallery gaps
+        // V4.3: Unified gap settings for gallery/detail/hero
+        let gapSettings = {{
+            gallery: {{all: 21}},  // Stores: section_index -> gap_px, all -> gap_px
+            detail: 161,           // Detail section gap (single value)
+            hero: 60               // Hero to product name spacing (single value)
+        }};
+        let currentGapType = 'gallery';         // Current gap type being edited
+        let selectedGallerySection = 'all';     // Selected gallery section (only for gallery type)
+
+        // V4.2: Text box size control (replaced padding)
+        let selectedTextElement = null;  // Currently selected text element
+        let textElementIdCounter = 0;    // Auto-increment ID for text elements
+        let textSizes = {{}};              // Stores: element_id -> (width, height, fontSize)
 
         // V4: Toggle text editing
         function toggleTextEditing() {{
@@ -769,16 +951,35 @@ def generate_editable_html(product, loader: SheetsLoader) -> str:
 
         // Initialize
         function init() {{
-            console.log('✅ Editable mode V4 initialized');
+            console.log('✅ Editable mode V4.2 initialized');
             console.log(`📷 Total images: ${{imageList.length}}`);
             populateImageSelect();
             populateThumbnailGrid();  // NEW: Populate thumbnail grid instead of dropdown
             populateAddImageColorSelect();  // NEW: Populate color dropdown for adding images
+            populateGallerySectionSelector();  // V4.2: Populate gallery section dropdown
             loadSettings();
             applyPageZoom();
+            applyGap();              // V4.3 FIX: Apply gallery gap (per-section)
             setupEventListeners();
             setupColorChipHandlers();
             selectImage(currentImageId);
+        }}
+
+        // V4.2: Populate gallery section selector dropdown
+        function populateGallerySectionSelector() {{
+            const selector = document.getElementById('gallery-section-selector');
+            const sections = document.querySelectorAll('.section--lifestyle-gallery[data-gallery-index]');
+
+            sections.forEach(section => {{
+                const index = section.getAttribute('data-gallery-index');
+                const color = section.getAttribute('data-gallery-color');
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = `${{color}} 갤러리`;
+                selector.appendChild(option);
+            }});
+
+            console.log(`📋 갤러리 섹션 드롭다운 생성: ${{sections.length}}개`);
         }}
 
         // Populate image dropdown
@@ -1328,7 +1529,7 @@ def generate_editable_html(product, loader: SheetsLoader) -> str:
 
                                 console.log(`🎨 색상 추출 완료: ${{color}}`);
                                 deactivateEyedropper();
-                                alert(`✅ 색상 추출 완료: ${{color}}\\n\\n이제 Color 섹션의 컬러 칩을 클릭하여 색상을 적용하세요!`);
+                                // alert(`✅ 색상 추출 완료: ${{color}}\\n\\n이제 Color 섹션의 컬러 칩을 클릭하여 색상을 적용하세요!`);
                             }} catch (err) {{
                                 console.error('색상 추출 실패:', err);
                                 alert('❌ 색상 추출 실패: ' + err.message);
@@ -1375,6 +1576,152 @@ def generate_editable_html(product, loader: SheetsLoader) -> str:
                 document.getElementById('scale-value').textContent = value + '%';
                 applyCurrentCrop();
                 autoSave();
+            }});
+
+            // V4.3: Gap type selector
+            document.getElementById('gap-type-selector').addEventListener('change', (e) => {{
+                currentGapType = e.target.value;
+
+                // Show/hide gallery section selector
+                const gallerySelectorWrapper = document.getElementById('gallery-section-selector-wrapper');
+                if (currentGapType === 'gallery') {{
+                    gallerySelectorWrapper.style.display = 'block';
+                }} else {{
+                    gallerySelectorWrapper.style.display = 'none';
+                }}
+
+                // Update slider value and help text
+                let currentGap;
+                let helpText;
+
+                if (currentGapType === 'gallery') {{
+                    currentGap = gapSettings.gallery[selectedGallerySection] || gapSettings.gallery.all || 21;
+                    helpText = '💡 갤러리 섹션의 이미지 간격을 조절합니다.';
+                }} else if (currentGapType === 'detail') {{
+                    currentGap = gapSettings.detail;
+                    helpText = '💡 디테일 섹션의 이미지 간격을 조절합니다.';
+                }} else {{ // hero
+                    currentGap = gapSettings.hero;
+                    helpText = '💡 히어로 이미지와 상품명 사이의 간격을 조절합니다.';
+                }}
+
+                document.getElementById('gap-slider').value = currentGap;
+                document.getElementById('gap-value').textContent = currentGap + 'px';
+                document.getElementById('gap-help-text').textContent = helpText;
+
+                console.log(`📋 간격 조정 대상 변경: ${{currentGapType}} (현재: ${{currentGap}}px)`);
+            }});
+
+            // V4.2: Gallery section selector
+            document.getElementById('gallery-section-selector').addEventListener('change', (e) => {{
+                selectedGallerySection = e.target.value;
+
+                // Update slider to show current section's gap
+                const currentGap = gapSettings.gallery[selectedGallerySection] || gapSettings.gallery.all || 21;
+                document.getElementById('gap-slider').value = currentGap;
+                document.getElementById('gap-value').textContent = currentGap + 'px';
+
+                console.log(`📋 갤러리 섹션 선택: ${{selectedGallerySection}} (현재 간격: ${{currentGap}}px)`);
+            }});
+
+            // V4.3: Unified gap slider
+            document.getElementById('gap-slider').addEventListener('input', (e) => {{
+                const gap = parseInt(e.target.value);
+
+                // Update gap settings based on current type
+                if (currentGapType === 'gallery') {{
+                    gapSettings.gallery[selectedGallerySection] = gap;
+                }} else if (currentGapType === 'detail') {{
+                    gapSettings.detail = gap;
+                }} else {{ // hero
+                    gapSettings.hero = gap;
+                }}
+
+                document.getElementById('gap-value').textContent = gap + 'px';
+                applyGap();
+                autoSave();
+            }});
+
+            // V4.3 FIX: Text element click selection - canvas 내부만 선택
+            const allTextElements = document.querySelectorAll('.canvas div, .canvas span, .canvas p, .canvas h1, .canvas h2, .canvas h3, .canvas h4, .canvas h5, .canvas h6');
+            let passedFilters = 0;
+            let filteredByParent = 0;
+            let filteredByChildCount = 0;
+            let filteredByTextLength = 0;
+
+            console.log(`🔍 텍스트 요소 스캔 시작: ${{allTextElements.length}}개 후보`);
+
+            allTextElements.forEach(el => {{
+                // V4.3 FIX: Skip control panel and empty elements
+                // NOTE: image-frame, canvas-wrapper 내부의 텍스트는 허용, 해당 요소 자체만 제외
+                if (el.closest('.control-panel') ||
+                    el.classList.contains('image-frame') ||    // image-frame 자체만 제외
+                    el.classList.contains('canvas-wrapper') ||  // canvas-wrapper 자체만 제외
+                    el.classList.contains('canvas') ||
+                    !el.textContent.trim()) {{
+                    filteredByParent++;
+                    return;
+                }}
+
+                // V4.3 FIX: 실제 콘텐츠를 담은 요소만 선택 (자식이 많은 구조용 div 제외)
+                const childDivs = el.querySelectorAll('div');
+                if (childDivs.length > 10) {{  // 자식 div가 10개 이상이면 구조용 컨테이너로 간주
+                    filteredByChildCount++;
+                    return;
+                }}
+
+                // V4.3 FIX: 실제 텍스트 내용이 있는 요소만 선택
+                const textContent = el.textContent.trim();
+                if (textContent.length < 2) {{  // 2자 미만 제외
+                    filteredByTextLength++;
+                    return;
+                }}
+
+                passedFilters++;
+                el.addEventListener('click', (e) => {{
+                    e.stopPropagation();
+                    selectTextElement(el);
+                }});
+
+                // Add hover effect
+                el.style.cursor = 'pointer';
+                el.addEventListener('mouseenter', () => {{
+                    if (el !== selectedTextElement) {{
+                        el.style.outline = '1px solid rgba(76, 175, 80, 0.3)';
+                    }}
+                }});
+                el.addEventListener('mouseleave', () => {{
+                    if (el !== selectedTextElement) {{
+                        el.style.outline = '';
+                    }}
+                }});
+            }});
+
+            // V4.3 FIX: 필터링 요약 로그
+            console.log(`✅ 텍스트 요소 필터링 완료:`);
+            console.log(`  - 전체 후보: ${{allTextElements.length}}개`);
+            console.log(`  - 부모/클래스 필터: ${{filteredByParent}}개 제외`);
+            console.log(`  - 자식 div 개수: ${{filteredByChildCount}}개 제외`);
+            console.log(`  - 텍스트 길이: ${{filteredByTextLength}}개 제외`);
+            console.log(`  - ✨ 최종 선택 가능: ${{passedFilters}}개`);
+
+            // V4.2: Text size sliders
+            document.getElementById('text-width').addEventListener('input', (e) => {{
+                const width = parseInt(e.target.value);
+                document.getElementById('text-width-value').textContent = width + 'px';
+                applyTextSize('width', width);
+            }});
+
+            document.getElementById('text-height').addEventListener('input', (e) => {{
+                const height = parseInt(e.target.value);
+                document.getElementById('text-height-value').textContent = height + 'px';
+                applyTextSize('height', height);
+            }});
+
+            document.getElementById('text-fontsize').addEventListener('input', (e) => {{
+                const fontSize = parseInt(e.target.value);
+                document.getElementById('text-fontsize-value').textContent = fontSize + 'px';
+                applyTextSize('fontSize', fontSize);
             }});
 
             // Drag events on image frames (V4: 스포이드 모드 시 비활성화)
@@ -1532,9 +1879,754 @@ def generate_editable_html(product, loader: SheetsLoader) -> str:
             }}
         }}
 
-        // Auto-save to localStorage
+        // V4.2: Apply gallery gap to selected section(s)
+        // V4.3: Unified gap application for gallery/detail/hero
+        function applyGap() {{
+            if (currentGapType === 'gallery') {{
+                // Apply gallery gap
+                if (selectedGallerySection === 'all') {{
+                    // Apply to all gallery sections - V4.3 FIX: 더 안전한 DOM 쿼리
+                    const gallerySections = document.querySelectorAll('.section--lifestyle-gallery');
+                    gallerySections.forEach(section => {{
+                        // 첫 번째 직접 자식 div 중 flex-direction: column을 가진 것 찾기
+                        const containers = section.querySelectorAll(':scope > div');
+                        containers.forEach(container => {{
+                            const computedStyle = getComputedStyle(container);
+                            if (computedStyle.flexDirection === 'column') {{
+                                // gap 스타일 업데이트 (있으면 교체, 없으면 추가)
+                                const currentStyle = container.getAttribute('style') || '';
+                                let newStyle;
+                                if (/gap:\s*\d+px/.test(currentStyle)) {{
+                                    newStyle = currentStyle.replace(/gap:\s*\d+px/, `gap: ${{gapSettings.gallery.all}}px`);
+                                }} else {{
+                                    // gap이 없으면 추가
+                                    newStyle = currentStyle + (currentStyle.endsWith(';') ? '' : '; ') + `gap: ${{gapSettings.gallery.all}}px;`;
+                                }}
+                                container.setAttribute('style', newStyle.trim());
+                            }}
+                        }});
+                    }});
+                    console.log(`📐 전체 갤러리 간격: ${{gapSettings.gallery.all}}px`);
+                }} else {{
+                    // Apply to specific gallery section - V4.3 FIX
+                    const section = document.querySelector(`.section--lifestyle-gallery[data-gallery-index="${{selectedGallerySection}}"]`);
+                    if (section) {{
+                        const containers = section.querySelectorAll(':scope > div');
+                        containers.forEach(container => {{
+                            const computedStyle = getComputedStyle(container);
+                            if (computedStyle.flexDirection === 'column') {{
+                                const currentStyle = container.getAttribute('style') || '';
+                                const gap = gapSettings.gallery[selectedGallerySection] || 21;
+                                let newStyle;
+                                if (/gap:\s*\d+px/.test(currentStyle)) {{
+                                    newStyle = currentStyle.replace(/gap:\s*\d+px/, `gap: ${{gap}}px`);
+                                }} else {{
+                                    newStyle = currentStyle + (currentStyle.endsWith(';') ? '' : '; ') + `gap: ${{gap}}px;`;
+                                }}
+                                container.setAttribute('style', newStyle.trim());
+                                console.log(`📐 갤러리 섹션 ${{selectedGallerySection}} 간격: ${{gap}}px`);
+                            }}
+                        }});
+                    }}
+                }}
+            }} else if (currentGapType === 'detail') {{
+                // Apply detail section gap - V4.3 FIX
+                const detailSection = document.querySelector('.section--material-detail');
+                if (detailSection) {{
+                    const containers = detailSection.querySelectorAll(':scope > div');
+                    containers.forEach(container => {{
+                        const computedStyle = getComputedStyle(container);
+                        if (computedStyle.flexDirection === 'column') {{
+                            const currentStyle = container.getAttribute('style') || '';
+                            let newStyle;
+                            if (/gap:\s*\d+px/.test(currentStyle)) {{
+                                newStyle = currentStyle.replace(/gap:\s*\d+px/, `gap: ${{gapSettings.detail}}px`);
+                            }} else {{
+                                newStyle = currentStyle + (currentStyle.endsWith(';') ? '' : '; ') + `gap: ${{gapSettings.detail}}px;`;
+                            }}
+                            container.setAttribute('style', newStyle.trim());
+                            console.log(`📐 디테일 섹션 간격: ${{gapSettings.detail}}px`);
+                        }}
+                    }});
+                }} else {{
+                    console.warn('⚠️ 디테일 섹션을 찾을 수 없습니다.');
+                }}
+            }} else if (currentGapType === 'hero') {{
+                // Apply hero to product name spacing (via margin-top of color-variants section) - V4.3 FIX
+                const colorVariantsSection = document.querySelector('.section--color-variants');
+                if (colorVariantsSection) {{
+                    const currentStyle = colorVariantsSection.getAttribute('style') || '';
+                    let newStyle;
+                    if (/margin:\s*\d+px\s+auto\s+0/.test(currentStyle)) {{
+                        newStyle = currentStyle.replace(/margin:\s*\d+px\s+auto\s+0/, `margin: ${{gapSettings.hero}}px auto 0`);
+                    }} else {{
+                        // margin 스타일이 없으면 추가
+                        newStyle = currentStyle + (currentStyle.endsWith(';') ? '' : '; ') + `margin: ${{gapSettings.hero}}px auto 0;`;
+                    }}
+                    colorVariantsSection.setAttribute('style', newStyle.trim());
+                    console.log(`📐 히어로-상품명 간격: ${{gapSettings.hero}}px`);
+                }} else {{
+                    console.warn('⚠️ 상품명 섹션을 찾을 수 없습니다.');
+                }}
+            }}
+        }}
+
+        // V4.2: Select text element
+        function selectTextElement(element) {{
+            // Deselect previous element
+            if (selectedTextElement) {{
+                selectedTextElement.style.outline = '';
+            }}
+
+            // Select new element
+            selectedTextElement = element;
+            element.style.outline = '2px dashed #4CAF50';
+
+            // Assign ID if not exists
+            if (!element.dataset.textId) {{
+                element.dataset.textId = `text-element-${{textElementIdCounter++}}`;
+            }}
+
+            // V4.3: Add resize handles
+            addResizeHandles(element);
+
+            // Show control panel
+            const panel = document.getElementById('text-box-control');
+            panel.style.display = 'block';
+
+            // Update info display
+            const info = element.textContent.substring(0, 30) + (element.textContent.length > 30 ? '...' : '');
+            document.getElementById('selected-text-info').textContent = info;
+
+            // Load current sizes
+            const savedSizes = textSizes[element.dataset.textId] || {{}};
+            const currentWidth = savedSizes.width || parseInt(getComputedStyle(element).width) || 200;
+            const currentHeight = savedSizes.height || parseInt(getComputedStyle(element).height) || 50;
+            const currentFontSize = savedSizes.fontSize || parseInt(getComputedStyle(element).fontSize) || 14;
+
+            // Update sliders
+            document.getElementById('text-width').value = currentWidth;
+            document.getElementById('text-width-value').textContent = currentWidth + 'px';
+            document.getElementById('text-height').value = currentHeight;
+            document.getElementById('text-height-value').textContent = currentHeight + 'px';
+            document.getElementById('text-fontsize').value = currentFontSize;
+            document.getElementById('text-fontsize-value').textContent = currentFontSize + 'px';
+        }}
+
+        // V4.2: Deselect text element
+        function deselectTextElement() {{
+            if (selectedTextElement) {{
+                selectedTextElement.style.outline = '';
+                selectedTextElement = null;
+            }}
+
+            // V4.3: Remove resize handles
+            removeResizeHandles();
+
+            // Hide control panel
+            const panel = document.getElementById('text-box-control');
+            panel.style.display = 'none';
+
+            // Clear info
+            document.getElementById('selected-text-info').textContent = '없음';
+        }}
+
+        // Helper: Compute offsetTop of a node relative to a section container
+        function computeRelativeTop(node, section) {{
+            if (!node) return 0;
+            if (!section || node === section) return node.offsetTop || 0;
+
+            let total = 0;
+            let current = node;
+
+            while (current && current !== section) {{
+                total += current.offsetTop || 0;
+                current = current.offsetParent;
+            }}
+
+            return total;
+        }}
+
+        // Helper: Convert absolute-bottom anchored containers to top-based anchors
+        function ensureAnchorForHeight(element) {{
+            let anchor = element;
+
+            console.log('🔍 ensureAnchorForHeight 시작:', {{
+                element: element.tagName,
+                className: element.className,
+                textContent: element.textContent?.substring(0, 20)
+            }});
+
+            while (anchor && anchor !== document.body) {{
+                const style = getComputedStyle(anchor);
+
+                console.log(`🔎 Anchor 검사:`, {{
+                    position: style.position,
+                    transform: style.transform,
+                    top: style.top,
+                    bottom: style.bottom,
+                    className: anchor.className
+                }});
+
+                if (style.position === 'absolute' && style.bottom !== 'auto') {{
+                    // 🔍 V4.3.1: bottom이 있어도 matrix 센터 앵커 체크를 우선 수행
+                    const transform = style.transform || '';
+                    let isCenterTransform = false;
+
+                    // matrix 형식 감지: matrix(1, 0, 0, 1, translateX, translateY)
+                    if (transform.startsWith('matrix')) {{
+                        const matrixMatch = transform.match(/matrix\\(([^)]+)\\)/);
+                        if (matrixMatch) {{
+                            const values = matrixMatch[1].split(',').map(v => parseFloat(v.trim()));
+                            if (values.length === 6) {{
+                                const translateX = values[4];
+                                const translateY = values[5];
+                                const elementWidth = anchor.offsetWidth || 200;
+                                const elementHeight = anchor.offsetHeight || 50;
+
+                                if (translateX < 0 && translateY < 0) {{
+                                    const isXCenter = Math.abs(translateX + elementWidth / 2) < 10;
+                                    const isYCenter = Math.abs(translateY + elementHeight / 2) < 10;
+                                    if (isXCenter || isYCenter) {{
+                                        isCenterTransform = true;
+                                        console.log('🔍 Matrix 센터 감지 (bottom 브랜치):', {{
+                                            translateX: translateX,
+                                            translateY: translateY,
+                                            elementWidth: elementWidth,
+                                            elementHeight: elementHeight,
+                                            isXCenter: isXCenter,
+                                            isYCenter: isYCenter
+                                        }});
+                                    }}
+                                }}
+                            }}
+                        }}
+                    }}
+
+                    // translate(-50%, -50%) 패턴도 체크
+                    if (!isCenterTransform && transform.includes('translate') && (
+                        transform.includes('-50%, -50%') ||
+                        (transform.includes('-50%') && transform.split(',').filter(p => p.includes('-50%')).length >= 2) ||
+                        transform.match(/translate\(\\s*-50%.*-50%/) ||
+                        transform.match(/translateX\\(\\s*-50%.*translateY\\(\\s*-50%/)
+                    )) {{
+                        isCenterTransform = true;
+                        console.log('✅ Translate 센터 감지 (bottom 브랜치)');
+                    }}
+
+                    // 센터 앵커로 감지되면 center 모드로 처리
+                    if (isCenterTransform) {{
+                        console.log('✅ 센터 앵커 감지됨 (bottom 브랜치)!');
+                        const section = anchor.closest('.section');
+
+                        if (section && !section.dataset.originalHeight) {{
+                            section.dataset.originalHeight = String(section.offsetHeight);
+                        }}
+
+                        if (!anchor.dataset.anchorMode) {{
+                            anchor.dataset.anchorMode = 'center';
+
+                            if (section && style.top) {{
+                                const sectionHeight = section.offsetHeight;
+                                let centerPx;
+                                if (style.top.includes('%') && sectionHeight) {{
+                                    const percent = parseFloat(style.top);
+                                    centerPx = (percent / 100) * sectionHeight;
+                                }} else {{
+                                    centerPx = parseFloat(style.top) || 0;
+                                }}
+
+                                const ratio = centerPx / sectionHeight;
+                                anchor.dataset.anchorCenterRatio = String(ratio);
+                                console.log(`📌 Center anchor 설정: centerPx=${{centerPx}}, ratio=${{ratio.toFixed(3)}}`);
+                            }}
+                        }}
+
+                        return {{ anchor, section }};
+                    }}
+
+                    // 일반 bottom 앵커 처리
+                    const section = anchor.closest('.section');
+
+                    if (section && !section.dataset.originalHeight) {{
+                        section.dataset.originalHeight = String(section.offsetHeight);
+                    }}
+
+                    if (anchor.dataset.anchorConverted !== 'true') {{
+                        let topWithinSection;
+                        if (section) {{
+                            const sectionHeight = section.offsetHeight;
+                            const anchorHeight = anchor.offsetHeight || parseFloat(style.height) || 0;
+                            const bottomValue = parseFloat(style.bottom) || 0;
+                            topWithinSection = Math.max(0, sectionHeight - anchorHeight - bottomValue);
+                        }} else {{
+                            topWithinSection = parseFloat(style.top) || 0;
+                        }}
+
+                        anchor.dataset.anchorOriginalBottom = style.bottom;
+                        anchor.dataset.anchorConverted = 'true';
+                        anchor.dataset.anchorTop = String(topWithinSection);
+                        anchor.style.bottom = 'auto';
+                        anchor.style.top = `${{topWithinSection}}px`;
+                        if (style.display === 'flex' && style.justifyContent !== 'flex-start') {{
+                            anchor.dataset.anchorOriginalJustify = style.justifyContent;
+                            anchor.style.justifyContent = 'flex-start';
+                            console.log(`🎯 Anchor justify-content 조정: flex-start`);
+                        }}
+                        console.log(`📌 Anchor converted to top: top=${{anchor.style.top}} (was bottom=${{style.bottom}})`);
+                    }}
+
+                    return {{ anchor, section }};
+                }} else if (
+                    style.position === 'absolute' &&
+                    style.top && style.top !== 'auto'
+                ) {{
+                    // 더 유연한 센터 앵커 감지
+                    const transform = style.transform || '';
+
+                    // matrix 형식 감지: matrix(1, 0, 0, 1, translateX, translateY)
+                    let isCenterTransform = false;
+
+                    // 1. translate(-50%, -50%) 패턴
+                    if (transform.includes('translate') && (
+                        transform.includes('-50%, -50%') ||
+                        (transform.includes('-50%') && transform.split(',').filter(p => p.includes('-50%')).length >= 2) ||
+                        transform.match(/translate\(\\s*-50%.*-50%/) ||
+                        transform.match(/translateX\\(\\s*-50%.*translateY\\(\\s*-50%/)
+                    )) {{
+                        isCenterTransform = true;
+                    }}
+
+                    // 2. matrix 형식 감지 (예: matrix(1, 0, 0, 1, -101, -74.5))
+                    if (!isCenterTransform && transform.startsWith('matrix')) {{
+                        const matrixMatch = transform.match(/matrix\\(([^)]+)\\)/);
+                        if (matrixMatch) {{
+                            const values = matrixMatch[1].split(',').map(v => parseFloat(v.trim()));
+                            if (values.length === 6) {{
+                                const translateX = values[4];
+                                const translateY = values[5];
+                                // 음수 offset이면서 요소 크기의 절반 정도인 경우 센터 정렬로 판단
+                                const elementWidth = anchor.offsetWidth || 200;
+                                const elementHeight = anchor.offsetHeight || 50;
+
+                                if (translateX < 0 && translateY < 0) {{
+                                    const isXCenter = Math.abs(translateX + elementWidth / 2) < 10;
+                                    const isYCenter = Math.abs(translateY + elementHeight / 2) < 10;
+                                    if (isXCenter || isYCenter) {{
+                                        isCenterTransform = true;
+                                        console.log('🔍 Matrix 센터 감지:', {{
+                                            translateX: translateX,
+                                            translateY: translateY,
+                                            elementWidth: elementWidth,
+                                            elementHeight: elementHeight,
+                                            isXCenter: isXCenter,
+                                            isYCenter: isYCenter
+                                        }});
+                                    }}
+                                }}
+                            }}
+                        }}
+                    }}
+
+                    console.log(`🎯 센터 변환 체크:`, {{
+                        transform: transform,
+                        isCenterTransform: isCenterTransform,
+                        top: style.top
+                    }});
+
+                    if (isCenterTransform) {{
+                        console.log('✅ 센터 앵커 감지됨!');
+                        const section = anchor.closest('.section');
+
+                        if (section && !section.dataset.originalHeight) {{
+                            section.dataset.originalHeight = String(section.offsetHeight);
+                        }}
+
+                        if (!anchor.dataset.anchorMode) {{
+                            anchor.dataset.anchorMode = 'center';
+
+                            if (section) {{
+                                const sectionHeight = section.offsetHeight;
+                                let centerPx;
+                                if (style.top.includes('%') && sectionHeight) {{
+                                    const percent = parseFloat(style.top);
+                                    centerPx = sectionHeight * (isNaN(percent) ? 0 : percent / 100);
+                                }} else {{
+                                    centerPx = parseFloat(style.top) || anchor.offsetTop || 0;
+                                }}
+
+                                if (sectionHeight) {{
+                                    anchor.dataset.anchorCenterRatio = String(centerPx / sectionHeight);
+                                }} else {{
+                                    anchor.dataset.anchorCenterPx = String(centerPx);
+                                }}
+
+                                console.log(`📌 Center anchor 설정:`, {{
+                                    centerPx: centerPx,
+                                    ratio: anchor.dataset.anchorCenterRatio,
+                                    sectionHeight: sectionHeight
+                                }});
+                            }}
+                        }}
+
+                        return {{ anchor, section }};
+                    }}
+                }}
+                anchor = anchor.parentElement;
+            }}
+
+            return null;
+        }}
+
+        function handleHeightChange(element, desiredHeight) {{
+            console.log('🔧 handleHeightChange 시작:', {{
+                element: element.tagName,
+                className: element.className,
+                desiredHeight: desiredHeight
+            }});
+
+            const anchorInfo = ensureAnchorForHeight(element);
+            const computedStyle = getComputedStyle(element);
+            const currentHeight = element.offsetHeight || parseFloat(computedStyle.height) || 0;
+            const target = Number(desiredHeight);
+            const resolvedHeight = Number.isFinite(target) ? target : currentHeight;
+            const delta = resolvedHeight - currentHeight;
+
+            element.style.height = `${{resolvedHeight}}px`;
+
+            const sectionForUpdate = anchorInfo?.section || element.closest('.section');
+            if (sectionForUpdate && !sectionForUpdate.dataset.originalHeight) {{
+                sectionForUpdate.dataset.originalHeight = String(sectionForUpdate.offsetHeight);
+            }}
+
+            if (anchorInfo) {{
+                const {{ anchor, section }} = anchorInfo;
+
+                console.log('📍 Anchor 정보:', {{
+                    anchorMode: anchor.dataset.anchorMode,
+                    anchorCenterRatio: anchor.dataset.anchorCenterRatio,
+                    delta: delta
+                }});
+
+                if (anchor.dataset.anchorMode === 'center') {{
+                    console.log('🎯 센터 모드: 위치 변경 없이 종료');
+                    delete element.dataset.anchorRef;
+                    return resolvedHeight;
+                }}
+
+                if (!anchor.dataset.anchorId) {{
+                    anchor.dataset.anchorId = `anchor-${{Date.now()}}-${{Math.random().toString(36).slice(2, 8)}}`;
+                }} else {{
+                    const storedTop = parseFloat(anchor.dataset.anchorTop || computeRelativeTop(anchor, section));
+                    anchor.dataset.anchorTop = String(storedTop);
+                    anchor.style.top = `${{storedTop}}px`;
+                    anchor.style.bottom = 'auto';
+                }}
+
+                element.dataset.anchorRef = anchor.dataset.anchorId;
+
+                if (section) {{
+                    const previousHeight = section.offsetHeight;
+                    const relativeTop = computeRelativeTop(anchor, section);
+                    const requiredHeight = Math.ceil(relativeTop + anchor.offsetHeight);
+                    const baseHeight = Number(section.dataset.originalHeight || previousHeight);
+                    const desiredSectionHeight = Math.max(baseHeight, requiredHeight);
+
+                    if (Math.abs(previousHeight - desiredSectionHeight) > 0.5) {{
+                        section.style.height = `${{desiredSectionHeight}}px`;
+                        console.log(`🏗️ Section(${{section.className || section.id || 'anonymous'}}) height 조정: ${{previousHeight}}px → ${{desiredSectionHeight}}px`);
+                    }}
+                }}
+            }}
+
+            return resolvedHeight;
+        }}
+
+        // V4.2: Apply text size changes
+        function applyTextSize(property, value) {{
+            if (!selectedTextElement) return;
+
+            const elementId = selectedTextElement.dataset.textId;
+
+            // Initialize if not exists
+            if (!textSizes[elementId]) {{
+                textSizes[elementId] = {{}};
+            }}
+
+            // Apply style
+            if (property === 'width') {{
+                selectedTextElement.style.width = value + 'px';
+                textSizes[elementId].width = value;
+            }} else if (property === 'height') {{
+                const resolvedHeight = handleHeightChange(selectedTextElement, value);
+                textSizes[elementId].height = resolvedHeight;
+                console.log(`📏 높이 변경: ${{resolvedHeight}}px`);
+            }} else if (property === 'fontSize') {{
+                selectedTextElement.style.fontSize = value + 'px';
+                textSizes[elementId].fontSize = value;
+            }}
+
+            console.log(`📏 텍스트 크기 변경 [${{elementId}}]: ${{property}}=${{value}}px`);
+            autoSave();
+        }}
+
+        // V4.3: Text box drag resize functionality
+        let resizeActive = false;
+        let resizeDirection = null;
+        let resizeStartX, resizeStartY, resizeStartWidth, resizeStartHeight;
+        let resizeStartTop, resizeStartLeft;  // V4.3 FIX: Store initial position
+
+        // V4.3: Add resize handles to selected text element
+        function addResizeHandles(element) {{
+            // Remove existing handles first
+            removeResizeHandles();
+
+            // V4.3 FIX: Store and change parent .section overflow
+            const sectionParent = element.closest('.section');
+            if (sectionParent) {{
+                element.dataset.sectionOriginalOverflow = getComputedStyle(sectionParent).overflow;
+                sectionParent.style.overflow = 'visible';
+                console.log(`🔓 .section overflow 열기: ${{element.dataset.sectionOriginalOverflow}} → visible`);
+            }}
+
+            // V4.3 FIX: 핸들은 absolute로 부모 기준 배치되므로 position 변경 불필요
+            console.log(`📍 Position 변경 안 함 (레이아웃 보존)`);
+
+            // V4.3 FIX: Store original z-index and overflow before changing
+            const computedStyle = getComputedStyle(element);
+            element.dataset.originalZIndex = computedStyle.zIndex;
+            element.dataset.originalOverflow = computedStyle.overflow;
+            console.log(`💾 원본 스타일 저장: zIndex=${{computedStyle.zIndex}}, overflow=${{computedStyle.overflow}}`);
+
+            // V4.3 FIX: Apply z-index and overflow for handle visibility
+            element.style.zIndex = '10';
+            element.style.overflow = 'visible';
+            console.log(`🔧 스타일 변경: zIndex=10, overflow=visible (핸들 표시용)`);
+
+            // Add text-selected class
+            element.classList.add('text-selected');
+
+            // Create 4 edge handles (top, right, bottom, left)
+            const directions = ['top', 'right', 'bottom', 'left'];
+            directions.forEach(direction => {{
+                const handle = document.createElement('div');
+                handle.className = `resize-handle resize-handle-${{direction}}`;
+                handle.dataset.direction = direction;
+
+                // Add mousedown event
+                handle.addEventListener('mousedown', (e) => {{
+                    e.preventDefault();
+                    e.stopPropagation();
+                    startResize(e, direction);
+                }});
+
+                element.appendChild(handle);
+            }});
+
+            console.log(`✅ 리사이즈 핸들 추가: ${{element.dataset.textId}}`);
+        }}
+
+        // V4.3: Remove resize handles
+        function removeResizeHandles() {{
+            const handles = document.querySelectorAll('.resize-handle');
+            handles.forEach(handle => handle.remove());
+
+            // V4.3 FIX: Restore parent .section overflow
+            const selectedElement = document.querySelector('.text-selected');
+            if (selectedElement) {{
+                const sectionParent = selectedElement.closest('.section');
+                if (sectionParent && selectedElement.dataset.sectionOriginalOverflow) {{
+                    sectionParent.style.overflow = selectedElement.dataset.sectionOriginalOverflow;
+                    console.log(`🔒 .section overflow 복원: ${{selectedElement.dataset.sectionOriginalOverflow}}`);
+                    delete selectedElement.dataset.sectionOriginalOverflow;
+                }}
+
+                // Restore anchor-specific adjustments
+                if (selectedElement.dataset.anchorRef) {{
+                    const anchorElement = document.querySelector('[data-anchor-id=\"' + selectedElement.dataset.anchorRef + '\"]');
+                    if (anchorElement) {{
+                        const originalJustify = anchorElement.dataset.anchorOriginalJustify;
+                        if (originalJustify) {{
+                            anchorElement.style.justifyContent = originalJustify;
+                            delete anchorElement.dataset.anchorOriginalJustify;
+                            console.log('🎯 Anchor justify-content 복원: ' + originalJustify);
+                        }}
+
+                        delete anchorElement.dataset.anchorTop;
+                        delete anchorElement.dataset.anchorCenterRatio;
+                        delete anchorElement.dataset.anchorCenterPx;
+                        delete anchorElement.dataset.anchorMode;
+                        delete anchorElement.dataset.anchorConverted;
+                        delete anchorElement.dataset.anchorId;
+                    }}
+                    delete selectedElement.dataset.anchorRef;
+                }}
+
+                // V4.3 FIX: Restore element's original z-index and overflow
+                if (selectedElement.dataset.originalZIndex) {{
+                    selectedElement.style.zIndex = selectedElement.dataset.originalZIndex;
+                    console.log(`🔙 z-index 복원: ${{selectedElement.dataset.originalZIndex}}`);
+                    delete selectedElement.dataset.originalZIndex;
+                }}
+                if (selectedElement.dataset.originalOverflow) {{
+                    selectedElement.style.overflow = selectedElement.dataset.originalOverflow;
+                    console.log(`🔙 overflow 복원: ${{selectedElement.dataset.originalOverflow}}`);
+                    delete selectedElement.dataset.originalOverflow;
+                }}
+
+                console.log(`✓ 원본 스타일 복원 완료`);
+            }}
+
+            // Remove text-selected class from all elements
+            document.querySelectorAll('.text-selected').forEach(el => {{
+                el.classList.remove('text-selected');
+            }});
+        }}
+
+        // V4.3: Start resize operation
+        function startResize(e, direction) {{
+            if (!selectedTextElement) return;
+
+            resizeActive = true;
+            resizeDirection = direction;
+            resizeStartX = e.clientX;
+            resizeStartY = e.clientY;
+            resizeStartWidth = parseInt(getComputedStyle(selectedTextElement).width);
+            resizeStartHeight = parseInt(getComputedStyle(selectedTextElement).height);
+
+            // V4.3 FIX: Only track top/left for absolute positioned elements
+            const computedStyle = getComputedStyle(selectedTextElement);
+            const positionType = computedStyle.position;
+
+            if (positionType === 'absolute') {{
+                resizeStartTop = parseInt(computedStyle.top) || 0;
+                resizeStartLeft = parseInt(computedStyle.left) || 0;
+                console.log(`📍 Position 추적: absolute (${{resizeStartTop}}px, ${{resizeStartLeft}}px)`);
+            }} else {{
+                resizeStartTop = 0;
+                resizeStartLeft = 0;
+                console.log(`📍 Position 타입: ${{positionType}} (top/left 조정 건너뜀)`);
+            }}
+
+            // Add global mousemove and mouseup listeners
+            document.addEventListener('mousemove', doResize);
+            document.addEventListener('mouseup', stopResize);
+
+            console.log(`🔄 리사이즈 시작: ${{direction}}, 초기 크기: ${{resizeStartWidth}}x${{resizeStartHeight}}px`);
+        }}
+
+        // V4.3: Perform resize operation
+        function doResize(e) {{
+            if (!resizeActive || !selectedTextElement) return;
+
+            const deltaX = e.clientX - resizeStartX;
+            const deltaY = e.clientY - resizeStartY;
+
+            let newWidth = resizeStartWidth;
+            let newHeight = resizeStartHeight;
+            let newTop = resizeStartTop;
+            let newLeft = resizeStartLeft;
+
+            // Calculate new dimensions based on direction
+            if (resizeDirection === 'right') {{
+                newWidth = resizeStartWidth + deltaX;
+            }} else if (resizeDirection === 'left') {{
+                // V4.3 FIX: Adjust both width and left position
+                newWidth = resizeStartWidth - deltaX;
+                newLeft = resizeStartLeft + deltaX;
+            }} else if (resizeDirection === 'bottom') {{
+                newHeight = resizeStartHeight + deltaY;
+            }} else if (resizeDirection === 'top') {{
+                // V4.3 FIX: Adjust both height and top position
+                newHeight = resizeStartHeight - deltaY;
+                newTop = resizeStartTop + deltaY;
+            }}
+
+            // Enforce minimum size
+            const minWidth = 50;
+            const minHeight = 20;
+
+            if (newWidth < minWidth) {{
+                // V4.3 FIX: Don't move left position if hitting minimum width
+                if (resizeDirection === 'left') {{
+                    newLeft = resizeStartLeft + (resizeStartWidth - minWidth);
+                }}
+                newWidth = minWidth;
+            }}
+
+            if (newHeight < minHeight) {{
+                // V4.3 FIX: Don't move top position if hitting minimum height
+                if (resizeDirection === 'top') {{
+                    newTop = resizeStartTop + (resizeStartHeight - minHeight);
+                }}
+                newHeight = minHeight;
+            }}
+
+            // Apply new dimensions
+            selectedTextElement.style.width = newWidth + 'px';
+
+            if (resizeDirection === 'bottom') {
+                newHeight = handleHeightChange(selectedTextElement, newHeight);
+            } else {
+                selectedTextElement.style.height = newHeight + 'px';
+            }
+
+            // V4.3 FIX: Only adjust top/left for absolute positioned elements
+            // Don't force position change - this would break layout
+            const currentPosition = getComputedStyle(selectedTextElement).position;
+            if (currentPosition === 'absolute' && (resizeDirection === 'top' || resizeDirection === 'left')) {{
+                if (resizeDirection === 'top') {{
+                    selectedTextElement.style.top = newTop + 'px';
+                    console.log(`↕️ Top 조정: ${{newTop}}px`);
+                }}
+                if (resizeDirection === 'left') {{
+                    selectedTextElement.style.left = newLeft + 'px';
+                    console.log(`↔️ Left 조정: ${{newLeft}}px`);
+                }}
+            }}
+
+            // Update sliders
+            document.getElementById('text-width').value = newWidth;
+            document.getElementById('text-width-value').textContent = newWidth + 'px';
+            document.getElementById('text-height').value = newHeight;
+            document.getElementById('text-height-value').textContent = newHeight + 'px';
+        }}
+
+        // V4.3: Stop resize operation
+        function stopResize(e) {{
+            if (!resizeActive) return;
+
+            resizeActive = false;
+
+            // Remove global listeners
+            document.removeEventListener('mousemove', doResize);
+            document.removeEventListener('mouseup', stopResize);
+
+            // Save final dimensions
+            if (selectedTextElement) {{
+                const elementId = selectedTextElement.dataset.textId;
+                const finalWidth = parseInt(selectedTextElement.style.width);
+                const finalHeight = parseInt(selectedTextElement.style.height);
+
+                if (!textSizes[elementId]) {{
+                    textSizes[elementId] = {{}};
+                }}
+
+                textSizes[elementId].width = finalWidth;
+                textSizes[elementId].height = finalHeight;
+
+                autoSave();
+
+                console.log(`✅ 리사이즈 완료 [${{elementId}}]: ${{finalWidth}}x${{finalHeight}}px`);
+            }}
+        }}
+
+        // V4.2: Auto-save to localStorage
+        // V4.3: Save unified gap settings
         function autoSave() {{
             cropSettings.pageZoom = pageZoom;
+            cropSettings.gapSettings = gapSettings;  // V4.3: Unified gap settings (gallery/detail/hero)
+            cropSettings.textSizes = textSizes;      // V4.2: Text element sizes
             localStorage.setItem(`cropSettings_${{productCode}}`, JSON.stringify(cropSettings));
         }}
 
@@ -1564,6 +2656,43 @@ def generate_editable_html(product, loader: SheetsLoader) -> str:
                                 cropSettings.images[id] = settings.images[id];
                             }}
                         }});
+
+                        // V4.3: Load gap settings (unified gallery/detail/hero)
+                        if (settings.gapSettings) {{
+                            gapSettings = settings.gapSettings;
+                            // Update slider for current gap type
+                            let currentGap;
+                            if (currentGapType === 'gallery') {{
+                                currentGap = gapSettings.gallery[selectedGallerySection] || gapSettings.gallery.all || 21;
+                            }} else if (currentGapType === 'detail') {{
+                                currentGap = gapSettings.detail;
+                            }} else {{ // hero
+                                currentGap = gapSettings.hero;
+                            }}
+                            document.getElementById('gap-slider').value = currentGap;
+                            document.getElementById('gap-value').textContent = currentGap + 'px';
+                        }} else if (settings.galleryGaps) {{
+                            // V4.2 backward compatibility: Convert old galleryGaps to new gapSettings
+                            gapSettings.gallery = settings.galleryGaps;
+                            const currentGap = gapSettings.gallery[selectedGallerySection] || gapSettings.gallery.all || 21;
+                            document.getElementById('gap-slider').value = currentGap;
+                            document.getElementById('gap-value').textContent = currentGap + 'px';
+                        }}
+
+                        // V4.2: Load text element sizes
+                        if (settings.textSizes) {{
+                            textSizes = settings.textSizes;
+                            // Apply saved sizes to elements
+                            Object.keys(textSizes).forEach(elementId => {{
+                                const element = document.querySelector(`[data-text-id="${{elementId}}"]`);
+                                if (element) {{
+                                    const sizes = textSizes[elementId];
+                                    if (sizes.width) element.style.width = sizes.width + 'px';
+                                    if (sizes.height) element.style.height = sizes.height + 'px';
+                                    if (sizes.fontSize) element.style.fontSize = sizes.fontSize + 'px';
+                                }}
+                            }});
+                        }}
                     }}
 
                     console.log('✅ Settings loaded from localStorage');
@@ -1997,6 +3126,9 @@ def generate_editable_html(product, loader: SheetsLoader) -> str:
     </script>
     '''
 
+    javascript_code = javascript_code_template.replace('__PRODUCT_CODE__', product.product_code).replace('__IMAGE_LIST__', image_list_json)
+    javascript_code = javascript_code.replace('{{', '{').replace('}}', '}')
+
     # body 태그 처리: 기존 컨텐츠를 .container로 감싸기
     body = soup.find('body')
     if body:
@@ -2128,7 +3260,13 @@ def main():
         print(f"✅ 파일 생성: {output_file}")
         print(f"   파일 크기: {len(html_content) / 1024 / 1024:.1f} MB")
     except Exception as e:
+        import traceback
         print(f"❌ HTML 생성 실패: {e}")
+        print("\n" + "="*60)
+        print("FULL TRACEBACK:")
+        print("="*60)
+        traceback.print_exc()
+        print("="*60 + "\n")
         sys.exit(1)
 
     print(f"\n📁 출력 폴더: {output_dir}")

@@ -237,7 +237,7 @@ def generate_html(product, sheets_loader):
     </div>
 
     <div class="canvas-wrapper">
-        <div class="canvas" style="width: 1082px; height: auto; min-height: 24018px;">
+        <div class="canvas" style="width: 1082px; height: auto;">
 """
 
     # Section 1: Product Hero (메인 이미지) - 간격 없음
@@ -352,7 +352,7 @@ def generate_html(product, sheets_loader):
 
             # 이미지가 있는 경우만 표시
             html += """
-                <div style="display: flex; flex-direction: column; gap: 104px; margin-bottom: 56px;">
+                <div style="display: flex; flex-direction: column; gap: 21px; margin-bottom: 56px;">
 """
             for img_base64 in gallery_images_base64[color_name]['images']:
                 html += f"""

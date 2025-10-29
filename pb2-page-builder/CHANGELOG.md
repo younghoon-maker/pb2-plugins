@@ -5,6 +5,40 @@ All notable changes to the pb-product-generator plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 2025-10-29
+
+### 🐛 Fixed
+- **Canvas 높이 자동 조절** - min-height 고정값 제거로 페이지 하단 과도한 여백 해결
+  - `generate_final_html.py` (Line 240): Canvas div `min-height: 24018px` 제거
+  - 페이지 컨테이너가 실제 콘텐츠 높이에 맞춰 자동 조절됨
+  - 사이즈표 하단 과도한 공백 문제 완전 해결
+
+- **Lifestyle Gallery 레이아웃 개선** - 이미지 간격 최적화
+  - `generate_final_html.py` (Line 355): 갤러리 이미지 간격 `104px` → `21px`로 조정
+  - 더 깔끔하고 밀도 높은 갤러리 레이아웃 제공
+
+### ✨ Added
+- **갤러리 섹션 인덱싱** - V4.2 Editable 기능 향상
+  - `generate_editable_html.py` (Line 160-183): `add_gallery_section_indexes()` 함수 추가
+  - 각 Lifestyle Gallery 섹션에 `data-gallery-index`, `data-gallery-color` 속성 부여
+  - 색상별 갤러리 식별 및 관리 용이성 향상
+
+### 📦 Files Changed
+- `scripts/generate_final_html.py` (Line 240, 355)
+  - Canvas min-height 제거
+  - Gallery 이미지 간격 조정
+- `scripts/generate_editable_html.py` (Line 160-183, 260-263)
+  - 갤러리 섹션 인덱싱 함수 추가
+  - 인덱싱 로직 통합
+
+### 🎯 Impact
+- ✅ 페이지 하단 여백 문제 완전 해결
+- ✅ 갤러리 UI/UX 개선
+- ✅ Editable 기능 확장성 향상
+- ✅ 사용자 경험 개선 (불필요한 스크롤 제거)
+
+---
+
 ## [1.0.6] - 2025-10-21
 
 ### ✨ Added
