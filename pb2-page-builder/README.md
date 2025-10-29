@@ -2,9 +2,24 @@
 
 **Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 - 완전 자동화 세팅**
 
-Version: 1.0.3
+Version: 2.0.1
 
 ---
+
+## ✨ What's New in v2.0.1
+
+🐛 **Bug Fixes**
+- **Canvas 높이 자동 조절** - 페이지 하단 과도한 여백 문제 해결
+  - `min-height: 24018px` 제거로 실제 콘텐츠 높이에 맞춰 자동 조절
+  - 사이즈표 하단 불필요한 공백 완전 제거
+- **Lifestyle Gallery 레이아웃 개선**
+  - 이미지 간격 최적화 (`104px` → `21px`)
+  - 더 깔끔하고 밀도 높은 갤러리 UI 제공
+
+✨ **Improvements**
+- **갤러리 섹션 인덱싱** (V4.2)
+  - 각 Lifestyle Gallery에 `data-gallery-index`, `data-gallery-color` 속성 부여
+  - 색상별 갤러리 식별 및 관리 용이성 향상
 
 ## ✨ What's New in v1.0.3
 
