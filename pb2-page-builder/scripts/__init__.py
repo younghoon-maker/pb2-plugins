@@ -1,19 +1,19 @@
 """pb2-page-builder scripts package
 
-PB2 à ¡8 òt¿ ›1D \ §lΩ∏ ®L
+PB2 Page Builder Scripts Package
 
 Modules:
-    - generate_editable_html: Editable HTML V4 ›1 (t¯¿ crop/zoom, M§∏ ∏—)
-    - generate_final_html: Base HTML ›1 (Figma 0 à òt¿)
-    - generate_batch: 0X ›1 (ÏÏ à Ÿ‹ ò¨)
-    - server: Flask ∏— Ñ (Port 5001)
-    - cleanup: Output ÙT ¨
-    - auto_setup: êŸ 0 $
+    - generate_editable_html: Editable HTML V4 generation (image crop/zoom, text editing)
+    - generate_final_html: Base HTML generation (Figma design rendering)
+    - generate_batch: Batch generation (multiple products)
+    - server: Flask editing server (Port 5001)
+    - cleanup: Output directory cleanup
+    - auto_setup: Automatic setup from PRIVATE_SETUP.md
 
 Usage:
     from scripts.generate_editable_html import main as generate_editable
     from scripts.generate_final_html import generate_html
 """
 
-__version__ = "2.0.2"
+__version__ = "2.0.3"
 __author__ = "PB Product Team"
