@@ -2,9 +2,17 @@
 
 **Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 - 완전 자동화 세팅**
 
-Version: 2.0.1
+Version: 2.0.2
 
 ---
+
+## ✨ What's New in v2.0.2
+
+🐛 **Bug Fixes**
+- **신규 설치 오류 해결** - ModuleNotFoundError 완전 해결
+  - `scripts/__init__.py` 추가로 Python 패키지 구조 개선
+  - 견고한 import 로직으로 플러그인/프로젝트 디렉토리 양쪽 실행 지원
+  - 별도 설정 없이 즉시 사용 가능
 
 ## ✨ What's New in v2.0.1
 
