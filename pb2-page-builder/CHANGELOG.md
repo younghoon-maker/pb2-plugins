@@ -5,6 +5,28 @@ All notable changes to the pb-product-generator plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.2] - 2025-10-30
+
+### 🐛 Fixed
+- **ModuleNotFoundError 해결** - 신규 설치 시 `No module named 'scripts.generate_final_html'` 오류 수정
+  - `scripts/__init__.py` 추가: Python 패키지로 인식되도록 패키지 초기화 파일 생성
+  - `generate_editable_html.py` (Line 239-250): 견고한 import 로직 추가
+  - try-except 구문으로 플러그인/프로젝트 디렉토리 양쪽에서 실행 가능
+  - 프로젝트 디렉토리에서 실행 시 자동으로 플러그인 경로를 sys.path에 추가
+
+### 📦 Files Changed
+- `scripts/__init__.py` (신규 생성, 20 lines)
+  - 패키지 docstring 및 메타데이터 포함
+- `scripts/generate_editable_html.py` (Line 239-250)
+  - 견고한 import 로직으로 대체 (12 lines 추가)
+
+### 🎯 Impact
+- ✅ **신규 설치 즉시 사용 가능**: 별도 설정 없이 모든 환경에서 작동
+- ✅ **하위 호환성 100% 유지**: 기존 사용자에게 영향 없음
+- ✅ **유연한 실행 환경**: 플러그인 디렉토리와 프로젝트 디렉토리 양쪽 지원
+
+---
+
 ## [2.0.1] - 2025-10-29
 
 ### 🐛 Fixed

@@ -236,7 +236,18 @@ def generate_editable_html(product, loader: SheetsLoader) -> str:
         HTML 문자열 (base64 이미지 포함, editable 기능 탑재)
     """
     # 기존 generate_html 함수를 import하여 사용
-    from scripts.generate_final_html import generate_html as generate_base_html
+    # 견고한 import 처리: 플러그인/프로젝트 디렉토리 양쪽 지원
+    try:
+        # 플러그인 디렉토리에서 실행 시 (정상 경로)
+        from scripts.generate_final_html import generate_html as generate_base_html
+    except ModuleNotFoundError:
+        # 프로젝트 디렉토리에서 실행 시 - 플러그인 경로 추가
+        import sys
+        from pathlib import Path
+        plugin_root = Path(__file__).parent.parent
+        if str(plugin_root) not in sys.path:
+            sys.path.insert(0, str(plugin_root))
+        from scripts.generate_final_html import generate_html as generate_base_html
 
     print("📝 기본 HTML 생성 중...")
     base_html = generate_base_html(product, loader)
