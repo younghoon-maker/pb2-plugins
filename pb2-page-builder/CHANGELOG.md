@@ -5,6 +5,28 @@ All notable changes to the pb-product-generator plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.3] - 2025-10-30
+
+### 🐛 Fixed
+- **UTF-8 인코딩 문제 해결** - 신규 설치 환경에서 발생하는 `SyntaxError: (unicode error) 'utf-8' codec can't decode` 오류 수정
+  - `scripts/__init__.py`: 한글 주석을 영어로 변경하여 인코딩 호환성 보장
+  - 모든 환경에서 안정적인 UTF-8 인코딩 보장
+  - ASCII 텍스트로 파일 인코딩 표준화
+
+### 📦 Files Changed
+- `scripts/__init__.py` (Line 3-11)
+  - 한글 주석 → 영어 주석 변경
+  - 버전: `2.0.2` → `2.0.3`
+- `.claude-plugin/plugin.json`
+  - 버전: `2.0.2` → `2.0.3`
+
+### 🎯 Impact
+- ✅ **모든 환경에서 안정적 작동**: UTF-8 인코딩 문제 원천 차단
+- ✅ **신규 설치 즉시 사용 가능**: SyntaxError 없이 바로 실행 가능
+- ✅ **하위 호환성 100% 유지**: 기존 사용자에게 영향 없음
+
+---
+
 ## [2.0.2] - 2025-10-30
 
 ### 🐛 Fixed

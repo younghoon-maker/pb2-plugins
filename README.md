@@ -30,7 +30,7 @@ Version: 2.0.0
 
 이 마켓플레이스는 **2개의 제품 상세 페이지 생성 플러그인**을 제공합니다:
 
-### 🔵 pb2-page-builder (v2.0.2)
+### 🔵 pb2-page-builder (v2.0.3)
 
 **PB2 제품 상세 페이지 생성기 - 292컬럼 기반 (VD 브랜드)**
 
@@ -352,7 +352,7 @@ pip3 install -r requirements.txt
 
 **Current Versions**:
 - pb-marketplace: 2.0.0
-- pb2-page-builder: 2.0.2
+- pb2-page-builder: 2.0.3
 - dana-page-builder: 2.0.2
 
 ### v1.0.0 (2025-10-20) - 🏗️ Claude Code Standard

@@ -2,9 +2,17 @@
 
 **Google Sheets 292컬럼 데이터 기반 제품 상세 페이지 생성기 - 완전 자동화 세팅**
 
-Version: 2.0.2
+Version: 2.0.3
 
 ---
+
+## ✨ What's New in v2.0.3
+
+🐛 **Bug Fixes**
+- **UTF-8 인코딩 문제 해결** - 신규 설치 환경에서 발생하는 SyntaxError 완전 해결
+  - `scripts/__init__.py` 한글 주석을 영어로 변경하여 인코딩 호환성 보장
+  - 모든 환경에서 안정적인 UTF-8 인코딩 보장
+  - ASCII 텍스트로 파일 표준화
 
 ## ✨ What's New in v2.0.2
 
